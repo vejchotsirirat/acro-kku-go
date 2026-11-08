@@ -3,186 +3,333 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>ACRO KKU Go</title>
-<meta name="description" content="ACRO KKU Go — forms, events and updates from the Academic Clinical Research Office, Khon Kaen University.">
-<meta name="theme-color" content="#14874a">
+<title>ACRO KKU Go!</title>
+<meta name="description" content="ACRO KKU Go! Forms, events and updates from the Academic Clinical Research Office, Khon Kaen University.">
+<meta name="theme-color" content="#215E33">
 <meta name="color-scheme" content="light">
-<link rel="icon" href="assets/icon-192.png">
-<link rel="apple-touch-icon" href="assets/icon-192.png">
-<meta property="og:title" content="ACRO KKU Go">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="icon-192.png">
+<meta property="og:title" content="ACRO KKU Go!">
 <meta property="og:description" content="Forms, events and updates from ACRO KKU.">
-<meta property="og:image" content="assets/acro-logo.png">
-<link rel="preload" href="assets/fonts/bsd-800.woff2" as="font" type="font/woff2" crossorigin>
+<meta property="og:image" content="acro-logo.png">
+<link rel="preload" href="bsd-800.woff2" as="font" type="font/woff2" crossorigin>
 <style>
-@font-face{font-family:"BSD";src:url(assets/fonts/bsd-800.woff2) format("woff2");font-weight:800;font-display:swap}
-@font-face{font-family:"Manrope";src:url(assets/fonts/manrope-400.woff2) format("woff2");font-weight:400;font-display:swap}
-@font-face{font-family:"Manrope";src:url(assets/fonts/manrope-600.woff2) format("woff2");font-weight:600;font-display:swap}
-@font-face{font-family:"Manrope";src:url(assets/fonts/manrope-700.woff2) format("woff2");font-weight:700;font-display:swap}
-@font-face{font-family:"PlexThai";src:url(assets/fonts/plexthai-400.woff2) format("woff2");font-weight:400;font-display:swap}
-@font-face{font-family:"PlexThai";src:url(assets/fonts/plexthai-600.woff2) format("woff2");font-weight:600;font-display:swap}
-@font-face{font-family:"PlexThai";src:url(assets/fonts/plexthai-700.woff2) format("woff2");font-weight:700;font-display:swap}
+/* Files sit next to this page (no folders), exactly as they are in the GitHub repository. */
+@font-face{font-family:"BSD";src:url(bsd-800.woff2) format("woff2");font-weight:800;font-display:swap}
+@font-face{font-family:"Manrope";src:url(manrope-400.woff2) format("woff2");font-weight:400;font-display:swap}
+@font-face{font-family:"Manrope";src:url(manrope-600.woff2) format("woff2");font-weight:600;font-display:swap}
+@font-face{font-family:"Manrope";src:url(manrope-700.woff2) format("woff2");font-weight:700;font-display:swap}
+@font-face{font-family:"PlexThai";src:url(plexthai-400.woff2) format("woff2");font-weight:400;font-display:swap}
+@font-face{font-family:"PlexThai";src:url(plexthai-600.woff2) format("woff2");font-weight:600;font-display:swap}
+@font-face{font-family:"PlexThai";src:url(plexthai-700.woff2) format("woff2");font-weight:700;font-display:swap}
 
 :root{
-  --green:#14874a; --green-dk:#1d5a33; --green-xdk:#123d23;
-  --orange:#e5532b; --orange-2:#f07a3a;
-  --ink:#111a14; --muted:#56645a; --rule:#d7ddd9; --tint:#eef5f0;
+  --forest:#215E33;--deep:#163F24;--emerald:#16944F;--orange:#F0702F;--ember:#E8472B;--peach:#FFD3B8;
+  --ink:#14251B;--muted:#56645A;--line:#DCE3DE;--paper:#F6F4EF;--tint:#EAF2EC;
+  --grad:linear-gradient(140deg,#215E33 0%,#16944F 48%,#3E8F45 62%,#F0702F 88%,#E8472B 100%);
 }
 *{box-sizing:border-box;margin:0;padding:0}
-html{-webkit-text-size-adjust:100%}
-body{
-  background:#fff;color:var(--ink);
-  font-family:"Manrope","PlexThai",Arial,sans-serif;font-size:16px;line-height:1.5;
-  min-height:100vh;min-height:100dvh;display:flex;flex-direction:column;
-}
-html[lang="th"] .kicker,html[lang="th"] .head h2,html[lang="th"] .cat,html[lang="th"] .go-btn{letter-spacing:0}
-html[lang="th"] body{font-family:"PlexThai","Manrope",Arial,sans-serif;line-height:1.65}
-.wrap{width:100%;max-width:680px;margin:0 auto;padding:0 20px}
+html{-webkit-text-size-adjust:100%;background:var(--paper)}
+body{background:var(--paper);color:var(--ink);font-family:"Manrope","PlexThai",system-ui,sans-serif;font-size:16px;line-height:1.5;
+  min-height:100vh;min-height:100dvh;display:flex;flex-direction:column}
+html[lang="th"] body{font-family:"PlexThai","Manrope",system-ui,sans-serif;line-height:1.65}
+html[lang="th"] .kicker,html[lang="th"] .label,html[lang="th"] .btn,html[lang="th"] .live .hd{letter-spacing:0;text-transform:none}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--orange);outline-offset:3px}
+.wrap{width:100%;max-width:1080px;margin:0 auto;padding:0 max(20px,env(safe-area-inset-left))}
 
-/* ---------- top bar ---------- */
-.top{border-bottom:1px solid var(--rule)}
-.top .wrap{display:flex;align-items:center;justify-content:space-between;height:64px}
-.logo{height:30px;width:auto;display:block}
-.lang{display:flex;align-items:center;gap:2px;font:700 13px/1 "Manrope","PlexThai",sans-serif;letter-spacing:.06em}
-.lang button{border:0;background:none;color:var(--muted);font:inherit;padding:10px 8px;cursor:pointer;
-  border-bottom:2px solid transparent}
-.lang button[aria-pressed="true"]{color:var(--green);border-bottom-color:var(--green)}
-.lang span{color:var(--rule)}
+/* ---------- header ---------- */
+.top{background:#fff;border-bottom:6px solid var(--orange)}
+.top .wrap{display:flex;align-items:center;justify-content:space-between;height:68px}
+.logo{height:36px;width:auto;display:block}
+.lang{display:inline-flex;border:2px solid var(--forest)}
+.lang button{border:0;background:#fff;color:var(--forest);font:700 13px/1 "Manrope","PlexThai",sans-serif;padding:8px 11px;cursor:pointer}
+.lang button[aria-pressed="true"]{background:var(--forest);color:#fff}
 
 /* ---------- hero ---------- */
-.hero{background:var(--green);color:#fff;position:relative;overflow:hidden;
-  clip-path:polygon(0 0,100% 0,100% calc(100% - 28px),0 100%)}
-.hero .wrap{position:relative;z-index:1;padding-top:40px;padding-bottom:60px}
-.hero::before,.hero::after{content:"";position:absolute;transform:skewX(-24deg)}
-.hero::before{right:-46px;top:52%;width:84px;height:60%;background:var(--green-dk)}
-.hero::after{right:44px;top:52%;width:14px;height:60%;background:var(--orange)}
-.kicker{font:700 12px/1.3 "Manrope","PlexThai",sans-serif;letter-spacing:.16em;text-transform:uppercase;color:#cfe8d9;max-width:75%}
-.go{font-family:"BSD","Manrope",sans-serif;font-weight:800;text-transform:uppercase;
-  font-size:clamp(58px,17vw,92px);line-height:.88;margin-top:14px;letter-spacing:.01em}
-.go .tag-go{display:inline-block;background:var(--orange);padding:0 .14em;margin-left:.04em;transform:skewX(-14deg)}
-.go .tag-go b{display:inline-block;transform:skewX(14deg);font-weight:800}
-.lead{margin-top:18px;max-width:min(26em,72%);color:rgba(255,255,255,.88);font-size:16px}
+.hero{background:var(--grad);color:#fff;position:relative;overflow:hidden}
+.hero .wrap{display:grid;grid-template-columns:1fr;gap:18px;padding-top:34px;padding-bottom:38px;position:relative;z-index:1}
+.kicker{font:800 14px/1.3 "BSD","Manrope",sans-serif;letter-spacing:.08em;text-transform:uppercase;color:var(--peach)}
+.go{font:800 clamp(64px,19vw,128px)/.86 "BSD","Manrope",sans-serif;text-transform:uppercase;letter-spacing:.005em;margin-top:2px}
+.go .bang{display:inline-block;background:var(--orange);color:#fff;padding:0 .12em .02em;margin-left:.04em;transform:skewX(-12deg) rotate(-2deg);box-shadow:0 10px 24px rgba(0,0,0,.18)}
+.go .bang b{display:inline-block;transform:skewX(12deg);font-weight:800}
+.lead{font-size:17px;font-weight:600;color:rgba(255,255,255,.93);max-width:30em}
+.live{display:grid;grid-template-columns:auto auto;gap:6px 28px;align-self:start;justify-self:start;margin-top:4px;
+  background:rgba(255,255,255,.14);border-left:4px solid var(--peach);padding:12px 18px 14px;text-decoration:none;color:#fff;backdrop-filter:blur(2px)}
+.live .hd{grid-column:1/-1;display:flex;align-items:center;gap:8px;font:800 13px/1 "BSD","Manrope",sans-serif;letter-spacing:.1em;text-transform:uppercase;color:var(--peach)}
+.live .st b{display:block;font:800 40px/.9 "BSD",sans-serif}
+.live .st span{font-size:12.5px;font-weight:700;color:rgba(255,255,255,.9)}
+.live i{width:9px;height:9px;border-radius:50%;background:#FF5A3C;animation:live 1.6s ease-out infinite}
+@keyframes live{0%{box-shadow:0 0 0 0 rgba(255,90,60,.7)}100%{box-shadow:0 0 0 10px rgba(255,90,60,0)}}
 
-/* ---------- list ---------- */
-main{padding:28px 0 40px}
-.head{display:flex;align-items:baseline;justify-content:space-between;border-bottom:2px solid var(--ink);padding-bottom:8px}
-.head h2{font:700 13px/1 "Manrope","PlexThai",sans-serif;letter-spacing:.14em;text-transform:uppercase}
-.head .count{font:800 22px/1 "BSD",sans-serif;color:var(--orange)}
 
-.row{display:grid;grid-template-columns:52px 1fr;gap:4px 14px;padding:20px 0;border-bottom:1px solid var(--rule);
-  text-decoration:none;color:inherit;position:relative}
-.num{font:800 40px/1 "BSD",sans-serif;color:var(--orange);padding-top:2px}
-.cat{font:700 11px/1 "Manrope","PlexThai",sans-serif;letter-spacing:.14em;text-transform:uppercase;color:var(--green)}
-.ttl{font-weight:700;font-size:19px;line-height:1.3;margin-top:6px}
+/* ---------- live globe ---------- */
+.globe-box{display:flex;flex-direction:column;align-items:center;gap:8px;order:2}
+.live{order:1}
+@media (max-width:819px){.globe-chips button:nth-child(n+5){display:none}.hero .wrap{gap:14px}}
+#globe{width:min(100%,250px);aspect-ratio:1;display:block;cursor:grab;touch-action:pan-y}
+#globe.dragging{cursor:grabbing}
+.globe-cap{font:800 14px/1.3 "BSD","Manrope",sans-serif;letter-spacing:.08em;text-transform:uppercase;color:var(--peach);text-align:center;min-height:1.3em}
+.globe-cap .arr{font-family:"Manrope",sans-serif}
+.globe-chips{display:flex;flex-wrap:wrap;justify-content:center;gap:6px;max-width:440px}
+.globe-chips button{border:1.5px solid rgba(255,255,255,.6);background:rgba(255,255,255,.08);color:#fff;font:700 12.5px/1 "Manrope",sans-serif;padding:7px 10px;cursor:pointer}
+.globe-chips button[aria-pressed="true"]{background:var(--peach);border-color:var(--peach);color:var(--forest)}
+.globe-hint{font-size:12px;font-weight:600;color:rgba(255,255,255,.75)}
+/* ---------- portal list ---------- */
+main{padding:30px 0 48px;flex:1}
+.label{display:flex;align-items:baseline;justify-content:space-between;gap:12px;font:800 15px/1 "BSD","Manrope",sans-serif;letter-spacing:.1em;text-transform:uppercase;color:var(--forest);
+  border-bottom:3px solid var(--ink);padding-bottom:10px;margin-bottom:18px}
+.label .count{font-size:26px;color:var(--orange);letter-spacing:0}
+.list{display:grid;gap:14px}
+.card{display:grid;grid-template-columns:auto 1fr;gap:6px 18px;background:#fff;border:1.5px solid var(--line);padding:20px 20px 20px 18px;text-decoration:none;color:inherit;position:relative;
+  transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease;animation:rise .5s cubic-bezier(.2,.7,.2,1) both}
+.card:nth-child(2){animation-delay:.07s}.card:nth-child(3){animation-delay:.14s}.card:nth-child(n+4){animation-delay:.2s}
+@keyframes rise{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+a.card:hover{transform:translateY(-2px);box-shadow:0 14px 30px rgba(20,37,27,.12);border-color:var(--forest)}
+.num{font:800 46px/.9 "BSD",sans-serif;color:var(--orange);min-width:1.4em}
+.cat{font:700 11.5px/1 "Manrope","PlexThai",sans-serif;letter-spacing:.14em;text-transform:uppercase;color:var(--emerald)}
+.ttl{font-weight:700;font-size:20px;line-height:1.25;margin-top:6px}
 .txt{color:var(--muted);font-size:15px;margin-top:6px}
-.go-btn{grid-column:2;justify-self:start;margin-top:14px;display:inline-flex;align-items:center;gap:10px;
-  background:var(--green);color:#fff;font:700 14px/1 "Manrope","PlexThai",sans-serif;letter-spacing:.06em;
-  text-transform:uppercase;padding:14px 18px 14px 20px;border-radius:2px}
-.go-btn svg{transition:transform .15s}
-a.row:hover .go-btn{background:var(--green-dk)}
-a.row:hover .go-btn svg{transform:translateX(3px)}
-a.row:focus-visible{outline:3px solid var(--orange);outline-offset:4px}
-
-.row.featured{background:var(--tint);margin:0 -20px;padding:22px 20px 22px 14px;border-bottom:0;border-left:6px solid var(--green)}
-.row.featured .go-btn{background:var(--orange)}
-a.row.featured:hover .go-btn{background:#c94420}
-
-.row.soon{opacity:.55}
-.row.soon .go-btn{background:#9aa59e}
-
+.btn{grid-column:2;justify-self:start;margin-top:14px;display:inline-flex;align-items:center;gap:10px;background:var(--forest);color:#fff;
+  font:800 17px/1 "BSD","Manrope",sans-serif;letter-spacing:.08em;text-transform:uppercase;padding:13px 18px 12px 20px}
+.btn svg{transition:transform .15s}
+a.card:hover .btn svg{transform:translateX(4px)}
+/* the featured portal: a bigger, branded card */
+.card.featured{grid-template-columns:1fr;background:var(--grad);color:#fff;border:0;padding:24px 22px 22px;overflow:hidden;box-shadow:0 18px 40px rgba(22,63,36,.22)}
+.card.featured .num{display:none}
+.card.featured .cat{color:var(--peach);display:inline-flex;align-items:center;gap:8px}
+.card.featured .cat::before{content:"";width:8px;height:8px;border-radius:50%;background:#FF5A3C;animation:live 1.6s ease-out infinite}
+.card.featured .ttl{font:800 clamp(34px,9vw,46px)/.95 "BSD","Manrope",sans-serif;text-transform:uppercase;margin-top:10px}
+html[lang="th"] .card.featured .ttl{font:700 30px/1.3 "PlexThai",sans-serif;text-transform:none}
+.card.featured .txt{color:rgba(255,255,255,.92);font-weight:600;max-width:34em}
+.card.featured .btn{grid-column:1;background:#fff;color:var(--forest);font-size:19px;padding:15px 22px 14px 24px}
+.card.featured::after{content:"";position:absolute;right:-30px;top:-30px;width:150px;height:150px;border:2px dashed rgba(255,255,255,.35);border-radius:50%}
+a.card.featured:hover{box-shadow:0 22px 46px rgba(22,63,36,.3)}
+.card.soon{opacity:.6}
+.card.soon .btn{background:#9AA59E}
 .empty{color:var(--muted);padding:24px 0}
 
+/* ---------- about strip ---------- */
+.about{display:grid;gap:12px;margin-top:30px}
+.about div{border-top:4px solid var(--forest);padding-top:10px}
+.about b{display:block;font:800 18px/1.1 "BSD","Manrope",sans-serif;text-transform:uppercase;letter-spacing:.02em}
+.about span{font-size:14px;color:var(--muted)}
+
 /* ---------- footer ---------- */
-footer{margin-top:auto;background:var(--green-xdk);color:#fff}
-footer .wrap{padding-top:24px;padding-bottom:calc(26px + env(safe-area-inset-bottom));display:grid;gap:4px;font-size:14px}
-footer .th{font-family:"PlexThai",sans-serif;font-weight:600;font-size:15px}
-footer .en{color:rgba(255,255,255,.7)}
-footer a{color:#fff;font-weight:700;margin-top:10px;display:inline-block;text-decoration:none;border-bottom:2px solid var(--orange-2);justify-self:start}
+footer{background:var(--deep);color:#fff;border-top:6px solid var(--orange)}
+footer .wrap{padding-top:24px;padding-bottom:calc(26px + env(safe-area-inset-bottom));display:flex;flex-wrap:wrap;justify-content:space-between;gap:16px;align-items:flex-end}
+footer .names{display:grid;gap:2px;font-size:14px}
+footer .names .th{font-family:"PlexThai",sans-serif;font-weight:600;font-size:15px}
+footer .names .en{color:rgba(255,255,255,.72)}
+footer a.site{color:#fff;font-weight:700;text-decoration:none;border-bottom:2px solid var(--orange);padding-bottom:2px}
+
+@media (min-width:820px){
+  .hero .wrap{grid-template-columns:minmax(0,1fr) 300px;padding-top:56px;padding-bottom:64px;gap:20px 40px}
+  .hero .text{grid-column:1}
+  .hero .wrap{grid-template-columns:minmax(0,1fr) minmax(0,440px);align-items:center}
+  .globe-box{grid-column:2;grid-row:1/span 2}
+  #globe{width:min(100%,400px,calc(100vh - 300px))}
+  .go{font-size:clamp(64px,7.2vw,104px)}
+  .list{grid-template-columns:1fr 1fr}
+  .card.featured{grid-column:1/-1;grid-template-columns:minmax(0,1fr) auto;align-items:end;padding:34px 34px 32px}
+  .card.featured .btn{grid-column:2;grid-row:1/span 3;align-self:end}
+  .about{grid-template-columns:repeat(3,1fr);gap:24px}
+}
 </style>
 </head>
 <body>
 <header class="top">
   <div class="wrap">
-    <a href="https://acrokku.com" aria-label="ACRO KKU official website">
-      <img class="logo" src="assets/acro-logo.png" alt="ACRO KKU" width="720" height="209">
-    </a>
+    <a href="https://acrokku.com" aria-label="ACRO KKU website"><img class="logo" src="acro-logo.png" alt="ACRO KKU" width="720" height="209"></a>
     <div class="lang" role="group" aria-label="Language">
-      <button type="button" data-lang="en" aria-pressed="true">EN</button><span>|</span><button type="button" data-lang="th" aria-pressed="false">ไทย</button>
+      <button type="button" data-lang="en" aria-pressed="true">EN</button><button type="button" data-lang="th" aria-pressed="false">ไทย</button>
     </div>
   </div>
 </header>
 
 <section class="hero">
   <div class="wrap">
-    <p class="kicker" data-i18n="kicker"></p>
-    <h1 class="go">ACRO KKU <span class="tag-go"><b>Go!</b></span></h1>
-    <p class="lead" data-i18n="lead"></p>
+    <div class="text">
+      <p class="kicker" data-i18n="kicker"></p>
+      <h1 class="go">ACRO KKU <span class="bang"><b>Go!</b></span></h1>
+      <p class="lead" data-i18n="lead"></p>
+    </div>
+    <div class="globe-box">
+      <canvas id="globe" aria-label="Globe of visitor routes to ACRO KKU in Khon Kaen"></canvas>
+      <span class="globe-cap" id="globe-cap"></span>
+      <div class="globe-chips" id="globe-chips"></div>
+      <span class="globe-hint" data-i18n="hint"></span>
+    </div>
+    <a class="live" id="live" href="https://acro-kku-collaborate.pages.dev" hidden><span class="hd"><i></i><span data-i18n="liveH"></span></span><span class="st"><b id="live-n">0</b><span data-i18n="liveN"></span></span><span class="st"><b id="live-c">0</b><span data-i18n="liveC"></span></span></a>
   </div>
 </section>
 
 <main>
   <div class="wrap">
-    <div class="head"><h2 data-i18n="portals"></h2><span class="count" id="count"></span></div>
-    <div id="portals" aria-live="polite"></div>
+    <div class="label"><span data-i18n="portals"></span><span class="count" id="count"></span></div>
+    <div class="list" id="portals" aria-live="polite"></div>
+    <div class="about">
+      <div><b data-i18n="a1"></b><span data-i18n="a1d"></span></div>
+      <div><b data-i18n="a2"></b><span data-i18n="a2d"></span></div>
+      <div><b data-i18n="a3"></b><span data-i18n="a3d"></span></div>
+    </div>
   </div>
 </main>
 
 <footer>
   <div class="wrap">
-    <span class="th">สถานบริหารจัดการงานวิจัยคลินิก มหาวิทยาลัยขอนแก่น</span>
-    <span class="en">Academic Clinical Research Office, Khon Kaen University</span>
-    <a href="https://acrokku.com">acrokku.com</a>
+    <div class="names">
+      <span class="th">สถานบริหารจัดการงานวิจัยคลินิก มหาวิทยาลัยขอนแก่น</span>
+      <span class="en">Academic Clinical Research Office, Khon Kaen University</span>
+    </div>
+    <a class="site" href="https://acrokku.com">acrokku.com</a>
   </div>
 </footer>
 
+<script src="https://cdn.jsdelivr.net/npm/d3@7.9.0/dist/d3.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/topojson-client@3.1.0/dist/topojson-client.min.js"></script>
 <script src="portals.js"></script>
 <script>
 (function(){
-  var UI = {
-    en:{ kicker:"Academic Clinical Research Office, Khon Kaen University",
-         lead:"Forms, events and updates from ACRO KKU.",
-         portals:"Portals", open:"Open", soon:"Coming soon",
-         empty:"Nothing here right now. Please check back soon." },
-    th:{ kicker:"สถานบริหารจัดการงานวิจัยคลินิก มหาวิทยาลัยขอนแก่น",
-         lead:"แบบฟอร์ม กิจกรรม และข่าวสารจาก ACRO KKU",
-         portals:"รายการ", open:"เปิด", soon:"เร็ว ๆ นี้",
-         empty:"ยังไม่มีรายการในขณะนี้ โปรดกลับมาใหม่ภายหลัง" }
+  /* live numbers from the collaboration form's Google Sheet (counts only, no personal details) */
+  var TOTALS_URL="https://script.google.com/macros/s/AKfycbzPkzimv2RXRwEBdtHaijGmaFqjxdvnW4WuEiGHYMtO9_4catbIzVC40GGVZD56J-dIxQ/exec?totals=1";
+  var UI={
+    en:{kicker:"Academic Clinical Research Office, Khon Kaen University",
+        lead:"Forms, events and updates from ACRO KKU, all in one place.",
+        portals:"Start here",open:"Open",soon:"Coming soon",empty:"Nothing here right now. Please check back soon.",
+        liveH:"Live",hint:"Drag the globe, or tap a place to see its route",cap:"Every route leads to Khon Kaen",first:"Your route could be the first",liveN:"collaborators connected",liveC:"countries",
+        a1:"Site services",a1d:"Site management, ethics coordination and protocol compliance.",
+        a2:"Investigator matching",a2d:"Qualified investigators with the right expertise for your protocol.",
+        a3:"Northeastern Thailand",a3d:"Clinical research from Khon Kaen, connected to partners worldwide."},
+    th:{kicker:"สถานบริหารจัดการงานวิจัยคลินิก มหาวิทยาลัยขอนแก่น",
+        lead:"แบบฟอร์ม กิจกรรม และข่าวสารจาก ACRO KKU รวมไว้ในที่เดียว",
+        portals:"เริ่มต้นที่นี่",open:"เปิด",soon:"เร็ว ๆ นี้",empty:"ยังไม่มีรายการในขณะนี้ โปรดกลับมาใหม่ภายหลัง",
+        liveH:"สด",hint:"ลากเพื่อหมุนโลก หรือแตะสถานที่เพื่อดูเส้นทาง",cap:"ทุกเส้นทางมุ่งสู่ขอนแก่น",first:"เส้นทางของคุณอาจเป็นเส้นแรก",liveN:"ผู้ร่วมเชื่อมต่อ",liveC:"ประเทศ",
+        a1:"บริการสถานที่วิจัย",a1d:"บริหารสถานที่วิจัย ประสานงานจริยธรรม และกำกับให้เป็นไปตามโครงร่างการวิจัย",
+        a2:"จับคู่ผู้วิจัย",a2d:"ผู้วิจัยที่มีความเชี่ยวชาญเหมาะกับโครงการของคุณ",
+        a3:"ภาคตะวันออกเฉียงเหนือ",a3d:"งานวิจัยทางคลินิกจากขอนแก่น เชื่อมต่อกับพันธมิตรทั่วโลก"}
   };
-  var ARROW='<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="square" aria-hidden="true"><path d="M4 12h15M13 5l7 7-7 7"/></svg>';
-
+  var ARROW='<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="square" aria-hidden="true"><path d="M4 12h15M13 5l7 7-7 7"/></svg>';
   function esc(s){return String(s==null?"":s).replace(/[&<>"']/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]})}
-  function t(o,l){ if(!o) return ""; return typeof o==="string"?o:(o[l]||o.en||""); }
-  function pad(n){return (n<10?"0":"")+n}
-
-  var lang="en", stored=null;
-  try{ stored=localStorage.getItem("acro-go-lang"); }catch(e){}
+  function t(o,l){if(!o)return"";return typeof o==="string"?o:(o[l]||o.en||"")}
+  function pad(n){return(n<10?"0":"")+n}
+  var lang="en",stored=null;
+  try{stored=localStorage.getItem("acro-go-lang")}catch(e){}
   var q=new URLSearchParams(location.search).get("lang");
-  if(q==="th"||q==="en") lang=q; else if(stored) lang=stored; else if(/^th/i.test(navigator.language||"")) lang="th";
+  if(q==="th"||q==="en")lang=q;else if(stored)lang=stored;
 
-  function row(p,i){
-    var soon=p.status==="soon", cls="row"+(p.featured&&!soon?" featured":"")+(soon?" soon":"");
-    var inner='<span class="num">'+pad(i)+'</span><div>'+
-      (p.tag?'<div class="cat">'+esc(t(p.tag,lang))+'</div>':'')+
-      '<div class="ttl">'+esc(t(p.title,lang))+'</div>'+
-      '<div class="txt">'+esc(t(p.text,lang))+'</div></div>'+
-      '<span class="go-btn">'+esc(soon?UI[lang].soon:UI[lang].open)+(soon?'':' '+ARROW)+'</span>';
-    if(soon) return '<div class="'+cls+'" aria-disabled="true">'+inner+'</div>';
+  function card(p,i){
+    var soon=p.status==="soon",feat=p.featured&&!soon,cls="card"+(feat?" featured":"")+(soon?" soon":"");
+    var inner='<span class="num">'+pad(i)+'</span><div>'+(p.tag?'<div class="cat">'+esc(t(p.tag,lang))+'</div>':'')+
+      '<div class="ttl">'+esc(t(p.title,lang))+'</div><div class="txt">'+esc(t(p.text,lang))+'</div></div>'+
+      '<span class="btn">'+esc(soon?UI[lang].soon:UI[lang].open)+(soon?'':' '+ARROW)+'</span>';
+    if(soon)return'<div class="'+cls+'" aria-disabled="true">'+inner+'</div>';
     var ext=/^https?:/i.test(p.url||"");
-    return '<a class="'+cls+'" href="'+esc(p.url)+'"'+(ext?' rel="noopener"':'')+'>'+inner+'</a>';
+    return'<a class="'+cls+'" href="'+esc(p.url)+'"'+(ext?' rel="noopener"':'')+'>'+inner+'</a>';
   }
-
   function render(){
     document.documentElement.lang=lang;
     document.querySelectorAll("[data-i18n]").forEach(function(el){el.textContent=UI[lang][el.dataset.i18n]});
     document.querySelectorAll(".lang button").forEach(function(b){b.setAttribute("aria-pressed",String(b.dataset.lang===lang))});
     var list=(window.ACRO_PORTALS||[]).filter(function(p){return p&&p.status!=="hidden"});
-    list.sort(function(a,b){return (b.featured&&b.status==="open")-(a.featured&&a.status==="open")});
+    list.sort(function(a,b){return(b.featured&&b.status==="open")-(a.featured&&a.status==="open")});
     document.getElementById("count").textContent=pad(list.length);
-    document.getElementById("portals").innerHTML=list.length?list.map(function(p,i){return row(p,i+1)}).join(""):'<p class="empty">'+esc(UI[lang].empty)+'</p>';
+    document.getElementById("portals").innerHTML=list.length?list.map(function(p,i){return card(p,i+1)}).join(""):'<p class="empty">'+esc(UI[lang].empty)+'</p>';
   }
   document.querySelectorAll(".lang button").forEach(function(b){
-    b.addEventListener("click",function(){lang=b.dataset.lang;try{localStorage.setItem("acro-go-lang",lang)}catch(e){}render();});
+    b.addEventListener("click",function(){lang=b.dataset.lang;try{localStorage.setItem("acro-go-lang",lang)}catch(e){}render();if(window.__globeCaption)window.__globeCaption()});
   });
   render();
+  /* ---------- live globe: every response from the collaboration form is a route into Khon Kaen ---------- */
+  var KK=[102.835,16.44],G={land:null,thai:null,grat:null,places:null};
+  function count(el,to){var t0=performance.now();(function step(now){var p=Math.min(1,(now-t0)/900);el.textContent=Math.round(to*(1-Math.pow(1-p,3)));if(p<1)requestAnimationFrame(step)})(t0)}
+  var Globe=(function(){
+    var cv=document.getElementById("globe"),ctx,R,size,run=false,raf=0,t0=0;
+    var groups=[],idx=-1,phase=null,center=[KK[0],KK[1]-8],from=center,to=center,label="",userLook=null,userUntil=0,lastLook=center,lastProj=null,lastTm=0,drag=null;
+    function ease(x){x=Math.max(0,Math.min(1,x));return x<.5?4*x*x*x:1-Math.pow(-2*x+2,3)/2}
+    function easeOut(x){return 1-Math.pow(1-Math.max(0,Math.min(1,x)),3)}
+    function setup(){var dpr=Math.min(2,window.devicePixelRatio||1);size=Math.round(cv.getBoundingClientRect().width)||300;
+      cv.width=size*dpr;cv.height=size*dpr;ctx=cv.getContext("2d");ctx.setTransform(dpr,0,0,dpr,0,0);R=size/2-8}
+    function caption(){var el=document.getElementById("globe-cap");
+      if(groups.length&&label)el.innerHTML=esc(label)+' <span class="arr">→</span> ACRO KKU';else el.textContent=groups.length?UI[lang].cap:UI[lang].first}
+    function chips(){var box=document.getElementById("globe-chips");box.innerHTML="";
+      groups.slice(0,10).forEach(function(g,i){var b=document.createElement("button");b.type="button";b.textContent=g.name;b.setAttribute("aria-pressed",String(i===idx));b.onclick=function(){focus(i)};box.appendChild(b)})}
+    function setData(pins){var m={},list=[];
+      (pins||[]).forEach(function(p){var ll=(G.places.P[p[0]+"|"+p[1]])||G.places.C[p[0]];if(!ll)return;var k=ll.join();
+        if(m[k]){m[k].n++;return}var name=p[1]&&p[1]!==p[0]?p[1]+", "+p[0]:p[0];
+        m[k]={ll:ll,n:1,name:name,ip:d3.geoInterpolate(ll,KK),d:d3.geoDistance(ll,KK)};list.push(m[k])});
+      groups=list.reverse();chips();caption()}
+    function focus(i){if(!groups[i])return;userLook=null;drag=null;center=lastLook;idx=i-1;next(lastTm)}
+    function next(tm){if(!groups.length){phase=null;return}idx=(idx+1)%groups.length;var g=groups[idx];from=center;
+      var mid=d3.geoInterpolate(g.ll,KK)(.5);to=g.d<.05?[KK[0],KK[1]-8]:[mid[0],Math.max(-60,mid[1]-10-g.d*12)];
+      phase={g:g,t:tm};label=g.name;caption();
+      document.querySelectorAll("#globe-chips button").forEach(function(b,i){b.setAttribute("aria-pressed",String(i===idx))})}
+    function frame(tm){
+      var look;
+      if(userLook)look=userLook;
+      else if(phase){var u=ease((tm-phase.t)/550);look=d3.geoInterpolate(from,to)(u);if(u>=1)center=to}
+      else look=[KK[0]+Math.sin(tm/7000)*24,KK[1]-8+Math.sin(tm/11000)*5];
+      var proj=d3.geoOrthographic().scale(R).translate([size/2,size/2]).rotate([-look[0],-look[1]]).clipAngle(90).precision(.6);
+      lastLook=look;lastProj=proj;lastTm=tm;
+      var path=d3.geoPath(proj,ctx),c=size/2,front=function(ll){return d3.geoDistance(ll,look)<Math.PI/2-.02};
+      ctx.clearRect(0,0,size,size);
+      var gr=ctx.createRadialGradient(c-R*.35,c-R*.4,R*.1,c,c,R*1.05);gr.addColorStop(0,"rgba(255,255,255,.24)");gr.addColorStop(1,"rgba(255,255,255,.05)");
+      ctx.beginPath();ctx.arc(c,c,R,0,7);ctx.fillStyle=gr;ctx.fill();ctx.lineWidth=1.5;ctx.strokeStyle="rgba(255,255,255,.55)";ctx.stroke();
+      ctx.beginPath();path(G.grat);ctx.lineWidth=.6;ctx.strokeStyle="rgba(255,255,255,.12)";ctx.stroke();
+      ctx.beginPath();path(G.land);ctx.fillStyle="rgba(255,255,255,.30)";ctx.fill();
+      ctx.beginPath();path(G.thai);ctx.fillStyle="#FFD3B8";ctx.fill();
+      function lifted(g,f){var ll=g.ip(f);if(!front(ll))return null;var p=proj(ll),dx=p[0]-c,dy=p[1]-c,r0=Math.hypot(dx,dy)||1,
+        r1=Math.min(R*1.06,r0*(1+Math.min(.22,.06+g.d*.1)*Math.sin(Math.PI*f)));return[c+dx/r0*r1,c+dy/r0*r1]}
+      function route(g,f0,f1){ctx.beginPath();var on=false;for(var i=0;i<=48;i++){var p=lifted(g,f0+(f1-f0)*i/48);if(!p){on=false;continue}on?ctx.lineTo(p[0],p[1]):ctx.moveTo(p[0],p[1]);on=true}}
+      groups.forEach(function(g){if(g.d<.02)return;route(g,0,1);ctx.lineWidth=1.4;ctx.strokeStyle="rgba(255,255,255,.28)";ctx.setLineDash([2,4]);ctx.stroke();ctx.setLineDash([])});
+      groups.forEach(function(g){if(!front(g.ll))return;var o=proj(g.ll);ctx.beginPath();ctx.arc(o[0],o[1],2.6+Math.min(3,Math.log2(g.n)),0,7);ctx.fillStyle="rgba(255,255,255,.85)";ctx.fill()});
+      var K=proj(KK),bump=0;
+      if(phase){var g=phase.g,lt=tm-phase.t-500,u2=easeOut(lt/1000);
+        if(front(g.ll)){var o=proj(g.ll),pu=(tm-phase.t)%1400/1400;ctx.beginPath();ctx.arc(o[0],o[1],5+14*pu,0,7);ctx.strokeStyle="rgba(255,255,255,"+(.8*(1-pu))+")";ctx.lineWidth=2;ctx.stroke();
+          ctx.beginPath();ctx.arc(o[0],o[1],5,0,7);ctx.fillStyle="#fff";ctx.fill()}
+        if(u2>0&&g.d>=.02){route(g,0,u2);ctx.lineWidth=3;ctx.lineCap="round";ctx.strokeStyle="#FFD3B8";ctx.stroke();
+          if(u2<1){var h=lifted(g,u2);if(h){ctx.beginPath();ctx.arc(h[0],h[1],4,0,7);ctx.fillStyle="#fff";ctx.fill()}}}
+        var r=(lt-1000)/650;if(r>0&&r<1&&front(KK)){ctx.beginPath();ctx.arc(K[0],K[1],9+30*easeOut(r),0,7);ctx.lineWidth=2.5;ctx.strokeStyle="rgba(240,112,47,"+(.85*(1-r))+")";ctx.stroke();bump=1-r}
+        if(tm-phase.t>2500&&!userLook)next(tm)}
+      if(front(KK)){var pr=(tm%2400)/2400;ctx.beginPath();ctx.arc(K[0],K[1],6+16*pr,0,7);ctx.fillStyle="rgba(240,112,47,"+(.35*(1-pr))+")";ctx.fill();
+        var sr=9*(1+.3*bump);ctx.beginPath();for(var i=0;i<10;i++){var rr=i%2?sr*.45:sr,an=-Math.PI/2+i*Math.PI/5;ctx.lineTo(K[0]+rr*Math.cos(an),K[1]+rr*Math.sin(an))}ctx.closePath();
+        ctx.fillStyle="#F0702F";ctx.fill();ctx.lineWidth=2;ctx.strokeStyle="#fff";ctx.stroke();
+        ctx.font="800 "+Math.max(12,Math.round(size/26))+'px "BSD","Manrope",sans-serif';ctx.fillStyle="#fff";ctx.textBaseline="middle";ctx.fillText("ACRO KKU",K[0]+14,K[1]+1)}
+    }
+    function loop(now){if(!run)return;var tm=now-t0;
+      if(userLook&&!drag&&tm>userUntil){center=userLook;userLook=null;if(groups.length)next(tm)}
+      if(!phase&&groups.length&&!userLook)next(tm);frame(tm);raf=requestAnimationFrame(loop)}
+    function start(){if(run||!G.land)return;setup();run=true;t0=performance.now();raf=requestAnimationFrame(loop)}
+    function stop(){run=false;cancelAnimationFrame(raf)}
+    cv.addEventListener("pointerdown",function(e){drag={x:e.clientX,y:e.clientY,look:lastLook.slice(),moved:0,id:e.pointerId};cv.classList.add("dragging")});
+    cv.addEventListener("pointermove",function(e){if(!drag)return;var dx=e.clientX-drag.x,dy=e.clientY-drag.y;drag.moved=Math.max(drag.moved,Math.hypot(dx,dy));
+      if(drag.moved<5)return;try{cv.setPointerCapture(drag.id)}catch(_){}var k=110/Math.max(120,R);
+      userLook=[drag.look[0]-dx*k,Math.max(-70,Math.min(70,drag.look[1]+dy*k))];userUntil=lastTm+6000});
+    cv.addEventListener("pointerup",function(e){if(!drag)return;cv.classList.remove("dragging");
+      if(drag.moved<5&&lastProj){var r=cv.getBoundingClientRect(),x=e.clientX-r.left,y=e.clientY-r.top,best=-1,bd=30;
+        groups.forEach(function(g,i){if(d3.geoDistance(g.ll,lastLook)>Math.PI/2-.02)return;var p=lastProj(g.ll),d=Math.hypot(p[0]-x,p[1]-y);if(d<bd){bd=d;best=i}});
+        if(best>=0)focus(best)}else if(userLook)userUntil=lastTm+6000;drag=null});
+    cv.addEventListener("pointercancel",function(){drag=null;cv.classList.remove("dragging")});
+    document.addEventListener("visibilitychange",function(){if(document.hidden)stop();else start()});
+    var rt=0;addEventListener("resize",function(){clearTimeout(rt);rt=setTimeout(function(){stop();start()},200)});
+    return{start:start,setData:setData,caption:caption};
+  })();
+  window.__globeCaption=function(){Globe.caption()};
+  function refresh(){
+    return fetch(TOTALS_URL).then(function(r){return r.json()}).then(function(j){
+      var n=j.n||0,c={};(j.pins||[]).forEach(function(p){if(p&&p[0])c[p[0]]=1});var nc=Object.keys(c).length;
+      if(n||nc){document.getElementById("live").hidden=false;count(document.getElementById("live-n"),n);count(document.getElementById("live-c"),nc)}
+      if(G.places)Globe.setData(j.pins||[]);
+    }).catch(function(){});
+  }
+  if(window.d3&&window.topojson){
+    Promise.all([fetch("https://cdn.jsdelivr.net/npm/world-atlas@2.0.2/countries-110m.json").then(function(r){return r.json()}),fetch("places.json").then(function(r){return r.json()})])
+    .then(function(a){var w=a[0];G.land=topojson.merge(w,w.objects.countries.geometries);
+      G.thai=topojson.merge(w,w.objects.countries.geometries.filter(function(g){return g.id==="764"}));G.grat=d3.geoGraticule10();G.places=a[1];
+      Globe.caption();Globe.start();refresh()})
+    .catch(function(){document.querySelector(".globe-box").hidden=true;refresh()});
+  }else{document.querySelector(".globe-box").hidden=true;refresh()}
+  setInterval(function(){if(!document.hidden)refresh()},30000);
 })();
 </script>
 </body>
