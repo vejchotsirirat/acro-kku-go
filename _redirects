@@ -3,6 +3,6 @@
 # The homepage (/) is index.html. A line starting with "/ " would skip the homepage
 # for everyone, so add one only if you want the QR to go straight to one destination.
 
-/crest      https://acro-kku-crest.pages.dev   302
-/collab     https://acro-kku-crest.pages.dev   302
+/crest      https://acro-kku-collaborate.pages.dev   302
+/collab     https://acro-kku-collaborate.pages.dev   302
 /web        https://acrokku.com                302
