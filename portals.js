@@ -30,7 +30,7 @@ window.ACRO_PORTALS = [
     id: "collaboration",
     status: "open",
     featured: true,
-    url: "https://acro-kku-crest.pages.dev",
+    url: "https://acro-kku-collaborate.pages.dev",
     tag:   { en: "CREST 2026", th: "CREST 2026" },
     title: { en: "Collaborate with ACRO KKU", th: "ร่วมงานกับ ACRO KKU" },
     text:  {
