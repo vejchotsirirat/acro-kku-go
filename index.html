@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>ACRO KKU Go</title>
+<meta name="description" content="ACRO KKU Go — forms, events and updates from the Academic Clinical Research Office, Khon Kaen University.">
+<meta name="theme-color" content="#14874a">
+<meta name="color-scheme" content="light">
+<link rel="icon" href="assets/icon-192.png">
+<link rel="apple-touch-icon" href="assets/icon-192.png">
+<meta property="og:title" content="ACRO KKU Go">
+<meta property="og:description" content="Forms, events and updates from ACRO KKU.">
+<meta property="og:image" content="assets/acro-logo.png">
+<link rel="preload" href="assets/fonts/bsd-800.woff2" as="font" type="font/woff2" crossorigin>
+<style>
+@font-face{font-family:"BSD";src:url(assets/fonts/bsd-800.woff2) format("woff2");font-weight:800;font-display:swap}
+@font-face{font-family:"Manrope";src:url(assets/fonts/manrope-400.woff2) format("woff2");font-weight:400;font-display:swap}
+@font-face{font-family:"Manrope";src:url(assets/fonts/manrope-600.woff2) format("woff2");font-weight:600;font-display:swap}
+@font-face{font-family:"Manrope";src:url(assets/fonts/manrope-700.woff2) format("woff2");font-weight:700;font-display:swap}
+@font-face{font-family:"PlexThai";src:url(assets/fonts/plexthai-400.woff2) format("woff2");font-weight:400;font-display:swap}
+@font-face{font-family:"PlexThai";src:url(assets/fonts/plexthai-600.woff2) format("woff2");font-weight:600;font-display:swap}
+@font-face{font-family:"PlexThai";src:url(assets/fonts/plexthai-700.woff2) format("woff2");font-weight:700;font-display:swap}
+
+:root{
+  --green:#14874a; --green-dk:#1d5a33; --green-xdk:#123d23;
+  --orange:#e5532b; --orange-2:#f07a3a;
+  --ink:#111a14; --muted:#56645a; --rule:#d7ddd9; --tint:#eef5f0;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+body{
+  background:#fff;color:var(--ink);
+  font-family:"Manrope","PlexThai",Arial,sans-serif;font-size:16px;line-height:1.5;
+  min-height:100vh;min-height:100dvh;display:flex;flex-direction:column;
+}
+html[lang="th"] .kicker,html[lang="th"] .head h2,html[lang="th"] .cat,html[lang="th"] .go-btn{letter-spacing:0}
+html[lang="th"] body{font-family:"PlexThai","Manrope",Arial,sans-serif;line-height:1.65}
+.wrap{width:100%;max-width:680px;margin:0 auto;padding:0 20px}
+
+/* ---------- top bar ---------- */
+.top{border-bottom:1px solid var(--rule)}
+.top .wrap{display:flex;align-items:center;justify-content:space-between;height:64px}
+.logo{height:30px;width:auto;display:block}
+.lang{display:flex;align-items:center;gap:2px;font:700 13px/1 "Manrope","PlexThai",sans-serif;letter-spacing:.06em}
+.lang button{border:0;background:none;color:var(--muted);font:inherit;padding:10px 8px;cursor:pointer;
+  border-bottom:2px solid transparent}
+.lang button[aria-pressed="true"]{color:var(--green);border-bottom-color:var(--green)}
+.lang span{color:var(--rule)}
+
+/* ---------- hero ---------- */
+.hero{background:var(--green);color:#fff;position:relative;overflow:hidden;
+  clip-path:polygon(0 0,100% 0,100% calc(100% - 28px),0 100%)}
+.hero .wrap{position:relative;z-index:1;padding-top:40px;padding-bottom:60px}
+.hero::before,.hero::after{content:"";position:absolute;transform:skewX(-24deg)}
+.hero::before{right:-46px;top:52%;width:84px;height:60%;background:var(--green-dk)}
+.hero::after{right:44px;top:52%;width:14px;height:60%;background:var(--orange)}
+.kicker{font:700 12px/1.3 "Manrope","PlexThai",sans-serif;letter-spacing:.16em;text-transform:uppercase;color:#cfe8d9;max-width:75%}
+.go{font-family:"BSD","Manrope",sans-serif;font-weight:800;text-transform:uppercase;
+  font-size:clamp(58px,17vw,92px);line-height:.88;margin-top:14px;letter-spacing:.01em}
+.go .tag-go{display:inline-block;background:var(--orange);padding:0 .14em;margin-left:.04em;transform:skewX(-14deg)}
+.go .tag-go b{display:inline-block;transform:skewX(14deg);font-weight:800}
+.lead{margin-top:18px;max-width:min(26em,72%);color:rgba(255,255,255,.88);font-size:16px}
+
+/* ---------- list ---------- */
+main{padding:28px 0 40px}
+.head{display:flex;align-items:baseline;justify-content:space-between;border-bottom:2px solid var(--ink);padding-bottom:8px}
+.head h2{font:700 13px/1 "Manrope","PlexThai",sans-serif;letter-spacing:.14em;text-transform:uppercase}
+.head .count{font:800 22px/1 "BSD",sans-serif;color:var(--orange)}
+
+.row{display:grid;grid-template-columns:52px 1fr;gap:4px 14px;padding:20px 0;border-bottom:1px solid var(--rule);
+  text-decoration:none;color:inherit;position:relative}
+.num{font:800 40px/1 "BSD",sans-serif;color:var(--orange);padding-top:2px}
+.cat{font:700 11px/1 "Manrope","PlexThai",sans-serif;letter-spacing:.14em;text-transform:uppercase;color:var(--green)}
+.ttl{font-weight:700;font-size:19px;line-height:1.3;margin-top:6px}
+.txt{color:var(--muted);font-size:15px;margin-top:6px}
+.go-btn{grid-column:2;justify-self:start;margin-top:14px;display:inline-flex;align-items:center;gap:10px;
+  background:var(--green);color:#fff;font:700 14px/1 "Manrope","PlexThai",sans-serif;letter-spacing:.06em;
+  text-transform:uppercase;padding:14px 18px 14px 20px;border-radius:2px}
+.go-btn svg{transition:transform .15s}
+a.row:hover .go-btn{background:var(--green-dk)}
+a.row:hover .go-btn svg{transform:translateX(3px)}
+a.row:focus-visible{outline:3px solid var(--orange);outline-offset:4px}
+
+.row.featured{background:var(--tint);margin:0 -20px;padding:22px 20px 22px 14px;border-bottom:0;border-left:6px solid var(--green)}
+.row.featured .go-btn{background:var(--orange)}
+a.row.featured:hover .go-btn{background:#c94420}
+
+.row.soon{opacity:.55}
+.row.soon .go-btn{background:#9aa59e}
+
+.empty{color:var(--muted);padding:24px 0}
+
+/* ---------- footer ---------- */
+footer{margin-top:auto;background:var(--green-xdk);color:#fff}
+footer .wrap{padding-top:24px;padding-bottom:calc(26px + env(safe-area-inset-bottom));display:grid;gap:4px;font-size:14px}
+footer .th{font-family:"PlexThai",sans-serif;font-weight:600;font-size:15px}
+footer .en{color:rgba(255,255,255,.7)}
+footer a{color:#fff;font-weight:700;margin-top:10px;display:inline-block;text-decoration:none;border-bottom:2px solid var(--orange-2);justify-self:start}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <a href="https://acrokku.com" aria-label="ACRO KKU official website">
+      <img class="logo" src="assets/acro-logo.png" alt="ACRO KKU" width="720" height="209">
+    </a>
+    <div class="lang" role="group" aria-label="Language">
+      <button type="button" data-lang="en" aria-pressed="true">EN</button><span>|</span><button type="button" data-lang="th" aria-pressed="false">ไทย</button>
+    </div>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <p class="kicker" data-i18n="kicker"></p>
+    <h1 class="go">ACRO KKU <span class="tag-go"><b>Go</b></span></h1>
+    <p class="lead" data-i18n="lead"></p>
+  </div>
+</section>
+
+<main>
+  <div class="wrap">
+    <div class="head"><h2 data-i18n="portals"></h2><span class="count" id="count"></span></div>
+    <div id="portals" aria-live="polite"></div>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span class="th">สถานบริหารจัดการงานวิจัยคลินิก มหาวิทยาลัยขอนแก่น</span>
+    <span class="en">Academic Clinical Research Office, Khon Kaen University</span>
+    <a href="https://acrokku.com">acrokku.com</a>
+  </div>
+</footer>
+
+<script src="portals.js"></script>
+<script>
+(function(){
+  var UI = {
+    en:{ kicker:"Academic Clinical Research Office, Khon Kaen University",
+         lead:"Forms, events and updates from ACRO KKU.",
+         portals:"Portals", open:"Open", soon:"Coming soon",
+         empty:"Nothing here right now. Please check back soon." },
+    th:{ kicker:"สถานบริหารจัดการงานวิจัยคลินิก มหาวิทยาลัยขอนแก่น",
+         lead:"แบบฟอร์ม กิจกรรม และข่าวสารจาก ACRO KKU",
+         portals:"รายการ", open:"เปิด", soon:"เร็ว ๆ นี้",
+         empty:"ยังไม่มีรายการในขณะนี้ โปรดกลับมาใหม่ภายหลัง" }
+  };
+  var ARROW='<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="square" aria-hidden="true"><path d="M4 12h15M13 5l7 7-7 7"/></svg>';
+
+  function esc(s){return String(s==null?"":s).replace(/[&<>"']/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]})}
+  function t(o,l){ if(!o) return ""; return typeof o==="string"?o:(o[l]||o.en||""); }
+  function pad(n){return (n<10?"0":"")+n}
+
+  var lang="en", stored=null;
+  try{ stored=localStorage.getItem("acro-go-lang"); }catch(e){}
+  var q=new URLSearchParams(location.search).get("lang");
+  if(q==="th"||q==="en") lang=q; else if(stored) lang=stored; else if(/^th/i.test(navigator.language||"")) lang="th";
+
+  function row(p,i){
+    var soon=p.status==="soon", cls="row"+(p.featured&&!soon?" featured":"")+(soon?" soon":"");
+    var inner='<span class="num">'+pad(i)+'</span><div>'+
+      (p.tag?'<div class="cat">'+esc(t(p.tag,lang))+'</div>':'')+
+      '<div class="ttl">'+esc(t(p.title,lang))+'</div>'+
+      '<div class="txt">'+esc(t(p.text,lang))+'</div></div>'+
+      '<span class="go-btn">'+esc(soon?UI[lang].soon:UI[lang].open)+(soon?'':' '+ARROW)+'</span>';
+    if(soon) return '<div class="'+cls+'" aria-disabled="true">'+inner+'</div>';
+    var ext=/^https?:/i.test(p.url||"");
+    return '<a class="'+cls+'" href="'+esc(p.url)+'"'+(ext?' rel="noopener"':'')+'>'+inner+'</a>';
+  }
+
+  function render(){
+    document.documentElement.lang=lang;
+    document.querySelectorAll("[data-i18n]").forEach(function(el){el.textContent=UI[lang][el.dataset.i18n]});
+    document.querySelectorAll(".lang button").forEach(function(b){b.setAttribute("aria-pressed",String(b.dataset.lang===lang))});
+    var list=(window.ACRO_PORTALS||[]).filter(function(p){return p&&p.status!=="hidden"});
+    list.sort(function(a,b){return (b.featured&&b.status==="open")-(a.featured&&a.status==="open")});
+    document.getElementById("count").textContent=pad(list.length);
+    document.getElementById("portals").innerHTML=list.length?list.map(function(p,i){return row(p,i+1)}).join(""):'<p class="empty">'+esc(UI[lang].empty)+'</p>';
+  }
+  document.querySelectorAll(".lang button").forEach(function(b){
+    b.addEventListener("click",function(){lang=b.dataset.lang;try{localStorage.setItem("acro-go-lang",lang)}catch(e){}render();});
+  });
+  render();
+})();
+</script>
+</body>
+</html>
