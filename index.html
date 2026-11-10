@@ -133,6 +133,11 @@ footer a.site{color:#fff;font-weight:700;text-decoration:none;border-bottom:2px 
   .list{grid-template-columns:1fr 1fr}
   .card.featured{grid-column:1/-1;grid-template-columns:minmax(0,1fr) auto;align-items:end;padding:34px 34px 32px}
   .card.featured .btn{grid-column:2;grid-row:1/span 3;align-self:end}
+  .card.wide{grid-column:1/-1;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;padding:26px 30px 26px 26px;gap:6px 26px}
+  .card.wide .num{font-size:58px}
+  .card.wide .ttl{font-size:24px}
+  .card.wide .txt{max-width:44em;font-size:16px}
+  .card.wide .btn{grid-column:3;margin-top:0;align-self:center}
   .about{grid-template-columns:repeat(3,1fr);gap:24px}
 }
 </style>
@@ -166,7 +171,7 @@ footer a.site{color:#fff;font-weight:700;text-decoration:none;border-bottom:2px 
 
 <main>
   <div class="wrap">
-    <div class="label"><span data-i18n="portals"></span><span class="count" id="count"></span></div>
+    <div class="label"><span data-i18n="portals"></span></div>
     <div class="list" id="portals" aria-live="polite"></div>
     <div class="about">
       <div><b data-i18n="a1"></b><span data-i18n="a1d"></span></div>
@@ -218,8 +223,8 @@ footer a.site{color:#fff;font-weight:700;text-decoration:none;border-bottom:2px 
   var q=new URLSearchParams(location.search).get("lang");
   if(q==="th"||q==="en")lang=q;else if(stored)lang=stored;
 
-  function card(p,i){
-    var soon=p.status==="soon",feat=p.featured&&!soon,cls="card"+(feat?" featured":"")+(soon?" soon":"");
+  function card(p,i,wide){
+    var soon=p.status==="soon",feat=p.featured&&!soon,cls="card"+(feat?" featured":"")+(soon?" soon":"")+(wide&&!feat?" wide":"");
     var inner='<span class="num">'+pad(i)+'</span><div>'+(p.tag?'<div class="cat">'+esc(t(p.tag,lang))+'</div>':'')+
       '<div class="ttl">'+esc(t(p.title,lang))+'</div><div class="txt">'+esc(t(p.text,lang))+'</div></div>'+
       '<span class="btn">'+esc(soon?UI[lang].soon:UI[lang].open)+(soon?'':' '+ARROW)+'</span>';
@@ -233,8 +238,9 @@ footer a.site{color:#fff;font-weight:700;text-decoration:none;border-bottom:2px 
     document.querySelectorAll(".lang button").forEach(function(b){b.setAttribute("aria-pressed",String(b.dataset.lang===lang))});
     var list=(window.ACRO_PORTALS||[]).filter(function(p){return p&&p.status!=="hidden"});
     list.sort(function(a,b){return(b.featured&&b.status==="open")-(a.featured&&a.status==="open")});
-    document.getElementById("count").textContent=pad(list.length);
-    document.getElementById("portals").innerHTML=list.length?list.map(function(p,i){return card(p,i+1)}).join(""):'<p class="empty">'+esc(UI[lang].empty)+'</p>';
+    /* on desktop the last regular card takes the full row when it would otherwise sit alone in half a row */
+    var nf=list.filter(function(p){return !(p.featured&&p.status!=="soon")}).length;
+    document.getElementById("portals").innerHTML=list.length?list.map(function(p,i){return card(p,i+1,i===list.length-1&&nf%2===1)}).join(""):'<p class="empty">'+esc(UI[lang].empty)+'</p>';
   }
   document.querySelectorAll(".lang button").forEach(function(b){
     b.addEventListener("click",function(){lang=b.dataset.lang;try{localStorage.setItem("acro-go-lang",lang)}catch(e){}render();if(window.__globeCaption)window.__globeCaption()});

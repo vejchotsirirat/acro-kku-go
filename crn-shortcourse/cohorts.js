@@ -52,12 +52,14 @@ window.ACRO_CRN = {
     kicker:   { en: "Study Nurse Short Course", th: "หลักสูตรอบรมระยะสั้น พยาบาลวิจัย (Study Nurse)" },
     title:    { en: "Clinical Research Nursing", th: "พยาบาลวิจัย|ทางคลินิก" },   /* a | only marks where a long Thai title may wrap */
     tag:      "CRN",
-    subtitle: { en: "Capacity Development Program for Clinical Research Nurses (CRN)",
-                th: "โครงการพัฒนาศักยภาพพยาบาลวิจัยเพื่อดำเนินงานศูนย์วิจัยคลินิก" },
+    subtitle: { en: "Short Course Training Program in Clinical Research Nursing",
+                th: "หลักสูตรอบรมระยะสั้นด้านพยาบาลวิจัยทางคลินิก" },
+    certificate: { en: "Certificate of CRN: Clinical Research Nursing",
+                   th: "Certificate of CRN: Clinical Research Nursing" },
     tagline:  { en: "Join the force driving research for better health",
                 th: "ร่วมเป็นพลังขับเคลื่อนงานวิจัยเพื่อสุขภาพที่ดี" },
-    organizer:{ en: "Nursing Division, Srinagarind Hospital, together with ACRO KKU, Faculty of Medicine, Khon Kaen University",
-                th: "ฝ่ายการพยาบาล โรงพยาบาลศรีนครินทร์ ร่วมกับ ACRO KKU คณะแพทยศาสตร์ มหาวิทยาลัยขอนแก่น" }
+    organizer:{ en: "Academic Clinical Research Office, Khon Kaen University (ACRO KKU) together with Nursing Division, Srinagarind Hospital, Faculty of Medicine, Khon Kaen University",
+                th: "สถานบริหารจัดการงานวิจัยคลินิก มหาวิทยาลัยขอนแก่น (ACRO KKU) ร่วมกับ ฝ่ายการพยาบาล โรงพยาบาลศรีนครินทร์ คณะแพทยศาสตร์ มหาวิทยาลัยขอนแก่น" }
   },
 
   /* ---------- course format (same for every cohort) ---------- */
@@ -68,14 +70,14 @@ window.ACRO_CRN = {
 
   /* ---------- practical training sites ---------- */
   sites: [
-    { en: "Academic Clinical Research Office, Khon Kaen University",
-      th: "สถานบริหารจัดการงานวิจัยคลินิก มหาวิทยาลัยขอนแก่น" },
+    { en: "Academic Clinical Research Office, Khon Kaen University (ACRO KKU)",
+      th: "สถานบริหารจัดการงานวิจัยคลินิก มหาวิทยาลัยขอนแก่น (ACRO KKU)" },
     { en: "Siriraj Clinical Research Center, Faculty of Medicine Siriraj Hospital, Mahidol University",
       th: "ศูนย์วิจัยคลินิก คณะแพทยศาสตร์ศิริราชพยาบาล มหาวิทยาลัยมหิดล" },
     { en: "Ramathibodi Clinical Research Center, Faculty of Medicine Ramathibodi Hospital, Mahidol University",
       th: "ศูนย์วิจัยคลินิกรามาธิบดี คณะแพทยศาสตร์โรงพยาบาลรามาธิบดี มหาวิทยาลัยมหิดล" },
-    { en: "Chulalongkorn Clinical Research Center (Maha Chakri Sirindhorn), Faculty of Medicine, Chulalongkorn University",
-      th: "ศูนย์วิจัยมหาจักรีสิรินธร คณะแพทยศาสตร์ จุฬาลงกรณ์มหาวิทยาลัย" }
+    { en: "Maha Chakri Sirindhorn Clinical Research Center (Chula CRC), Faculty of Medicine, Chulalongkorn University",
+      th: "ศูนย์วิจัยมหาจักรีสิรินธร (Chula CRC) คณะแพทยศาสตร์ จุฬาลงกรณ์มหาวิทยาลัย" }
   ],
 
   /* ---------- program objectives ---------- */
@@ -97,16 +99,18 @@ window.ACRO_CRN = {
      logo: file name of the image placed in this same folder (for example "hsri.png").
      Leave logo as "" and the page shows the name in a plain box until the file is added. */
   partners: [
-    { name: { en: "ACRO KKU", th: "ACRO KKU" },
-      logo: "../acro-logo.png", url: "https://acrokku.com" },
-    { name: { en: "Health Systems Research Institute (HSRI)", th: "สถาบันวิจัยระบบสาธารณสุข" },
+    { name: { en: "Health Systems Research Institute (HSRI)", th: "สถาบันวิจัยระบบสาธารณสุข (สวรส.)" },
       logo: "logo-hsri.svg" },
-    { name: { en: "Nursing Division, Srinagarind Hospital", th: "ฝ่ายการพยาบาล โรงพยาบาลศรีนครินทร์" },
-      logo: "logo-srinagarind-nursing.png" },
+    { name: { en: "Academic Clinical Research Office, Khon Kaen University (ACRO KKU)", th: "สถานบริหารจัดการงานวิจัยคลินิก มหาวิทยาลัยขอนแก่น (ACRO KKU)" },
+      logo: "../acro-logo.png", url: "https://acrokku.com" },
+    { name: { en: "Maha Chakri Sirindhorn Clinical Research Center (Chula CRC)", th: "ศูนย์วิจัยมหาจักรีสิรินธร (Chula CRC)" },
+      logo: "logo-chula-crc.png" },
     { name: { en: "Ramathibodi Clinical Research Center (RAMACC)", th: "ศูนย์วิจัยคลินิกรามาธิบดี (RAMACC)" },
       logo: "logo-ramacc.png" },
     { name: { en: "Siriraj Institute of Clinical Research (SiCRES)", th: "SiCRES (Siriraj Institute of Clinical Research)" },
-      logo: "logo-sicres.png" }
+      logo: "logo-sicres.png" },
+    { name: { en: "Nursing Division, Srinagarind Hospital", th: "ฝ่ายการพยาบาล โรงพยาบาลศรีนครินทร์" },
+      logo: "logo-srinagarind-nursing.png" }
   ],
 
   /* ---------- who to contact ---------- */
@@ -114,7 +118,13 @@ window.ACRO_CRN = {
     role:  { en: "Coordinator", th: "ผู้ประสานงาน" },
     name:  { en: "พว.จุรีรัตน์ รัตนเพ็ชร", th: "พว.จุรีรัตน์ รัตนเพ็ชร" },
     phone: "0896186577",
-    email: "jurepr@kku.ac.th"
+    email: "jurepr@kku.ac.th",
+    /* shown below the coordinator */
+    office: {
+      role:   { en: "ACRO KKU office", th: "สำนักงาน ACRO KKU" },
+      phones: ["+66-43-366568", "366269"],      /* a number without + is shown as an extension of the first (same area code) */
+      email:  "acro@kku.ac.th"
+    }
   },
 
   /* ---------- intakes: newest FIRST ---------- */
