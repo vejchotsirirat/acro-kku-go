@@ -39,6 +39,19 @@ window.ACRO_PORTALS = [
     }
   },
 
+  {
+    id: "crn-shortcourse",
+    status: "open",
+    featured: false,
+    url: "/crn-shortcourse/",
+    tag:   { en: "Training", th: "การอบรม" },
+    title: { en: "Clinical Research Nursing (CRN) short course", th: "หลักสูตรอบรมพยาบาลวิจัยทางคลินิก (CRN)" },
+    text:  {
+      en: "Study nurse training: 6 weeks online plus 10 weeks of onsite practice at leading clinical research centers. Free registration.",
+      th: "อบรมพยาบาลวิจัย เรียนทฤษฎีออนไลน์ 6 สัปดาห์ และฝึกปฏิบัติ ณ ศูนย์วิจัยคลินิก 10 สัปดาห์ ฟรีค่าลงทะเบียน"
+    }
+  },
+
   /* ---- Example for later: copy this block, change the values, set status to "open" ----
   {
     id: "be-pool",
