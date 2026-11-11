@@ -52,17 +52,30 @@ window.ACRO_PORTALS = [
     }
   },
 
-  /* ---- Example for later: copy this block, change the values, set status to "open" ----
   {
     id: "be-pool",
-    status: "hidden",
+    status: "open",
     featured: false,
     url: "/be-pool/",
     tag:   { en: "Volunteers", th: "อาสาสมัคร" },
-    title: { en: "Bioequivalence volunteer contact list", th: "รายชื่อติดต่ออาสาสมัครการศึกษาชีวสมมูล" },
+    title: { en: "Bioequivalence volunteer registry", th: "คลังอาสาสมัครการศึกษาชีวสมมูล" },
     text:  {
-      en: "Leave your contact if you would like to hear about future volunteer opportunities.",
-      th: "ฝากข้อมูลติดต่อไว้ หากต้องการรับข่าวสารโอกาสเป็นอาสาสมัครในอนาคต"
+      en: "Healthy volunteers: register your interest to hear about future bioequivalence studies. Interest only, no obligation.",
+      th: "สำหรับอาสาสมัครสุขภาพดี ลงทะเบียนแสดงความสนใจเพื่อรับข่าวสารการศึกษาชีวสมมูลในอนาคต ไม่มีข้อผูกมัด"
+    }
+  },
+
+  /* ---- Example for later: copy this block, change the values, set status to "open" ----
+  {
+    id: "next-portal",
+    status: "hidden",
+    featured: false,
+    url: "/next-portal/",
+    tag:   { en: "Label", th: "ป้ายกำกับ" },
+    title: { en: "Portal title", th: "ชื่อพอร์ทัล" },
+    text:  {
+      en: "One or two short sentences.",
+      th: "ข้อความสั้นๆ หนึ่งถึงสองประโยค"
     }
   },
   ----------------------------------------------------------------------------------- */
