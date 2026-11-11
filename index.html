@@ -67,7 +67,13 @@ a{color:inherit}
 .globe-box{display:flex;flex-direction:column;align-items:center;gap:8px;order:2}
 .live{order:1}
 @media (max-width:819px){.globe-chips button:nth-child(n+5){display:none}.hero .wrap{gap:14px}}
-#globe{width:min(100%,250px);aspect-ratio:1;display:block;cursor:grab;touch-action:pan-y}
+.globe-wrap{position:relative;width:min(100%,250px)}
+#globe{width:100%;aspect-ratio:1;display:block;cursor:grab;touch-action:pan-y}
+#globe.zoomed{touch-action:none}
+.globe-zoom{position:absolute;right:2px;bottom:6px;display:flex;flex-direction:column;gap:4px}
+.globe-zoom button{width:32px;height:32px;border:1.5px solid rgba(255,255,255,.6);background:rgba(22,63,36,.55);color:#fff;font:700 18px/1 "Manrope",sans-serif;padding:0;cursor:pointer;display:grid;place-items:center}
+.globe-zoom button:disabled{opacity:.35;cursor:default}
+.globe-zoom button:focus-visible{outline:2px solid var(--peach);outline-offset:2px}
 #globe.dragging{cursor:grabbing}
 .globe-cap{font:800 14px/1.3 "BSD","Manrope",sans-serif;letter-spacing:.08em;text-transform:uppercase;color:var(--peach);text-align:center;min-height:1.3em}
 .globe-cap .arr{font-family:"Manrope",sans-serif}
@@ -128,7 +134,7 @@ footer a.site{color:#fff;font-weight:700;text-decoration:none;border-bottom:2px 
   .hero .text{grid-column:1}
   .hero .wrap{grid-template-columns:minmax(0,1fr) minmax(0,440px);align-items:center}
   .globe-box{grid-column:2;grid-row:1/span 2}
-  #globe{width:min(100%,400px,calc(100vh - 300px))}
+  .globe-wrap{width:min(100%,400px,calc(100vh - 300px))}
   .go{font-size:clamp(64px,7.2vw,104px)}
   .list{grid-template-columns:1fr 1fr}
   .card.featured{grid-column:1/-1;grid-template-columns:minmax(0,1fr) auto;align-items:end;padding:34px 34px 32px}
@@ -160,7 +166,13 @@ footer a.site{color:#fff;font-weight:700;text-decoration:none;border-bottom:2px 
       <p class="lead" data-i18n="lead"></p>
     </div>
     <div class="globe-box">
-      <canvas id="globe" aria-label="Globe of visitor routes to ACRO KKU in Khon Kaen"></canvas>
+      <div class="globe-wrap">
+        <canvas id="globe" aria-label="Globe of visitor routes to ACRO KKU in Khon Kaen"></canvas>
+        <div class="globe-zoom">
+          <button type="button" id="gzin" aria-label="Zoom in / ขยาย">+</button>
+          <button type="button" id="gzout" aria-label="Zoom out / ย่อ" disabled>&minus;</button>
+        </div>
+      </div>
       <span class="globe-cap" id="globe-cap"></span>
       <div class="globe-chips" id="globe-chips"></div>
       <span class="globe-hint" data-i18n="hint"></span>
@@ -202,14 +214,14 @@ footer a.site{color:#fff;font-weight:700;text-decoration:none;border-bottom:2px 
     en:{kicker:"Academic Clinical Research Office, Khon Kaen University",
         lead:"Forms, events and updates from ACRO KKU, all in one place.",
         portals:"Start here",open:"Open",soon:"Coming soon",empty:"Nothing here right now. Please check back soon.",
-        liveH:"Live",hint:"Drag the globe, or tap a place to see its route",cap:"Every route leads to Khon Kaen",first:"Your route could be the first",liveN:"collaborators connected",liveC:"countries",
+        liveH:"Live",hint:"Drag to rotate, scroll or pinch to zoom, tap a place to see its route",cap:"Every route leads to Khon Kaen",first:"Your route could be the first",liveN:"collaborators connected",liveC:"countries",
         a1:"Site services",a1d:"Site management, ethics coordination and protocol compliance.",
         a2:"Investigator matching",a2d:"Qualified investigators with the right expertise for your protocol.",
         a3:"Northeastern Thailand",a3d:"Clinical research from Khon Kaen, connected to partners worldwide."},
     th:{kicker:"สถานบริหารจัดการงานวิจัยคลินิก มหาวิทยาลัยขอนแก่น",
         lead:"แบบฟอร์ม กิจกรรม และข่าวสารจาก ACRO KKU รวมไว้ในที่เดียว",
         portals:"เริ่มต้นที่นี่",open:"เปิด",soon:"เร็ว ๆ นี้",empty:"ยังไม่มีรายการในขณะนี้ โปรดกลับมาใหม่ภายหลัง",
-        liveH:"สด",hint:"ลากเพื่อหมุนโลก หรือแตะสถานที่เพื่อดูเส้นทาง",cap:"ทุกเส้นทางมุ่งสู่ขอนแก่น",first:"เส้นทางของคุณอาจเป็นเส้นแรก",liveN:"ผู้ร่วมเชื่อมต่อ",liveC:"ประเทศ",
+        liveH:"สด",hint:"ลากเพื่อหมุน เลื่อนหรือถ่างนิ้วเพื่อซูม แตะสถานที่เพื่อดูเส้นทาง",cap:"ทุกเส้นทางมุ่งสู่ขอนแก่น",first:"เส้นทางของคุณอาจเป็นเส้นแรก",liveN:"ผู้ร่วมเชื่อมต่อ",liveC:"ประเทศ",
         a1:"บริการสถานที่วิจัย",a1d:"บริหารสถานที่วิจัย ประสานงานจริยธรรม และกำกับให้เป็นไปตามโครงร่างการวิจัย",
         a2:"จับคู่ผู้วิจัย",a2d:"ผู้วิจัยที่มีความเชี่ยวชาญเหมาะกับโครงการของคุณ",
         a3:"ภาคตะวันออกเฉียงเหนือ",a3d:"งานวิจัยทางคลินิกจากขอนแก่น เชื่อมต่อกับพันธมิตรทั่วโลก"}
@@ -250,12 +262,12 @@ footer a.site{color:#fff;font-weight:700;text-decoration:none;border-bottom:2px 
   var KK=[102.835,16.44],G={land:null,thai:null,grat:null,places:null};
   function count(el,to){var t0=performance.now();(function step(now){var p=Math.min(1,(now-t0)/900);el.textContent=Math.round(to*(1-Math.pow(1-p,3)));if(p<1)requestAnimationFrame(step)})(t0)}
   var Globe=(function(){
-    var cv=document.getElementById("globe"),ctx,R,size,run=false,raf=0,t0=0;
+    var cv=document.getElementById("globe"),ctx,R,R0,size,run=false,raf=0,t0=0,Z=1,Zt=1,ZMAX=6,pts={},pinch=null;
     var groups=[],idx=-1,phase=null,center=[KK[0],KK[1]-8],from=center,to=center,label="",userLook=null,userUntil=0,lastLook=center,lastProj=null,lastTm=0,drag=null;
     function ease(x){x=Math.max(0,Math.min(1,x));return x<.5?4*x*x*x:1-Math.pow(-2*x+2,3)/2}
     function easeOut(x){return 1-Math.pow(1-Math.max(0,Math.min(1,x)),3)}
     function setup(){var dpr=Math.min(2,window.devicePixelRatio||1);size=Math.round(cv.getBoundingClientRect().width)||300;
-      cv.width=size*dpr;cv.height=size*dpr;ctx=cv.getContext("2d");ctx.setTransform(dpr,0,0,dpr,0,0);R=size/2-8}
+      cv.width=size*dpr;cv.height=size*dpr;ctx=cv.getContext("2d");ctx.setTransform(dpr,0,0,dpr,0,0);R0=size/2-8;R=R0*Z}
     function caption(){var el=document.getElementById("globe-cap");
       if(groups.length&&label)el.innerHTML=esc(label)+' <span class="arr">→</span> ACRO KKU';else el.textContent=groups.length?UI[lang].cap:UI[lang].first}
     function chips(){var box=document.getElementById("globe-chips");box.innerHTML="";
@@ -272,6 +284,9 @@ footer a.site{color:#fff;font-weight:700;text-decoration:none;border-bottom:2px 
       document.querySelectorAll("#globe-chips button").forEach(function(b,i){b.setAttribute("aria-pressed",String(i===idx))})}
     function frame(tm){
       var look;
+      if(Z!==Zt){Z+=(Zt-Z)*.2;if(Math.abs(Zt-Z)<.002)Z=Zt}
+      R=R0*Z;
+      if(Z>1.4)loadDetail();
       if(userLook)look=userLook;
       else if(phase){var u=ease((tm-phase.t)/550);look=d3.geoInterpolate(from,to)(u);if(u>=1)center=to}
       else look=[KK[0]+Math.sin(tm/7000)*24,KK[1]-8+Math.sin(tm/11000)*5];
@@ -282,8 +297,9 @@ footer a.site{color:#fff;font-weight:700;text-decoration:none;border-bottom:2px 
       var gr=ctx.createRadialGradient(c-R*.35,c-R*.4,R*.1,c,c,R*1.05);gr.addColorStop(0,"rgba(255,255,255,.24)");gr.addColorStop(1,"rgba(255,255,255,.05)");
       ctx.beginPath();ctx.arc(c,c,R,0,7);ctx.fillStyle=gr;ctx.fill();ctx.lineWidth=1.5;ctx.strokeStyle="rgba(255,255,255,.55)";ctx.stroke();
       ctx.beginPath();path(G.grat);ctx.lineWidth=.6;ctx.strokeStyle="rgba(255,255,255,.12)";ctx.stroke();
-      ctx.beginPath();path(G.land);ctx.fillStyle="rgba(255,255,255,.30)";ctx.fill();
-      ctx.beginPath();path(G.thai);ctx.fillStyle="#FFD3B8";ctx.fill();
+      var hi=Z>1.4&&G.land50;
+      ctx.beginPath();path(hi?G.land50:G.land);ctx.fillStyle="rgba(255,255,255,.30)";ctx.fill();
+      ctx.beginPath();path(hi?G.thai50:G.thai);ctx.fillStyle="#FFD3B8";ctx.fill();
       function lifted(g,f){var ll=g.ip(f);if(!front(ll))return null;var p=proj(ll),dx=p[0]-c,dy=p[1]-c,r0=Math.hypot(dx,dy)||1,
         r1=Math.min(R*1.06,r0*(1+Math.min(.22,.06+g.d*.1)*Math.sin(Math.PI*f)));return[c+dx/r0*r1,c+dy/r0*r1]}
       function route(g,f0,f1){ctx.beginPath();var on=false;for(var i=0;i<=48;i++){var p=lifted(g,f0+(f1-f0)*i/48);if(!p){on=false;continue}on?ctx.lineTo(p[0],p[1]):ctx.moveTo(p[0],p[1]);on=true}}
@@ -296,26 +312,51 @@ footer a.site{color:#fff;font-weight:700;text-decoration:none;border-bottom:2px 
         if(u2>0&&g.d>=.02){route(g,0,u2);ctx.lineWidth=3;ctx.lineCap="round";ctx.strokeStyle="#FFD3B8";ctx.stroke();
           if(u2<1){var h=lifted(g,u2);if(h){ctx.beginPath();ctx.arc(h[0],h[1],4,0,7);ctx.fillStyle="#fff";ctx.fill()}}}
         var r=(lt-1000)/650;if(r>0&&r<1&&front(KK)){ctx.beginPath();ctx.arc(K[0],K[1],9+30*easeOut(r),0,7);ctx.lineWidth=2.5;ctx.strokeStyle="rgba(240,112,47,"+(.85*(1-r))+")";ctx.stroke();bump=1-r}
-        if(tm-phase.t>2500&&!userLook)next(tm)}
+        if(tm-phase.t>2500&&!userLook&&Zt<=1.05)next(tm)}
       if(front(KK)){var pr=(tm%2400)/2400;ctx.beginPath();ctx.arc(K[0],K[1],6+16*pr,0,7);ctx.fillStyle="rgba(240,112,47,"+(.35*(1-pr))+")";ctx.fill();
         var sr=9*(1+.3*bump);ctx.beginPath();for(var i=0;i<10;i++){var rr=i%2?sr*.45:sr,an=-Math.PI/2+i*Math.PI/5;ctx.lineTo(K[0]+rr*Math.cos(an),K[1]+rr*Math.sin(an))}ctx.closePath();
         ctx.fillStyle="#F0702F";ctx.fill();ctx.lineWidth=2;ctx.strokeStyle="#fff";ctx.stroke();
         ctx.font="800 "+Math.max(12,Math.round(size/26))+'px "BSD","Manrope",sans-serif';ctx.fillStyle="#fff";ctx.textBaseline="middle";ctx.fillText("ACRO KKU",K[0]+14,K[1]+1)}
     }
     function loop(now){if(!run)return;var tm=now-t0;
-      if(userLook&&!drag&&tm>userUntil){center=userLook;userLook=null;if(groups.length)next(tm)}
+      if(userLook&&!drag&&tm>userUntil&&Zt<=1.05){center=userLook;userLook=null;if(groups.length)next(tm)}
       if(!phase&&groups.length&&!userLook)next(tm);frame(tm);raf=requestAnimationFrame(loop)}
+    var detailState=0,wheelHold=0;
+    function loadDetail(){if(detailState)return;detailState=1;
+      fetch("https://cdn.jsdelivr.net/npm/world-atlas@2.0.2/countries-50m.json").then(function(r){return r.json()}).then(function(w){
+        G.land50=topojson.merge(w,w.objects.countries.geometries);
+        G.thai50=topojson.merge(w,w.objects.countries.geometries.filter(function(g){return g.id==="764"}));detailState=2}).catch(function(){detailState=3})}
+    function setZoom(z,hold){Zt=Math.max(1,Math.min(ZMAX,z));if(Zt<1.05)Zt=1;
+      cv.classList.toggle("zoomed",Zt>1.05);
+      document.getElementById("gzin").disabled=Zt>=ZMAX-.01;document.getElementById("gzout").disabled=Zt<=1.001;
+      if(hold){if(!userLook)userLook=lastLook.slice();userUntil=lastTm+6000}}
+    document.getElementById("gzin").addEventListener("click",function(){setZoom(Zt*1.6,true)});
+    document.getElementById("gzout").addEventListener("click",function(){setZoom(Zt/1.6,true)});
+    cv.addEventListener("wheel",function(e){
+      var now=performance.now();
+      if(e.deltaY>0&&Zt<=1.001&&now>wheelHold)return;   /* fully zoomed out: let the page scroll */
+      e.preventDefault();
+      var k=e.ctrlKey?.01:(e.deltaMode===1?.05:.0016);
+      setZoom(Zt*Math.exp(-e.deltaY*k),true);
+      if(Zt<=1.001)wheelHold=now+450},{passive:false});   /* brief pause so one gesture doesn't zoom out and then scroll the page */
+    function dist(){var a=Object.keys(pts).map(function(i){return pts[i]});return Math.hypot(a[0].x-a[1].x,a[0].y-a[1].y)||1}
     function start(){if(run||!G.land)return;setup();run=true;t0=performance.now();raf=requestAnimationFrame(loop)}
     function stop(){run=false;cancelAnimationFrame(raf)}
-    cv.addEventListener("pointerdown",function(e){drag={x:e.clientX,y:e.clientY,look:lastLook.slice(),moved:0,id:e.pointerId};cv.classList.add("dragging")});
-    cv.addEventListener("pointermove",function(e){if(!drag)return;var dx=e.clientX-drag.x,dy=e.clientY-drag.y;drag.moved=Math.max(drag.moved,Math.hypot(dx,dy));
+    cv.addEventListener("pointerdown",function(e){pts[e.pointerId]={x:e.clientX,y:e.clientY};
+      if(Object.keys(pts).length===2){pinch={d:dist(),z:Zt};drag=null;cv.classList.remove("dragging");try{cv.setPointerCapture(e.pointerId)}catch(_){}
+        if(!userLook)userLook=lastLook.slice();userUntil=lastTm+6000;return}
+      if(Object.keys(pts).length>2)return;
+      drag={x:e.clientX,y:e.clientY,look:lastLook.slice(),moved:0,id:e.pointerId};cv.classList.add("dragging")});
+    cv.addEventListener("pointermove",function(e){if(pts[e.pointerId]){pts[e.pointerId].x=e.clientX;pts[e.pointerId].y=e.clientY}
+      if(pinch&&Object.keys(pts).length===2){setZoom(pinch.z*dist()/pinch.d,true);return}
+      if(!drag)return;var dx=e.clientX-drag.x,dy=e.clientY-drag.y;drag.moved=Math.max(drag.moved,Math.hypot(dx,dy));
       if(drag.moved<5)return;try{cv.setPointerCapture(drag.id)}catch(_){}var k=110/Math.max(120,R);
       userLook=[drag.look[0]-dx*k,Math.max(-70,Math.min(70,drag.look[1]+dy*k))];userUntil=lastTm+6000});
-    cv.addEventListener("pointerup",function(e){if(!drag)return;cv.classList.remove("dragging");
+    cv.addEventListener("pointerup",function(e){delete pts[e.pointerId];if(Object.keys(pts).length<2)pinch=null;if(!drag)return;cv.classList.remove("dragging");
       if(drag.moved<5&&lastProj){var r=cv.getBoundingClientRect(),x=e.clientX-r.left,y=e.clientY-r.top,best=-1,bd=30;
         groups.forEach(function(g,i){if(d3.geoDistance(g.ll,lastLook)>Math.PI/2-.02)return;var p=lastProj(g.ll),d=Math.hypot(p[0]-x,p[1]-y);if(d<bd){bd=d;best=i}});
         if(best>=0)focus(best)}else if(userLook)userUntil=lastTm+6000;drag=null});
-    cv.addEventListener("pointercancel",function(){drag=null;cv.classList.remove("dragging")});
+    cv.addEventListener("pointercancel",function(e){delete pts[e.pointerId];if(Object.keys(pts).length<2)pinch=null;drag=null;cv.classList.remove("dragging")});
     document.addEventListener("visibilitychange",function(){if(document.hidden)stop();else start()});
     var rt=0;addEventListener("resize",function(){clearTimeout(rt);rt=setTimeout(function(){stop();start()},200)});
     return{start:start,setData:setData,caption:caption};
