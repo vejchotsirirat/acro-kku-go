@@ -69,10 +69,12 @@ a{color:inherit}
 @media (max-width:819px){.globe-chips button:nth-child(n+5){display:none}.hero .wrap{gap:14px}}
 .globe-wrap{position:relative;width:min(100%,250px)}
 #globe{width:100%;aspect-ratio:1;display:block;cursor:grab;touch-action:pan-y}
-#globe.zoomed{touch-action:none}
+#globe{border-radius:0;transition:border-radius .35s,box-shadow .35s}
+#globe.zoomed{touch-action:none;border-radius:50%;box-shadow:0 0 0 1.5px rgba(255,255,255,.55)}
 .globe-zoom{position:absolute;right:2px;bottom:6px;display:flex;flex-direction:column;gap:4px}
 .globe-zoom button{width:32px;height:32px;border:1.5px solid rgba(255,255,255,.6);background:rgba(22,63,36,.55);color:#fff;font:700 18px/1 "Manrope",sans-serif;padding:0;cursor:pointer;display:grid;place-items:center}
 .globe-zoom button:disabled{opacity:.35;cursor:default}
+.globe-zoom #gzreset{font-size:12px;letter-spacing:-.02em}
 .globe-zoom button:focus-visible{outline:2px solid var(--peach);outline-offset:2px}
 #globe.dragging{cursor:grabbing}
 .globe-cap{font:800 14px/1.3 "BSD","Manrope",sans-serif;letter-spacing:.08em;text-transform:uppercase;color:var(--peach);text-align:center;min-height:1.3em}
@@ -171,13 +173,14 @@ footer a.site{color:#fff;font-weight:700;text-decoration:none;border-bottom:2px 
         <div class="globe-zoom">
           <button type="button" id="gzin" aria-label="Zoom in / ขยาย">+</button>
           <button type="button" id="gzout" aria-label="Zoom out / ย่อ" disabled>&minus;</button>
+          <button type="button" id="gzreset" aria-label="Reset zoom / รีเซ็ตการซูม" disabled>1&times;</button>
         </div>
       </div>
       <span class="globe-cap" id="globe-cap"></span>
       <div class="globe-chips" id="globe-chips"></div>
       <span class="globe-hint" data-i18n="hint"></span>
     </div>
-    <a class="live" id="live" href="https://acro-kku-collaborate.pages.dev" hidden><span class="hd"><i></i><span data-i18n="liveH"></span></span><span class="st"><b id="live-n">0</b><span data-i18n="liveN"></span></span><span class="st"><b id="live-c">0</b><span data-i18n="liveC"></span></span></a>
+    <a class="live" id="live" href="https://acro-kku-collaborate.pages.dev" hidden><span class="hd"><i></i><span data-i18n="liveH"></span></span><span class="st"><b id="live-n">0</b><span id="live-nl"></span></span><span class="st"><b id="live-c">0</b><span id="live-cl"></span></span></a>
   </div>
 </section>
 
@@ -214,14 +217,14 @@ footer a.site{color:#fff;font-weight:700;text-decoration:none;border-bottom:2px 
     en:{kicker:"Academic Clinical Research Office, Khon Kaen University",
         lead:"Forms, events and updates from ACRO KKU, all in one place.",
         portals:"Start here",open:"Open",soon:"Coming soon",empty:"Nothing here right now. Please check back soon.",
-        liveH:"Live",hint:"Drag to rotate, scroll or pinch to zoom, tap a place to see its route",cap:"Every route leads to Khon Kaen",first:"Your route could be the first",liveN:"collaborators connected",liveC:"countries",
+        liveH:"Live",hint:"Drag to rotate, scroll to zoom, click a place for its route",hintT:"Drag to rotate, pinch to zoom, tap a place",liveN1:"collaborator connected",liveC1:"country",cap:"Every route leads to Khon Kaen",first:"Your route could be the first",liveN:"collaborators connected",liveC:"countries",
         a1:"Site services",a1d:"Site management, ethics coordination and protocol compliance.",
         a2:"Investigator matching",a2d:"Qualified investigators with the right expertise for your protocol.",
         a3:"Northeastern Thailand",a3d:"Clinical research from Khon Kaen, connected to partners worldwide."},
     th:{kicker:"สถานบริหารจัดการงานวิจัยคลินิก มหาวิทยาลัยขอนแก่น",
         lead:"แบบฟอร์ม กิจกรรม และข่าวสารจาก ACRO KKU รวมไว้ในที่เดียว",
         portals:"เริ่มต้นที่นี่",open:"เปิด",soon:"เร็ว ๆ นี้",empty:"ยังไม่มีรายการในขณะนี้ โปรดกลับมาใหม่ภายหลัง",
-        liveH:"สด",hint:"ลากเพื่อหมุน เลื่อนหรือถ่างนิ้วเพื่อซูม แตะสถานที่เพื่อดูเส้นทาง",cap:"ทุกเส้นทางมุ่งสู่ขอนแก่น",first:"เส้นทางของคุณอาจเป็นเส้นแรก",liveN:"ผู้ร่วมเชื่อมต่อ",liveC:"ประเทศ",
+        liveH:"สด",hint:"ลากเพื่อหมุน เลื่อนล้อเมาส์เพื่อซูม คลิกสถานที่เพื่อดูเส้นทาง",hintT:"ลากเพื่อหมุน ถ่างนิ้วเพื่อซูม แตะสถานที่เพื่อดูเส้นทาง",cap:"ทุกเส้นทางมุ่งสู่ขอนแก่น",first:"เส้นทางของคุณอาจเป็นเส้นแรก",liveN:"ผู้ร่วมเชื่อมต่อ",liveC:"ประเทศ",
         a1:"บริการสถานที่วิจัย",a1d:"บริหารสถานที่วิจัย ประสานงานจริยธรรม และกำกับให้เป็นไปตามโครงร่างการวิจัย",
         a2:"จับคู่ผู้วิจัย",a2d:"ผู้วิจัยที่มีความเชี่ยวชาญเหมาะกับโครงการของคุณ",
         a3:"ภาคตะวันออกเฉียงเหนือ",a3d:"งานวิจัยทางคลินิกจากขอนแก่น เชื่อมต่อกับพันธมิตรทั่วโลก"}
@@ -244,9 +247,13 @@ footer a.site{color:#fff;font-weight:700;text-decoration:none;border-bottom:2px 
     var ext=/^https?:/i.test(p.url||"");
     return'<a class="'+cls+'" href="'+esc(p.url)+'"'+(ext?' rel="noopener"':'')+'>'+inner+'</a>';
   }
+  var COARSE=!!(window.matchMedia&&matchMedia("(pointer:coarse)").matches);
+  function liveLabels(){[["live-n","liveN"],["live-c","liveC"]].forEach(function(a){var n=+document.getElementById(a[0]).dataset.v||0,U=UI[lang];
+    document.getElementById(a[0]+"l").textContent=(n===1&&U[a[1]+"1"])||U[a[1]]})}
   function render(){
     document.documentElement.lang=lang;
-    document.querySelectorAll("[data-i18n]").forEach(function(el){el.textContent=UI[lang][el.dataset.i18n]});
+    document.querySelectorAll("[data-i18n]").forEach(function(el){var k=el.dataset.i18n;el.textContent=(COARSE&&UI[lang][k+"T"])||UI[lang][k]});
+    liveLabels();
     document.querySelectorAll(".lang button").forEach(function(b){b.setAttribute("aria-pressed",String(b.dataset.lang===lang))});
     var list=(window.ACRO_PORTALS||[]).filter(function(p){return p&&p.status!=="hidden"});
     list.sort(function(a,b){return(b.featured&&b.status==="open")-(a.featured&&a.status==="open")});
@@ -262,7 +269,7 @@ footer a.site{color:#fff;font-weight:700;text-decoration:none;border-bottom:2px 
   var KK=[102.835,16.44],G={land:null,thai:null,grat:null,places:null};
   function count(el,to){var t0=performance.now();(function step(now){var p=Math.min(1,(now-t0)/900);el.textContent=Math.round(to*(1-Math.pow(1-p,3)));if(p<1)requestAnimationFrame(step)})(t0)}
   var Globe=(function(){
-    var cv=document.getElementById("globe"),ctx,R,R0,size,run=false,raf=0,t0=0,Z=1,Zt=1,ZMAX=6,pts={},pinch=null;
+    var cv=document.getElementById("globe"),ctx,R,R0,size,run=false,raf=0,t0=0,Z=1,Zt=1,ZMAX=6,pts={},pinch=null,lastTap=null;
     var groups=[],idx=-1,phase=null,center=[KK[0],KK[1]-8],from=center,to=center,label="",userLook=null,userUntil=0,lastLook=center,lastProj=null,lastTm=0,drag=null;
     function ease(x){x=Math.max(0,Math.min(1,x));return x<.5?4*x*x*x:1-Math.pow(-2*x+2,3)/2}
     function easeOut(x){return 1-Math.pow(1-Math.max(0,Math.min(1,x)),3)}
@@ -270,7 +277,7 @@ footer a.site{color:#fff;font-weight:700;text-decoration:none;border-bottom:2px 
       cv.width=size*dpr;cv.height=size*dpr;ctx=cv.getContext("2d");ctx.setTransform(dpr,0,0,dpr,0,0);R0=size/2-8;R=R0*Z}
     function caption(){var el=document.getElementById("globe-cap");
       if(groups.length&&label)el.innerHTML=esc(label)+' <span class="arr">→</span> ACRO KKU';else el.textContent=groups.length?UI[lang].cap:UI[lang].first}
-    function chips(){var box=document.getElementById("globe-chips");box.innerHTML="";
+    function chips(){var box=document.getElementById("globe-chips");box.innerHTML="";if(groups.length<2)return;
       groups.slice(0,10).forEach(function(g,i){var b=document.createElement("button");b.type="button";b.textContent=g.name;b.setAttribute("aria-pressed",String(i===idx));b.onclick=function(){focus(i)};box.appendChild(b)})}
     function setData(pins){var m={},list=[];
       (pins||[]).forEach(function(p){var ll=(G.places.P[p[0]+"|"+p[1]])||G.places.C[p[0]];if(!ll)return;var k=ll.join();
@@ -321,17 +328,19 @@ footer a.site{color:#fff;font-weight:700;text-decoration:none;border-bottom:2px 
     function loop(now){if(!run)return;var tm=now-t0;
       if(userLook&&!drag&&tm>userUntil&&Zt<=1.05){center=userLook;userLook=null;if(groups.length)next(tm)}
       if(!phase&&groups.length&&!userLook)next(tm);frame(tm);raf=requestAnimationFrame(loop)}
-    var detailState=0,wheelHold=0;
+    var detailState=0,wheelHold=0,prefetched=false;
     function loadDetail(){if(detailState)return;detailState=1;
       fetch("https://cdn.jsdelivr.net/npm/world-atlas@2.0.2/countries-50m.json").then(function(r){return r.json()}).then(function(w){
         G.land50=topojson.merge(w,w.objects.countries.geometries);
         G.thai50=topojson.merge(w,w.objects.countries.geometries.filter(function(g){return g.id==="764"}));detailState=2}).catch(function(){detailState=3})}
-    function setZoom(z,hold){Zt=Math.max(1,Math.min(ZMAX,z));if(Zt<1.05)Zt=1;
+    function setZoom(z,hold){hold=hold===true?6000:hold;Zt=Math.max(1,Math.min(ZMAX,z));if(Zt<1.05)Zt=1;
       cv.classList.toggle("zoomed",Zt>1.05);
       document.getElementById("gzin").disabled=Zt>=ZMAX-.01;document.getElementById("gzout").disabled=Zt<=1.001;
-      if(hold){if(!userLook)userLook=lastLook.slice();userUntil=lastTm+6000}}
+      document.getElementById("gzreset").disabled=Zt<=1.001;
+      if(hold){if(!userLook)userLook=lastLook.slice();userUntil=lastTm+hold}}
     document.getElementById("gzin").addEventListener("click",function(){setZoom(Zt*1.6,true)});
     document.getElementById("gzout").addEventListener("click",function(){setZoom(Zt/1.6,true)});
+    document.getElementById("gzreset").addEventListener("click",function(){setZoom(1,1500)});
     cv.addEventListener("wheel",function(e){
       var now=performance.now();
       if(e.deltaY>0&&Zt<=1.001&&now>wheelHold)return;   /* fully zoomed out: let the page scroll */
@@ -340,7 +349,9 @@ footer a.site{color:#fff;font-weight:700;text-decoration:none;border-bottom:2px 
       setZoom(Zt*Math.exp(-e.deltaY*k),true);
       if(Zt<=1.001)wheelHold=now+450},{passive:false});   /* brief pause so one gesture doesn't zoom out and then scroll the page */
     function dist(){var a=Object.keys(pts).map(function(i){return pts[i]});return Math.hypot(a[0].x-a[1].x,a[0].y-a[1].y)||1}
-    function start(){if(run||!G.land)return;setup();run=true;t0=performance.now();raf=requestAnimationFrame(loop)}
+    function start(){if(run||!G.land)return;setup();run=true;t0=performance.now();raf=requestAnimationFrame(loop);
+      if(!prefetched){prefetched=true;var c=navigator.connection;
+        if(!(c&&(c.saveData||/2g/.test(c.effectiveType||""))))setTimeout(loadDetail,5000)}}
     function stop(){run=false;cancelAnimationFrame(raf)}
     cv.addEventListener("pointerdown",function(e){pts[e.pointerId]={x:e.clientX,y:e.clientY};
       if(Object.keys(pts).length===2){pinch={d:dist(),z:Zt};drag=null;cv.classList.remove("dragging");try{cv.setPointerCapture(e.pointerId)}catch(_){}
@@ -353,7 +364,11 @@ footer a.site{color:#fff;font-weight:700;text-decoration:none;border-bottom:2px 
       if(drag.moved<5)return;try{cv.setPointerCapture(drag.id)}catch(_){}var k=110/Math.max(120,R);
       userLook=[drag.look[0]-dx*k,Math.max(-70,Math.min(70,drag.look[1]+dy*k))];userUntil=lastTm+6000});
     cv.addEventListener("pointerup",function(e){delete pts[e.pointerId];if(Object.keys(pts).length<2)pinch=null;if(!drag)return;cv.classList.remove("dragging");
-      if(drag.moved<5&&lastProj){var r=cv.getBoundingClientRect(),x=e.clientX-r.left,y=e.clientY-r.top,best=-1,bd=30;
+      if(drag.moved<5&&lastProj){var r=cv.getBoundingClientRect(),x=e.clientX-r.left,y=e.clientY-r.top,best=-1,bd=30,nt=performance.now();
+        if(lastTap&&nt-lastTap.t<320&&Math.hypot(x-lastTap.x,y-lastTap.y)<28){lastTap=null;drag=null;
+          if(Zt>1.05)setZoom(1,1500);else{var ll=lastProj.invert([x,y]);if(ll&&isFinite(ll[0])&&isFinite(ll[1])){userLook=[ll[0],Math.max(-70,Math.min(70,ll[1]))]}setZoom(2.6,6000)}
+          return}
+        lastTap={x:x,y:y,t:nt};
         groups.forEach(function(g,i){if(d3.geoDistance(g.ll,lastLook)>Math.PI/2-.02)return;var p=lastProj(g.ll),d=Math.hypot(p[0]-x,p[1]-y);if(d<bd){bd=d;best=i}});
         if(best>=0)focus(best)}else if(userLook)userUntil=lastTm+6000;drag=null});
     cv.addEventListener("pointercancel",function(e){delete pts[e.pointerId];if(Object.keys(pts).length<2)pinch=null;drag=null;cv.classList.remove("dragging")});
@@ -365,7 +380,7 @@ footer a.site{color:#fff;font-weight:700;text-decoration:none;border-bottom:2px 
   function refresh(){
     return fetch(TOTALS_URL).then(function(r){return r.json()}).then(function(j){
       var n=j.n||0,c={};(j.pins||[]).forEach(function(p){if(p&&p[0])c[p[0]]=1});var nc=Object.keys(c).length;
-      if(n||nc){document.getElementById("live").hidden=false;count(document.getElementById("live-n"),n);count(document.getElementById("live-c"),nc)}
+      if(n||nc){document.getElementById("live").hidden=false;document.getElementById("live-n").dataset.v=n;document.getElementById("live-c").dataset.v=nc;liveLabels();count(document.getElementById("live-n"),n);count(document.getElementById("live-c"),nc)}
       if(G.places)Globe.setData(j.pins||[]);
     }).catch(function(){});
   }
