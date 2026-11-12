@@ -338,6 +338,24 @@ html[lang="th"] .ab-btns a{font:600 16px/1.2 "KanitTH","PlexThai",sans-serif}
 .acro-back:hover{background:#F3F6F4;border-color:rgba(15,42,26,.28)}
 .acro-back svg{width:16px;height:16px;flex:none}
 .acro-ctl{display:flex;align-items:center;gap:10px}
+
+/* YouTube video slot in About */
+.ab-video{margin:40px 0 0;position:relative;aspect-ratio:16/9;border-radius:28px;overflow:hidden;background:#17482A;box-shadow:0 18px 50px rgba(20,37,27,.18)}
+.ab-video .yt,.ab-video iframe{position:absolute;inset:0;width:100%;height:100%;border:0;padding:0;display:block}
+.ab-video .yt{cursor:pointer;background:#17482A;color:#fff;text-align:left;font:inherit}
+.ab-video .yt img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .6s ease}
+.ab-video .yt:hover img{transform:scale(1.03)}
+.yt-shade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(23,72,42,.05) 30%,rgba(23,72,42,.85))}
+.yt-play{position:absolute;left:50%;top:50%;width:84px;height:84px;margin:-42px 0 0 -42px;border-radius:50%;background:#F0702F;display:grid;place-items:center;
+  box-shadow:0 0 0 10px rgba(240,112,47,.28),0 12px 30px rgba(0,0,0,.3);transition:transform .2s ease}
+.yt-play svg{width:34px;height:34px;fill:#fff;margin-left:5px}
+.ab-video .yt:hover .yt-play,.ab-video .yt:focus-visible .yt-play{transform:scale(1.08)}
+.ab-video .yt:focus-visible{outline:4px solid #FFD3B8;outline-offset:-4px}
+.yt-cap{position:absolute;left:24px;right:24px;bottom:20px;display:grid;gap:4px}
+.yt-cap b{font-family:"BSD","Big Shoulders Display",sans-serif;font-weight:800;text-transform:uppercase;font-size:clamp(22px,3.4vw,38px);line-height:1}
+.yt-cap span{font-size:15px;opacity:.92}
+html[lang=th] .yt-cap b{font-family:"KanitTH","Kanit",sans-serif;text-transform:none;font-weight:600;letter-spacing:.02em}
+@media (max-width:600px){.ab-video{border-radius:20px;margin-top:28px}.yt-play{width:58px;height:58px;margin:-29px 0 0 -29px;top:40%;box-shadow:0 0 0 7px rgba(240,112,47,.28),0 8px 20px rgba(0,0,0,.3)}.yt-play svg{width:24px;height:24px;margin-left:4px}.yt-cap{left:16px;right:16px;bottom:12px}.yt-cap b{font-size:20px}.yt-cap span{display:none}}
 </style>
 </head>
 <body>
@@ -460,6 +478,19 @@ html[lang="th"] .ab-btns a{font:600 16px/1.2 "KanitTH","PlexThai",sans-serif}
   /* ---- About ACRO KKU (content in about.js) ---- */
   function pic(o,cls){if(!o)return"";var cap=esc(t(o,lang));
     return'<figure class="ph'+(cls?" "+cls:"")+'"><img src="'+esc(o.src)+'" alt="'+cap+'" loading="lazy" decoding="async" onerror="this.parentNode.classList.add(\'noimg\');this.remove()"></figure>'}
+  /* YouTube video slot. The link is set in about.js ("video" at the top). Nothing loads from YouTube until the visitor presses play. */
+  function ytId(u){u=String(u||"").trim();if(/^[\w-]{11}$/.test(u))return u;
+    var m=u.match(/(?:youtu\.be\/|[?&]v=|\/embed\/|\/shorts\/|\/live\/)([\w-]{11})/);return m?m[1]:""}
+  function video(v){var id=v&&ytId(v.youtube);if(!id)return"";
+    var tt=nb(esc(t(v.title,lang))),cp=v.caption?nb(esc(t(v.caption,lang))):"";
+    return'<figure class="ab-video"><button type="button" class="yt" data-yt="'+id+'" aria-label="'+(lang==="th"?"เล่นวิดีโอ: ":"Play video: ")+tt+'">'+
+      '<img src="https://i.ytimg.com/vi/'+id+'/maxresdefault.jpg" alt="" loading="lazy" onload="if(this.naturalWidth<200)this.src=\'https://i.ytimg.com/vi/'+id+'/hqdefault.jpg\'" onerror="if(this.dataset.f){this.style.display=\'none\'}else{this.dataset.f=1;this.src=\'https://i.ytimg.com/vi/'+id+'/hqdefault.jpg\'}">'+
+      '<span class="yt-shade"></span><span class="yt-play"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z"/></svg></span>'+
+      '<span class="yt-cap"><b>'+tt+'</b>'+(cp?'<span>'+cp+'</span>':"")+'</span></button></figure>'}
+  document.addEventListener("click",function(e){var b=e.target.closest&&e.target.closest(".yt[data-yt]");if(!b)return;
+    var f=document.createElement("iframe");f.src="https://www.youtube-nocookie.com/embed/"+b.dataset.yt+"?autoplay=1&rel=0&playsinline=1&hl="+lang;
+    f.title=b.getAttribute("aria-label");f.allow="autoplay; encrypted-media; picture-in-picture; fullscreen";f.allowFullscreen=true;f.referrerPolicy="strict-origin-when-cross-origin";
+    b.replaceWith(f)});
   function renderAbout(){
     var A=window.ACRO_ABOUT,root=document.getElementById("acro-about");if(!A||!root)return;
     var T=function(o){return nb(esc(t(o,lang)))},C=A.contact||{},L=A.labels||{},R=A.run,S=A.services,F=A.facilities,V=A.values,W=A.work,h="";
@@ -467,6 +498,7 @@ html[lang="th"] .ab-btns a{font:600 16px/1.2 "KanitTH","PlexThai",sans-serif}
     h+='<section class="ab" id="about"><div class="wrap">'+
       '<div class="ab-top"><div><span class="ab-kick">'+T(A.intro.kicker)+'</span><h2 class="ab-h">'+T(A.intro.title)+'</h2>'+
         '<p class="ab-sub">'+T(A.intro.sub)+'</p><p class="ab-p">'+T(A.intro.text)+'</p></div>'+pic(A.intro.photo)+'</div>'+
+      video(A.video)+
       '<h3 class="ab-h3" style="margin-top:40px">'+T(R.title)+'</h3>'+
       '<div class="ab-run" style="margin-top:0"><div class="ab-box"><h3 class="ab-h3" style="font-size:16px;color:var(--orange)">'+T(R.areasTitle)+'</h3>'+chips(R.areas)+'</div>'+
         '<div class="ab-box"><h3 class="ab-h3" style="font-size:16px;color:var(--orange)">'+T(R.typesTitle)+'</h3>'+chips(R.types,"o")+'</div></div>'+

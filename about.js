@@ -8,6 +8,22 @@
 
 window.ACRO_ABOUT = {
 
+  /* ============================== YOUTUBE VIDEO ==============================
+     PASTE YOUR YOUTUBE LINK between the two quote marks on the "youtube:" line below.
+     Any normal YouTube link works, for example:
+        "https://youtu.be/AbCdEfGhIjK"
+        "https://www.youtube.com/watch?v=AbCdEfGhIjK"
+     Keep the quote marks and the comma at the end of the line.
+     While the line is empty ("") the video box stays hidden on the website.
+     Tip: set the video to "Unlisted" or "Public" on YouTube. A "Private" video cannot be played here. */
+  video: {
+    youtube: "",
+    title:   { en: "Inside ACRO KKU", th: "รู้จัก ACRO KKU" },
+    caption: { en: "Take a short tour of our clinical research centre in Khon Kaen.", th: "ชมศูนย์วิจัยทางคลินิกของเราที่ขอนแก่นแบบสั้น ๆ" }
+  },
+  /* ========================================================================== */
+
+
   intro: {
     kicker: { en: "About ACRO KKU", th: "เกี่ยวกับ ACRO KKU" },
     title: { en: "Clinical trials in Northeastern Thailand", th: "การวิจัยทางคลินิกในภาคตะวันออกเฉียงเหนือ" },
