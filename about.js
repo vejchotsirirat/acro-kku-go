@@ -68,9 +68,9 @@ window.ACRO_ABOUT = {
                 th: "เตียงและห้องตรวจสำหรับการศึกษาตั้งแต่ระยะที่ 1 เป็นต้นไป ทั้งการให้ผลิตภัณฑ์วิจัย การตรวจคลื่นไฟฟ้าหัวใจ และการเก็บตัวอย่างเลือด พร้อมอุปกรณ์กู้ชีพฉุกเฉิน" },
         photo: { src: "img/ctu.jpg", en: "Clinical trial unit at ACRO KKU", th: "หน่วยทดลองทางคลินิกของ ACRO KKU" } },
       { title: { en: "Research Pharmacy", th: "เภสัชกรรมการวิจัย" },
-        short: { en: "Monitored storage from room temperature to −80 °C, plus clean-room preparation.", th: "คลังผลิตภัณฑ์วิจัยควบคุมอุณหภูมิ ตั้งแต่อุณหภูมิห้องถึง −80 °C และการเตรียมยาในห้องเตรียมยาปราศจากเชื้อ" },
-        text: { en: "Restricted-access investigational product storage at room temperature, 2–8 °C, −20 °C and −80 °C, with continuous monitoring, alarms and emergency power. Aseptic and cytotoxic investigational product preparation in a dedicated clean room.",
-                th: "คลังผลิตภัณฑ์วิจัยที่จำกัดการเข้าถึง ทั้งที่อุณหภูมิห้อง 2–8 °C −20 °C และ −80 °C พร้อมระบบติดตามอุณหภูมิต่อเนื่อง สัญญาณเตือน และไฟฟ้าสำรอง รวมถึงการเตรียมยาปราศจากเชื้อเชื้อและยาเคมีบำบัดในห้องเตรียมยาของ ACRO KKU โดยเฉพาะ" },
+        short: { en: "Monitored storage from room temperature to −80 °C, plus clean-room preparation.", th: "คลังผลิตภัณฑ์วิจัยควบคุมอุณหภูมิ ตั้งแต่อุณหภูมิห้องถึง −80 °C และการเตรียมยาในห้องสะอาด" },
+        text: { en: "Restricted-access investigational product storage at room temperature, 2–8 °C, −20 °C and −80 °C, with continuous monitoring, alarms and emergency power. Open-label and blinded supply, with aseptic and cytotoxic preparation in a dedicated clean room.",
+                th: "คลังผลิตภัณฑ์วิจัยที่จำกัดการเข้าถึง ทั้งที่อุณหภูมิห้อง 2–8 °C −20 °C และ −80 °C พร้อมระบบติดตามอุณหภูมิต่อเนื่อง สัญญาณเตือน และไฟฟ้าสำรอง รองรับการจ่ายยาทั้งแบบเปิดเผยและแบบปกปิด รวมถึงการเตรียมยาปลอดเชื้อและยาเคมีบำบัดในห้องสะอาดโดยเฉพาะ" },
         photo: { src: "img/isolator.jpg", en: "Pharmacist preparing doses in the isolator", th: "เภสัชกรเตรียมยาในตู้ไอโซเลเตอร์" } },
       { title: { en: "Laboratory", th: "ห้องปฏิบัติการ" },
         short: { en: "Sample processing, storage and IATA shipping to central labs.", th: "เตรียม จัดเก็บ และขนส่งตัวอย่างไปยังห้องปฏิบัติการกลางตามมาตรฐาน IATA" },
@@ -98,16 +98,16 @@ window.ACRO_ABOUT = {
   facilities: {
     title: { en: "Our facilities", th: "สถานที่ของเรา" },
     items: [
-      { en: "Clinical trial unit", th: "Clinical trial unit" },
-      { en: "Investigational product inventory", th: "Investigational product inventory" },
-      { en: "Clean room", th: "Clean room" },
-      { en: "Laboratory", th: "Laboratory" },
-      { en: "Document storage", th: "Document storage" },
-      { en: "Monitor and meeting rooms", th: "Monitor and meeting rooms" }
+      { en: "Clinical trial unit", th: "หน่วยทดลองทางคลินิก" },
+      { en: "Investigational product storage", th: "คลังผลิตภัณฑ์วิจัย" },
+      { en: "Clean room", th: "ห้องสะอาด" },
+      { en: "Laboratory", th: "ห้องปฏิบัติการ" },
+      { en: "Document storage", th: "ห้องจัดเก็บเอกสาร" },
+      { en: "Monitor and meeting rooms", th: "ห้องผู้ตรวจติดตามและห้องประชุม" }
     ],
     photos: [
       { src: "img/ctu-beds.jpg", en: "Clinical trial unit beds", th: "เตียงในหน่วยทดลองทางคลินิก" },
-      { src: "img/clean-room.jpg", en: "Clean room", th: "ห้องเตรียมยาปราศจากเชื้อ" },
+      { src: "img/clean-room.jpg", en: "Clean room", th: "ห้องสะอาด" },
       { src: "img/records.jpg", en: "Records storage", th: "ห้องจัดเก็บเอกสารสำคัญ" }
     ]
   },
