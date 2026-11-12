@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Clinical Research Nursing (CRN) · ACRO KKU</title>
 <meta name="description" content="Short Course Training Program in Clinical Research Nursing by ACRO KKU and the Nursing Division, Srinagarind Hospital: 6 weeks online plus 10 weeks of onsite practice. Certificate of CRN: Clinical Research Nursing.">
-<meta name="theme-color" content="#0F2A6B">
+<meta name="theme-color" content="#071A45">
 <meta name="color-scheme" content="light">
 <link rel="icon" href="../icon-192.png">
 <link rel="apple-touch-icon" href="../icon-192.png">
@@ -13,13 +13,14 @@
 <meta property="og:description" content="Study nurse short course: 6 weeks online plus 10 weeks onsite at leading clinical research centers.">
 <meta property="og:image" content="../acro-logo.png">
 <link rel="preload" href="../bsd-800.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../manrope-700.woff2" as="font" type="font/woff2" crossorigin>
 <style>
 /* English fonts and the ACRO KKU logo are shared with the ACRO KKU Go homepage (one folder up).
    Thai fonts (Kanit for headings, Noto Sans Thai for text) sit in this folder and load only when Thai is shown. */
 @font-face{font-family:"BSD";src:url(../bsd-800.woff2) format("woff2");font-weight:800;font-display:swap}
 @font-face{font-family:"Manrope";src:url(../manrope-400.woff2) format("woff2");font-weight:400;font-display:swap}
 @font-face{font-family:"Manrope";src:url(../manrope-600.woff2) format("woff2");font-weight:600;font-display:swap}
-@font-face{font-family:"Manrope";src:url(../manrope-700.woff2) format("woff2");font-weight:700;font-display:swap}
+@font-face{font-family:"Manrope";src:url(../manrope-700.woff2) format("woff2");font-weight:700 800;font-display:swap}
 @font-face{font-family:"NotoThai";src:url(nst-thai-400.woff2) format("woff2");font-weight:400;font-display:swap;unicode-range:U+02D7,U+0303,U+0331,U+0E01-0E5B,U+200C-200D,U+25CC}
 @font-face{font-family:"NotoThai";src:url(nst-latin-400.woff2) format("woff2");font-weight:400;font-display:swap;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
 @font-face{font-family:"NotoThai";src:url(nst-thai-600.woff2) format("woff2");font-weight:600;font-display:swap;unicode-range:U+02D7,U+0303,U+0331,U+0E01-0E5B,U+200C-200D,U+25CC}
@@ -54,7 +55,10 @@ h1,h2,.label,.ttl,.dt,.concl{text-wrap:balance}
 .top .wrap{display:flex;align-items:center;justify-content:space-between;gap:12px;height:68px}
 .logo{height:36px;width:auto;display:block}
 .top .right{display:flex;align-items:center;gap:14px}
-.back{display:inline-flex;align-items:center;gap:6px;font:700 13px/1 var(--body);text-decoration:none;color:var(--navy);border-bottom:2px solid var(--orange);padding-bottom:3px;white-space:nowrap}
+.back{display:inline-flex;align-items:center;gap:6px;font:700 13px/1 var(--body);text-decoration:none;color:var(--navy);background:#fff;border:2px solid var(--navy);padding:8px 11px;white-space:nowrap}
+.back:hover,.back:focus-visible{background:var(--navy);color:#fff}
+.back .go-full{font-weight:inherit}
+@media (max-width:420px){.top .right{gap:8px}.back .go-full{display:none}}
 .lang{display:inline-flex;border:2px solid var(--navy)}
 .lang button{border:0;background:#fff;color:var(--navy);font:700 13px/1 var(--body);padding:8px 11px;cursor:pointer}
 .lang button[aria-pressed="true"]{background:var(--navy);color:#fff}
@@ -337,15 +341,170 @@ html[lang="th"] .who .r{font:600 14px/1.4 var(--disp)}
 html[lang="th"] .who .nm{font-weight:600}
 html[lang="th"] .sticky .t{font-weight:600;line-height:1.45}
 html[lang="th"] .lb-b{font-weight:600}
+
+/* =====================================================================
+   2026 SKIN: premium look (rounded surfaces, soft depth, pill buttons).
+   Sits after the rules above and only restyles; content and logic unchanged.
+   ===================================================================== */
+:root{--night:#071A45;--r-lg:24px;--r-md:16px;--shadow:0 1px 2px rgba(10,30,80,.06),0 8px 24px rgba(10,30,80,.06);--shadow-hi:0 2px 4px rgba(10,30,80,.06),0 24px 48px rgba(10,30,80,.14);
+  --line:rgba(15,42,107,.10);--paper:#F6F8FC;--h:"Manrope","NotoThai",system-ui,sans-serif}
+html{scroll-behavior:smooth;scroll-padding-top:130px}
+body{-webkit-font-smoothing:antialiased}
+.top .wrap{height:66px}
+.logo{height:34px}
+/* hero */
+.hero{background:var(--night);isolation:isolate}
+.hero::after{display:none}
+.hero::before{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;
+  background:radial-gradient(600px 480px at 0% 0%,rgba(29,75,181,.9),transparent 70%),radial-gradient(520px 420px at 100% 100%,rgba(26,138,120,.75),transparent 70%),radial-gradient(380px 300px at 85% 10%,rgba(240,112,47,.35),transparent 70%)}
+.hero .wrap{padding-top:40px;padding-bottom:48px}
+.hero .wrap::before{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;opacity:.3;background-image:radial-gradient(rgba(255,255,255,.22) 1px,transparent 1.2px);background-size:22px 22px;
+  -webkit-mask-image:linear-gradient(180deg,#000,transparent 80%);mask-image:linear-gradient(180deg,#000,transparent 80%)}
+.kicker{display:inline-flex;align-items:center;gap:10px;font:600 13px/1.35 var(--h);letter-spacing:0;text-transform:none;color:rgba(255,255,255,.8);padding:7px 14px 7px 10px;border:1px solid rgba(255,255,255,.16);border-radius:999px;background:rgba(255,255,255,.06)}
+.kicker::before{content:"";flex:none;width:8px;height:8px;border-radius:50%;background:#7FD8A4;box-shadow:0 0 0 4px rgba(127,216,164,.18)}
+.title{font:800 clamp(42px,11vw,84px)/.98 var(--h);text-transform:none;letter-spacing:-.035em;margin-top:18px}
+.title .bang{border-radius:.08em;background:linear-gradient(135deg,var(--orange),var(--ember));box-shadow:0 14px 34px rgba(232,71,43,.35);font-size:.9em;vertical-align:.04em}
+.lead{font-weight:500;color:rgba(255,255,255,.86);font-size:clamp(17px,2.2vw,19px)}
+.tagline{color:var(--peach);font-weight:600}
+.facts{border:1px solid rgba(255,255,255,.14);border-left:1px solid rgba(255,255,255,.14);border-radius:var(--r-md);background:rgba(255,255,255,.07);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);padding:14px 20px 16px}
+.facts span{color:rgba(255,255,255,.75);font-weight:600}
+.cta{gap:12px;margin-top:26px}
+.btn{border-radius:999px;font:700 16px/1.2 var(--h);letter-spacing:0;text-transform:none;min-height:52px;padding:0 24px;border-width:1px;transition:transform .2s,box-shadow .2s,background .2s}
+.btn.white{box-shadow:0 10px 30px rgba(0,0,0,.25)}
+a.btn.white:hover{transform:translateY(-2px);box-shadow:0 16px 40px rgba(0,0,0,.3)}
+.btn.ghost{border-color:rgba(255,255,255,.35);background:rgba(255,255,255,.04)}
+a.btn.ghost:hover{background:rgba(255,255,255,.12)}
+.btn.off{border-radius:999px}
+/* intake card */
+.intake{border-radius:var(--r-lg);padding:24px 22px 20px;box-shadow:0 30px 80px rgba(3,12,40,.45);overflow:hidden}
+.intake::before{height:4px;background:linear-gradient(90deg,var(--emerald),var(--orange))}
+.chip{font:700 12.5px/1 var(--h);letter-spacing:0;text-transform:none;padding:7px 11px;border-radius:999px;background:#E6F5EC}
+.chip.soon{background:var(--mist)}.chip.closed{background:#EEF1F5}
+.intake h2{font:800 24px/1.2 var(--h);letter-spacing:-.02em;text-transform:none;margin-top:12px}
+.irow{border-top:1px solid var(--line)}
+.free{border-radius:999px;font:700 13px/1 var(--h);letter-spacing:0;text-transform:none;padding:8px 12px}
+.cd{border-top:1px solid var(--line)}
+.cd-h{font:700 13px/1.35 var(--h);letter-spacing:0;text-transform:none}
+.cd-g div{border:0;border-radius:12px;background:var(--mist);position:relative;overflow:hidden;padding:10px 2px 9px}
+.cd-g div::after{content:"";position:absolute;left:0;right:0;bottom:0;height:3px;background:var(--beep)}
+.cd.closed .cd-g div::after{background:#9AA7B6}
+.cd-g small{letter-spacing:0}
+/* partners */
+.orgs{border-bottom:1px solid var(--line)}
+.orgs .wrap{padding-top:28px;padding-bottom:30px}
+.orgs-t{font:700 12.5px/1 var(--h);letter-spacing:.08em;color:var(--muted)}
+.pt img{filter:grayscale(.15);transition:filter .2s,transform .2s}
+.pt:hover img{filter:none;transform:scale(1.03)}
+/* in-page navigation */
+.secnav{position:sticky;top:66px;z-index:20;background:rgba(246,248,252,.88);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.secnav .wrap{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;padding-top:10px;padding-bottom:10px;-webkit-mask-image:linear-gradient(90deg,#000 90%,transparent);mask-image:linear-gradient(90deg,#000 90%,transparent)}
+.secnav .wrap::-webkit-scrollbar{display:none}
+.secnav a{flex:none;display:inline-flex;align-items:center;height:36px;padding:0 14px;border-radius:999px;border:1px solid var(--line);background:#fff;color:var(--navy);font:600 13.5px/1 var(--h);text-decoration:none;white-space:nowrap;transition:background .2s,color .2s,border-color .2s}
+.secnav a:hover{border-color:rgba(29,75,181,.35)}
+.secnav a.on{background:var(--navy);border-color:var(--navy);color:#fff}
+html[lang="th"] .secnav a{font-family:"NotoThai",sans-serif}
+/* sections */
+main{padding:44px 0 24px}
+.sec{margin-top:64px}
+.label{border-bottom:0;padding-bottom:0;margin-bottom:22px;font:800 clamp(24px,3.6vw,32px)/1.2 var(--h);letter-spacing:-.025em;text-transform:none;color:var(--ink);align-items:center}
+.label .count{font:700 12px/1 var(--h);letter-spacing:.08em;color:var(--royal);background:var(--mist);padding:7px 10px;border-radius:999px}
+.note{margin:-12px 0 18px}
+.box{border-radius:var(--r-lg);border-top:0;padding:26px 24px 24px;box-shadow:var(--shadow);overflow:hidden}
+.box.on{background:linear-gradient(160deg,#E9F7EF,#D8F0E2)}.box.off{background:linear-gradient(160deg,#FFF2E9,#FCE3D2)}
+.box .k{font:700 12.5px/1 var(--h);letter-spacing:.08em;display:inline-flex;padding:7px 11px;border-radius:999px;background:rgba(255,255,255,.7)}
+.box .big span{font:700 22px/1 var(--h);text-transform:none;letter-spacing:-.01em}
+.plus{font:300 48px/1 var(--h);color:var(--muted)}
+.cert{border-radius:var(--r-md);border:1px solid var(--line);border-left:1px solid var(--line);box-shadow:var(--shadow);padding:16px 20px}
+.cert .k{font:700 12px/1 var(--h);letter-spacing:.08em;padding:7px 10px;border-radius:999px;background:#FFF0E7;color:#B4441B}
+.tl{border-radius:var(--r-lg);border:1px solid var(--line);box-shadow:var(--shadow);padding:18px 18px 16px}
+.axis{border-bottom:1px solid rgba(19,32,46,.25)}
+.axis .m,.lanes .g{border-left:1px solid var(--line)}
+.bar{border-radius:10px}
+.bar b{font:700 14px/1 var(--h);letter-spacing:0;text-transform:none}
+.cc{border-radius:var(--r-md);border:1px solid var(--line);border-left:1px solid var(--line);box-shadow:var(--shadow);position:relative;overflow:hidden;padding:18px 20px 18px 24px}
+.cc::before{content:"";position:absolute;left:0;top:0;bottom:0;width:5px;background:var(--emerald)}
+.cc.cl-1::before{background:var(--orange)}.cc.cl-2::before{background:var(--royal)}.cc.cl-3::before{background:var(--ember)}
+.cc .no{font:700 12.5px/1 var(--h);letter-spacing:.08em;color:var(--royal)}
+.badge{border-radius:999px;font-weight:700;padding:6px 10px}
+.bro{border-radius:var(--r-lg);border:1px solid var(--line);box-shadow:var(--shadow);padding:16px;transition:box-shadow .25s,transform .25s}
+.bro:hover{box-shadow:var(--shadow-hi);transform:translateY(-2px)}
+.bro .thumb img{border-radius:10px;border:1px solid var(--line)}
+.bro .ed{font:700 12px/1.3 var(--h);letter-spacing:.08em}
+.lnk{border-radius:999px;border:1px solid rgba(15,42,107,.22);font:700 14px/1 var(--h);height:40px;padding:0 16px;display:inline-flex;align-items:center;transition:background .2s,color .2s}
+dialog{border-radius:20px}
+.lb-x{border-radius:50%}
+.card{border-radius:var(--r-md);border:1px solid var(--line);box-shadow:var(--shadow);animation-fill-mode:backwards;align-items:center}
+.card .num{font:800 34px/1 var(--disp);min-width:1.5em}
+.past{border-radius:var(--r-lg);border:1px solid var(--line);box-shadow:var(--shadow);overflow:hidden;margin-bottom:16px}
+.past>summary{background:var(--night);position:relative;isolation:isolate;padding:20px 22px;transition:background .2s}
+.past>summary::before{content:"";position:absolute;inset:0;z-index:-1;background:radial-gradient(400px 200px at 100% 0%,rgba(29,75,181,.8),transparent 70%)}
+.past>summary::after{content:"";width:10px;height:10px;border-right:2px solid #fff;border-bottom:2px solid #fff;transform:rotate(45deg);margin-left:auto;align-self:center;transition:transform .25s}
+.past[open]>summary::after{transform:rotate(-135deg)}
+.past>summary b{font:800 21px/1.2 var(--h);letter-spacing:-.015em;text-transform:none}
+.sh{font:700 12.5px/1 var(--h);letter-spacing:.08em}
+.sh::before{width:18px;height:3px;border-radius:2px}
+.stat{border-radius:var(--r-md);border-top:0;position:relative;overflow:hidden;padding:16px}
+.stat::before{content:"";position:absolute;left:0;right:0;top:0;height:3px;background:var(--royal)}
+.stat.orange::before{background:var(--orange)}.stat.green::before{background:var(--emerald)}
+.info div{border-top:1px solid var(--line)}
+.info dt{letter-spacing:.06em}
+.concl{border-radius:var(--r-md);border-left:0;background:var(--night);position:relative;overflow:hidden;isolation:isolate;padding:20px 22px}
+.concl::before{content:"";position:absolute;inset:0;z-index:-1;background:radial-gradient(420px 220px at 100% 100%,rgba(240,112,47,.35),transparent 70%),radial-gradient(420px 220px at 0 0,rgba(29,75,181,.7),transparent 70%)}
+.concl b{font:700 12.5px/1 var(--h);letter-spacing:.08em}
+.gal img{border-radius:12px}
+/* contact + footer */
+.contact{background:var(--night);border-top:0;position:relative;isolation:isolate;overflow:hidden;margin-top:72px}
+.contact::before{content:"";position:absolute;inset:0;z-index:-1;background:radial-gradient(520px 360px at 0% 100%,rgba(29,75,181,.8),transparent 70%),radial-gradient(420px 300px at 100% 0%,rgba(240,112,47,.3),transparent 70%)}
+.contact .wrap{padding-top:44px;padding-bottom:44px}
+.contact h2{font:800 clamp(28px,4vw,38px)/1.15 var(--h);letter-spacing:-.025em;text-transform:none}
+.who{border-left:0;border-radius:var(--r-md);background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.14);padding:18px 20px}
+.who .r{font:700 12px/1 var(--h);letter-spacing:.08em}
+footer{background:#05122F;border-top:0}
+footer .wrap{padding-top:30px;padding-bottom:calc(30px + env(safe-area-inset-bottom))}
+footer a.site{display:inline-flex;align-items:center;height:44px;padding:0 18px;border-radius:999px;border:1px solid rgba(255,255,255,.22);transition:background .2s}
+footer a.site:hover{background:rgba(255,255,255,.08)}
+/* sticky register bar: only once the hero button has scrolled away */
+.sticky{border-top:0;border-radius:20px 20px 0 0;box-shadow:0 -10px 40px rgba(8,22,64,.18);transform:translateY(110%);transition:transform .35s cubic-bezier(.2,.7,.2,1)}
+.sticky.show{transform:none}
+.sticky .btn{border-radius:999px;min-height:46px;padding:0 18px;font-size:15px}
+html[lang="th"] .title{font:700 clamp(38px,10vw,70px)/1.25 var(--disp);letter-spacing:0}
+html[lang="th"] .label{font:600 clamp(22px,3.4vw,28px)/1.45 var(--disp)}
+html[lang="th"] .label .count{font:600 12px/1 var(--h)}
+html[lang="th"] .btn{font:600 16px/1.3 var(--disp);padding:0 22px}
+html[lang="th"] .intake h2{font:600 21px/1.45 var(--disp)}
+html[lang="th"] .contact h2{font:600 clamp(24px,3.6vw,30px)/1.4 var(--disp)}
+html[lang="th"] .past>summary b{font:600 20px/1.4 var(--disp)}
+html[lang="th"] .kicker,html[lang="th"] .chip,html[lang="th"] .cd-h,html[lang="th"] .box .k,html[lang="th"] .cc .no,html[lang="th"] .sh,html[lang="th"] .concl b,html[lang="th"] .who .r,html[lang="th"] .orgs-t,html[lang="th"] .bro .ed,html[lang="th"] .cert .k{font-family:var(--disp);font-weight:600;letter-spacing:0}
+html[lang="th"] *{letter-spacing:0!important}
+body.has-sticky{padding-bottom:0}
+body.has-sticky footer .wrap{padding-bottom:calc(100px + env(safe-area-inset-bottom))}
+.kicker{border-radius:18px}
+@media (min-width:820px){.hero .wrap{padding-top:72px;padding-bottom:80px}body.has-sticky footer .wrap{padding-bottom:30px}}
+@media (prefers-reduced-motion:reduce){.sticky,.bro,.pt img{transition:none}}
+
+/* ==== ACRO family: header controls, identical on every ACRO KKU Go page ==== */
+[hidden]{display:none!important}
+.lang{display:inline-flex;align-items:center;gap:2px;padding:3px;border:1px solid rgba(15,42,26,.12);border-radius:999px;background:#EEF2EF}
+.lang button{appearance:none;border:0;border-radius:999px;background:transparent;color:#4A5A50;font:700 13px/1 "Manrope","PlexThai","IBM Plex Sans Thai","NotoThai",system-ui,sans-serif;
+  letter-spacing:0;text-transform:none;min-width:48px;height:36px;padding:0 12px;margin:0;cursor:pointer;transition:background .2s,color .2s,box-shadow .2s}
+.lang button[aria-pressed="true"]{background:#fff;color:#0F2A1A;box-shadow:0 1px 2px rgba(15,42,26,.14),0 2px 8px rgba(15,42,26,.08)}
+.lang button:hover:not([aria-pressed="true"]){color:#0F2A1A}
+.acro-back{display:inline-flex;align-items:center;gap:7px;height:42px;padding:0 16px 0 13px;border-radius:999px;border:1px solid rgba(15,42,26,.14);background:#fff;color:#0F2A1A;
+  font:700 14px/1 "Manrope","PlexThai","IBM Plex Sans Thai","NotoThai",system-ui,sans-serif;letter-spacing:0;text-transform:none;text-decoration:none;white-space:nowrap;transition:background .2s,border-color .2s}
+.acro-back:hover,.acro-back:focus-visible{background:#F3F6F4;color:#0F2A1A;border-color:rgba(15,42,26,.28)}
+.acro-back svg{width:16px;height:16px;flex:none}
+@media (max-width:420px){.acro-back .go-full{display:none}.acro-back{padding:0 14px 0 11px}}
+.acro-top{position:sticky;top:0;z-index:30;background:rgba(255,255,255,.86)!important;backdrop-filter:saturate(1.4) blur(14px);-webkit-backdrop-filter:saturate(1.4) blur(14px);border-bottom:1px solid rgba(15,42,26,.10)!important}
+.acro-top::before{content:"";position:absolute;left:0;right:0;top:0;height:3px;background:linear-gradient(90deg,#215E33,#16944F 45%,#F0702F 85%,#E8472B)}
 </style>
 </head>
 <body>
-<header class="top">
+<header class="top acro-top">
   <div class="wrap">
     <a href="https://acrokku.com" aria-label="ACRO KKU website"><img class="logo" src="../acro-logo.png" alt="ACRO KKU" width="720" height="209"></a>
     <div class="right">
-      <a class="back" href="../" id="back"></a>
-      <div class="lang" role="group" aria-label="Language">
+      <a class="back acro-back" href="../" id="back"></a>
+      <div class="lang" role="group" aria-label="Language / ภาษา">
         <button type="button" data-lang="en" aria-pressed="true">EN</button><button type="button" data-lang="th" aria-pressed="false">ไทย</button>
       </div>
     </div>
@@ -367,6 +526,8 @@ html[lang="th"] .lb-b{font-weight:600}
 </section>
 
 <section class="orgs" id="orgs" aria-label="Partners"><div class="wrap"><p class="orgs-t" id="orgs-t"></p><div class="pts" id="pts"></div></div></section>
+
+<nav class="secnav" id="secnav" aria-label="On this page" hidden><div class="wrap" id="secnav-in"></div></nav>
 
 <main><div class="wrap" id="body"></div></main>
 
@@ -397,7 +558,7 @@ html[lang="th"] .lb-b{font-weight:600}
   if(!D){document.getElementById("body").innerHTML='<p class="empty">Content file cohorts.js could not be loaded.</p>';return}
 
   var UI={
-    en:{back:"ACRO KKU Go",open:"Applications open",soon:"Opening soon",closed:"Applications closed",
+    en:{back:"ACRO KKU Go",backFull:"Back to ACRO KKU Go",open:"Applications open",soon:"Opening soon",closed:"Applications closed",
       noIntake:"The next intake will be announced soon. Please check back.",
       free:"Free registration",register:"Register",details:"Project details",regSoon:"Registration link coming soon",regClosed:"Registration closed",
       fOn:"weeks online",fOff:"weeks onsite",fCo:"cohorts",fSe:"seats per cohort",
@@ -408,8 +569,8 @@ html[lang="th"] .lb-b{font-weight:600}
       sFormat:"Course format",sSchedule:"Cohort schedule",sBro:"Brochures",sSites:"Practical training sites",sObj:"Program objectives",
       sPast:"Results",orgs:"Partners",view:"View",dl:"Download",x:"Close",
       pInfo:"Project information",pOut:"Key outcomes",pImpact:"Competency development and key impact",pConcl:"Conclusion",pPhotos:"Training highlights",
-      cHd:"Questions and registration",cRole:"Coordinator",phone:"Phone",tel:"Tel.",cert:"Certificate",stickyT:"Free registration"},
-    th:{back:"ACRO KKU Go",open:"เปิดรับสมัคร",soon:"เร็ว ๆ นี้",closed:"ปิดรับสมัคร",
+      cHd:"Questions and registration",cRole:"Coordinator",phone:"Phone",tel:"Tel.",cert:"Certificate",stickyT:"Free registration",kOn:"Online",kOff:"Onsite"},
+    th:{back:"ACRO KKU Go",backFull:"กลับไปหน้า ACRO KKU Go",open:"เปิดรับสมัคร",soon:"เร็ว ๆ นี้",closed:"ปิดรับสมัคร",
       noIntake:"จะประกาศรุ่นถัดไปเร็ว ๆ นี้ โปรดกลับมาตรวจสอบอีกครั้ง",
       free:"ฟรีค่าลงทะเบียน",register:"ลงทะเบียน",details:"รายละเอียดโครงการ",regSoon:"ลิงก์ลงทะเบียนเร็ว ๆ นี้",regClosed:"ปิดรับสมัครแล้ว",
       fOn:"สัปดาห์ ออนไลน์",fOff:"สัปดาห์ ภาคปฏิบัติ",fCo:"รุ่น",fSe:"คนต่อรุ่น",
@@ -420,14 +581,14 @@ html[lang="th"] .lb-b{font-weight:600}
       sFormat:"รูปแบบหลักสูตร",sSchedule:"ตารางรุ่น",sBro:"โบรชัวร์",sSites:"สถานที่ฝึกปฏิบัติ ณ ศูนย์วิจัยคลินิก",sObj:"วัตถุประสงค์ของโครงการ",
       sPast:"ผลการดำเนินงาน",orgs:"หน่วยงานร่วม",view:"ดู",dl:"ดาวน์โหลด",x:"ปิด",
       pInfo:"ข้อมูลโครงการ",pOut:"ผลลัพธ์สำคัญ",pImpact:"การพัฒนาสมรรถนะและผลลัพธ์สำคัญ",pConcl:"สรุป",pPhotos:"ภาพกิจกรรมการอบรม",
-      cHd:"สอบถามและลงทะเบียน",cRole:"ผู้ประสานงาน",phone:"โทร.",tel:"โทร.",cert:"ประกาศนียบัตร",stickyT:"ฟรีค่าลงทะเบียน"}
+      cHd:"สอบถามและลงทะเบียน",cRole:"ผู้ประสานงาน",phone:"โทร.",tel:"โทร.",cert:"ประกาศนียบัตร",stickyT:"ฟรีค่าลงทะเบียน",kOn:"ออนไลน์",kOff:"ภาคปฏิบัติ"}
   };
   var MS={en:["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],
           th:["ม.ค.","ก.พ.","มี.ค.","เม.ย.","พ.ค.","มิ.ย.","ก.ค.","ส.ค.","ก.ย.","ต.ค.","พ.ย.","ธ.ค."]};
   var ML={en:["January","February","March","April","May","June","July","August","September","October","November","December"],
           th:["มกราคม","กุมภาพันธ์","มีนาคม","เมษายน","พฤษภาคม","มิถุนายน","กรกฎาคม","สิงหาคม","กันยายน","ตุลาคม","พฤศจิกายน","ธันวาคม"]};
   var ARROW='<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="square" aria-hidden="true"><path d="M4 12h15M13 5l7 7-7 7"/></svg>';
-  var BACK='<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="square" aria-hidden="true"><path d="M20 12H5M11 5l-7 7 7 7"/></svg>';
+  var BACK='<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 12H5M11 5l-7 7 7 7"/></svg>';
   var TICK='<svg width="22" height="22" viewBox="0 0 22 22" aria-hidden="true"><rect width="22" height="22" fill="#1D4BB5"/><path d="M5.5 11.5l3.8 3.8 7.2-8" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="square"/></svg>';
 
   function esc(s){return String(s==null?"":s).replace(/[&<>"']/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]})}
@@ -578,7 +739,7 @@ html[lang="th"] .lb-b{font-weight:600}
     return'<div class="tl"><div class="axis">'+axis+'</div><div class="lanes" style="height:'+(cs.length*46)+'px">'+grid+bars+'</div></div>';
   }
 
-  function section(title,inner,cnt){return'<section class="sec"><div class="label"><span>'+esc(title)+'</span><span class="count">'+pad(cnt)+'</span></div>'+inner+'</section>'}
+  function section(title,inner,cnt){return'<section class="sec" id="sec-'+cnt+'"><div class="label"><span>'+esc(title)+'</span><span class="count">'+pad(cnt)+'</span></div>'+inner+'</section>'}
 
   function pastBlock(e,openIt){
     var u=UI[lang],h='<details class="past"'+(openIt?" open":"")+'><summary><b>'+esc(t(e.label))+'</b><span>'+esc(range((e.period||{}).start,(e.period||{}).end,true))+
@@ -617,9 +778,9 @@ html[lang="th"] .lb-b{font-weight:600}
     if(f.online||f.onsite){
       n++;
       h+=section(u.sFormat,'<div class="fmt">'+
-        (f.online?'<div class="box on"><div class="k">Online</div><div class="big"><b>'+esc(f.online.weeks)+'</b><span>'+esc(u.weeks)+'</span></div><p>'+esc(t(f.online.label))+'</p></div>':'')+
+        (f.online?'<div class="box on"><div class="k">'+esc(u.kOn)+'</div><div class="big"><b>'+esc(f.online.weeks)+'</b><span>'+esc(u.weeks)+'</span></div><p>'+esc(t(f.online.label))+'</p></div>':'')+
         '<div class="plus" aria-hidden="true">+</div>'+
-        (f.onsite?'<div class="box off"><div class="k">Onsite</div><div class="big"><b>'+esc(f.onsite.weeks)+'</b><span>'+esc(u.weeks)+'</span></div><p>'+esc(t(f.onsite.label))+'</p></div>':'')+
+        (f.onsite?'<div class="box off"><div class="k">'+esc(u.kOff)+'</div><div class="big"><b>'+esc(f.onsite.weeks)+'</b><span>'+esc(u.weeks)+'</span></div><p>'+esc(t(f.onsite.label))+'</p></div>':'')+
         '</div>'+(pg0.certificate?'<div class="cert"><span class="k">'+esc(u.cert)+'</span><b>'+esc(t(pg0.certificate))+'</b></div>':''),n);
     }
     if(cur&&(cur.cohorts||[]).length){
@@ -687,11 +848,30 @@ html[lang="th"] .lb-b{font-weight:600}
 
   function render(){
     document.documentElement.lang=lang;
-    document.getElementById("back").innerHTML=BACK+'<span>'+esc(UI[lang].back)+'</span>';
+    document.getElementById("back").innerHTML=BACK+'<span>'+esc(UI[lang].back).replace(/^ACRO KKU /,'<b class="go-full">ACRO KKU </b>')+'</span>';
+    document.getElementById("back").setAttribute("aria-label",UI[lang].backFull);
+    document.getElementById("back").setAttribute("title",UI[lang].backFull);
+    document.getElementById("back").href="../?lang="+lang;
     document.title=t((D.page||{}).title).replace(/\|/g,"")+" ("+((D.page||{}).tag||"CRN")+") · ACRO KKU";
     document.querySelectorAll(".lang button").forEach(function(b){b.setAttribute("aria-pressed",String(b.dataset.lang===lang))});
-    hero();orgs();body();contact();sticky();
+    hero();orgs();body();contact();sticky();secnav();
   }
+  /* ---- on-this-page chips, built from the section headings ---- */
+  var navIO=null;
+  function secnav(){
+    var box=document.getElementById("secnav-in"),secs=[].slice.call(document.querySelectorAll("#body .sec"));
+    document.getElementById("secnav").hidden=secs.length<3;
+    box.innerHTML=secs.map(function(s){var l=s.querySelector(".label span");return'<a href="#'+s.id+'">'+esc(l?l.textContent:"")+'</a>'}).join("");
+    if(navIO)navIO.disconnect();
+    if(!("IntersectionObserver" in window))return;
+    navIO=new IntersectionObserver(function(es){es.forEach(function(e){if(!e.isIntersecting)return;
+      box.querySelectorAll("a").forEach(function(a){var on=a.getAttribute("href")==="#"+e.target.id;a.classList.toggle("on",on);if(on&&a.scrollIntoView&&box.scrollWidth>box.clientWidth)box.scrollTo({left:a.offsetLeft-box.clientWidth/3,behavior:"smooth"})})})},{rootMargin:"-40% 0px -55% 0px"});
+    secs.forEach(function(s){navIO.observe(s)});
+  }
+  /* the sticky register bar slides in only after the hero buttons have scrolled out of view */
+  if("IntersectionObserver" in window){
+    new IntersectionObserver(function(es){document.getElementById("sticky").classList.toggle("show",!es[0].isIntersecting&&es[0].boundingClientRect.top<0)}).observe(document.getElementById("h-cta"));
+  }else document.getElementById("sticky").classList.add("show");
 
   /* ---- brochure viewer ---- */
   var dlg=document.getElementById("lb");

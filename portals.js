@@ -9,10 +9,13 @@
      status    "open"   shown and clickable
                "soon"   shown greyed out with a Coming soon button
                "hidden" not shown (keep the block here for later)
-     featured  true = tinted row with the orange button, always listed first
-               (use for one portal at a time)
+     posted    the date the portal was posted, as "YYYY-MM-DD", for example "2026-11-11".
+               The list is sorted by this date, newest first, and the date is shown on the card.
+               The newest one gets a "Latest" badge.
+     featured  true = dark branded card, and the big white button in the green header
+               opens this portal (use for one portal at a time)
      url       where Open goes:
-                 another site:        "https://acro-kku-crest.pages.dev"
+                 another site:        "https://acro-kku-collaborate.pages.dev"
                  page inside the site: "/be-pool/"
      tag       small label above the title, { en: "...", th: "..." }  (optional)
      title     { en: "...", th: "..." }
@@ -29,6 +32,7 @@ window.ACRO_PORTALS = [
   {
     id: "collaboration",
     status: "open",
+    posted: "2026-11-08",
     featured: true,
     url: "https://acro-kku-collaborate.pages.dev",
     tag:   { en: "CREST 2026", th: "CREST 2026" },
@@ -42,6 +46,7 @@ window.ACRO_PORTALS = [
   {
     id: "crn-shortcourse",
     status: "open",
+    posted: "2026-11-10",
     featured: false,
     url: "/crn-shortcourse/",
     tag:   { en: "Training", th: "การอบรม" },
@@ -55,6 +60,7 @@ window.ACRO_PORTALS = [
   {
     id: "be-pool",
     status: "open",
+    posted: "2026-11-11",
     featured: false,
     url: "/be-pool/",
     tag:   { en: "Volunteers", th: "อาสาสมัคร" },
@@ -69,13 +75,14 @@ window.ACRO_PORTALS = [
   {
     id: "next-portal",
     status: "hidden",
+    posted: "2026-12-01",
     featured: false,
     url: "/next-portal/",
     tag:   { en: "Label", th: "ป้ายกำกับ" },
     title: { en: "Portal title", th: "ชื่อพอร์ทัล" },
     text:  {
       en: "One or two short sentences.",
-      th: "ข้อความสั้นๆ หนึ่งถึงสองประโยค"
+      th: "ข้อความสั้น ๆ หนึ่งถึงสองประโยค"
     }
   },
   ----------------------------------------------------------------------------------- */
