@@ -72,12 +72,12 @@ window.ACRO_CRN = {
   sites: [
     { en: "Academic Clinical Research Office, Khon Kaen University (ACRO KKU)",
       th: "สถานบริหารจัดการงานวิจัยคลินิก มหาวิทยาลัยขอนแก่น (ACRO KKU)" },
-    { en: "Siriraj Clinical Research Center, Faculty of Medicine Siriraj Hospital, Mahidol University",
-      th: "ศูนย์วิจัยคลินิก คณะแพทยศาสตร์ศิริราชพยาบาล มหาวิทยาลัยมหิดล" },
-    { en: "Ramathibodi Clinical Research Center, Faculty of Medicine Ramathibodi Hospital, Mahidol University",
-      th: "ศูนย์วิจัยคลินิกรามาธิบดี คณะแพทยศาสตร์โรงพยาบาลรามาธิบดี มหาวิทยาลัยมหิดล" },
-    { en: "Maha Chakri Sirindhorn Clinical Research Center (Chula CRC), Faculty of Medicine, Chulalongkorn University",
-      th: "ศูนย์วิจัยมหาจักรีสิรินธร (Chula CRC) คณะแพทยศาสตร์ จุฬาลงกรณ์มหาวิทยาลัย" }
+    { en: "Siriraj Clinical Research Center, Faculty of Medicine Siriraj Hospital, Mahidol University (SiCRES)",
+      th: "ศูนย์วิจัยคลินิก คณะแพทยศาสตร์ศิริราชพยาบาล มหาวิทยาลัยมหิดล (SiCRES)" },
+    { en: "Ramathibodi Clinical Research Center, Faculty of Medicine Ramathibodi Hospital, Mahidol University (RAMACC)",
+      th: "ศูนย์วิจัยคลินิกรามาธิบดี คณะแพทยศาสตร์โรงพยาบาลรามาธิบดี มหาวิทยาลัยมหิดล (RAMACC)" },
+    { en: "Maha Chakri Sirindhorn Clinical Research Center, Faculty of Medicine, Chulalongkorn University (Chula CRC)",
+      th: "ศูนย์วิจัยมหาจักรีสิรินธร คณะแพทยศาสตร์ จุฬาลงกรณ์มหาวิทยาลัย(Chula CRC)" }
   ],
 
   /* ---------- program objectives ---------- */
