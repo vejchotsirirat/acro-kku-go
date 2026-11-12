@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Clinical Research Nursing (CRN) · ACRO KKU</title>
 <meta name="description" content="Short Course Training Program in Clinical Research Nursing by ACRO KKU and the Nursing Division, Srinagarind Hospital: 6 weeks online plus 10 weeks of onsite practice. Certificate of CRN: Clinical Research Nursing.">
-<meta name="theme-color" content="#071A45">
+<meta name="theme-color" content="#0F2A6B">
 <meta name="color-scheme" content="light">
 <link rel="icon" href="../icon-192.png">
 <link rel="apple-touch-icon" href="../icon-192.png">
@@ -482,6 +482,61 @@ body.has-sticky footer .wrap{padding-bottom:calc(100px + env(safe-area-inset-bot
 @media (min-width:820px){.hero .wrap{padding-top:72px;padding-bottom:80px}body.has-sticky footer .wrap{padding-bottom:30px}}
 @media (prefers-reduced-motion:reduce){.sticky,.bro,.pt img{transition:none}}
 
+/* =====================================================================
+   BANNER LAYER: same family as the CREST 2026 roll-up banner (diagonal gradient,
+   white logo band over an orange rule, condensed uppercase headings, peach accents,
+   white rules) in the course's blue, on top of the rounded, pill-button layout.
+   ===================================================================== */
+.acro-top{background:#fff!important;backdrop-filter:none;-webkit-backdrop-filter:none;border-bottom:6px solid var(--orange)!important}
+.acro-top::before{display:none}
+.secnav{top:72px}
+.hero{background:var(--grad)}
+.hero::before{display:none}
+.hero::after{display:block;content:"";position:absolute;right:-90px;bottom:-110px;width:340px;height:340px;border:2px dashed rgba(255,255,255,.28);border-radius:50%}
+.hero .wrap::before{opacity:.15}
+.kicker{padding:0;border:0;background:none;border-radius:0;font:800 15px/1.35 var(--disp);letter-spacing:.06em;text-transform:uppercase;color:var(--peach)}
+.kicker::before{display:none}
+.title{font:800 clamp(52px,14.5vw,104px)/.88 var(--disp);letter-spacing:.005em;text-transform:uppercase}
+.title .bang{font-size:1em;vertical-align:0}
+.lead{font-weight:600;color:#fff}
+.facts{border:0;border-left:4px solid var(--peach);border-radius:0 var(--r-md) var(--r-md) 0;background:rgba(255,255,255,.14)}
+.facts span{color:rgba(255,255,255,.92)}
+.btn.white{color:var(--navy)}
+.intake{border-bottom:6px solid var(--orange)}
+.intake::before{height:0}
+.intake h2{font:800 26px/1.05 var(--disp);letter-spacing:.01em;text-transform:uppercase;color:var(--navy)}
+.chip{font:800 13px/1 var(--disp);letter-spacing:.1em;text-transform:uppercase}
+.orgs-t{font:800 14px/1 var(--disp);letter-spacing:.12em}
+.label{border-top:4px solid var(--ink);padding-top:12px;font:800 clamp(28px,4.4vw,36px)/1 var(--disp);letter-spacing:.01em;text-transform:uppercase;color:var(--navy)}
+.box{border-bottom:6px solid}
+.box.on{border-color:var(--emerald)}.box.off{border-color:var(--orange)}
+.box .k{font:800 14px/1 var(--disp);letter-spacing:.12em;background:none;padding:0}
+.box .big span{font:800 24px/1 var(--disp);text-transform:uppercase}
+.cc .no,.bro .ed,.sh,.concl b,.who .r,.cert .k{font-family:var(--disp);font-weight:800;letter-spacing:.1em;font-size:14px}
+.cert .k{background:none;padding:0;color:var(--orange)}
+.cc .dt{font-family:var(--body)}
+.card{border-bottom:5px solid var(--orange)}
+.card.blue{border-bottom-color:var(--royal)}
+.past>summary{background:linear-gradient(100deg,var(--navy),var(--royal))}
+.past>summary b{font:800 24px/1 var(--disp);letter-spacing:.04em;text-transform:uppercase}
+.concl{background:linear-gradient(100deg,var(--navy),var(--royal));border-left:6px solid var(--orange)}
+.contact{background:var(--navy);border-top:6px solid var(--orange)}
+.contact::before{display:none}
+.contact h2{font:800 clamp(34px,5vw,44px)/1 var(--disp);text-transform:uppercase}
+.who{border:0;border-left:4px solid var(--peach);border-radius:0 var(--r-md) var(--r-md) 0;background:rgba(255,255,255,.1)}
+footer{background:#0A1E52;border-top:6px solid var(--orange)}
+.sticky{border-top:4px solid var(--orange)}
+html[lang="th"] .kicker,html[lang="th"] .chip,html[lang="th"] .orgs-t,html[lang="th"] .box .k,html[lang="th"] .cc .no,html[lang="th"] .bro .ed,html[lang="th"] .sh,
+html[lang="th"] .concl b,html[lang="th"] .who .r,html[lang="th"] .cert .k{font:600 15px/1.45 var(--disp)}
+html[lang="th"] .title{font:700 clamp(40px,10.5vw,74px)/1.22 var(--disp)}
+html[lang="th"] .label{font:600 clamp(22px,3.4vw,28px)/1.45 var(--disp)}
+html[lang="th"] .intake h2{font:600 21px/1.45 var(--disp)}
+html[lang="th"] .past>summary b{font:600 21px/1.4 var(--disp)}
+html[lang="th"] .contact h2{font:600 27px/1.4 var(--disp)}
+html[lang="th"] .box .big span{font:600 22px/1.3 var(--disp)}
+
+html[lang="en"] .btn{font:800 18px/1 var(--disp);letter-spacing:.07em;text-transform:uppercase}
+
 /* ==== ACRO family: header controls, identical on every ACRO KKU Go page ==== */
 [hidden]{display:none!important}
 .lang{display:inline-flex;align-items:center;gap:2px;padding:3px;border:1px solid rgba(15,42,26,.12);border-radius:999px;background:#EEF2EF}
@@ -494,8 +549,7 @@ body.has-sticky footer .wrap{padding-bottom:calc(100px + env(safe-area-inset-bot
 .acro-back:hover,.acro-back:focus-visible{background:#F3F6F4;color:#0F2A1A;border-color:rgba(15,42,26,.28)}
 .acro-back svg{width:16px;height:16px;flex:none}
 @media (max-width:420px){.acro-back .go-full{display:none}.acro-back{padding:0 14px 0 11px}}
-.acro-top{position:sticky;top:0;z-index:30;background:rgba(255,255,255,.86)!important;backdrop-filter:saturate(1.4) blur(14px);-webkit-backdrop-filter:saturate(1.4) blur(14px);border-bottom:1px solid rgba(15,42,26,.10)!important}
-.acro-top::before{content:"";position:absolute;left:0;right:0;top:0;height:3px;background:linear-gradient(90deg,#215E33,#16944F 45%,#F0702F 85%,#E8472B)}
+.acro-top{position:sticky;top:0;z-index:30;background:#fff!important;border-bottom:6px solid #F0702F!important}
 </style>
 </head>
 <body>
