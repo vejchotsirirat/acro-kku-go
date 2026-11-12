@@ -459,7 +459,7 @@ html[lang="th"] .ab-btns a{font:600 16px/1.2 "KanitTH","PlexThai",sans-serif}
 
   /* ---- About ACRO KKU (content in about.js) ---- */
   function pic(o,cls){if(!o)return"";var cap=esc(t(o,lang));
-    return'<figure class="ph'+(cls?" "+cls:"")+'"><img src="'+esc(o.src)+'" alt="'+cap+'" loading="lazy" decoding="async" onerror="this.parentNode.classList.add(\'noimg\');this.remove()"><figcaption>'+cap+'</figcaption></figure>'}
+    return'<figure class="ph'+(cls?" "+cls:"")+'"><img src="'+esc(o.src)+'" alt="'+cap+'" loading="lazy" decoding="async" onerror="this.parentNode.classList.add(\'noimg\');this.remove()"></figure>'}
   function renderAbout(){
     var A=window.ACRO_ABOUT,root=document.getElementById("acro-about");if(!A||!root)return;
     var T=function(o){return nb(esc(t(o,lang)))},C=A.contact||{},L=A.labels||{},R=A.run,S=A.services,F=A.facilities,V=A.values,W=A.work,h="";
