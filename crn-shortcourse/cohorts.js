@@ -77,7 +77,7 @@ window.ACRO_CRN = {
     { en: "Ramathibodi Clinical Research Center, Faculty of Medicine Ramathibodi Hospital, Mahidol University (RAMACC)",
       th: "ศูนย์วิจัยคลินิกรามาธิบดี คณะแพทยศาสตร์โรงพยาบาลรามาธิบดี มหาวิทยาลัยมหิดล (RAMACC)" },
     { en: "Maha Chakri Sirindhorn Clinical Research Center, Faculty of Medicine, Chulalongkorn University (Chula CRC)",
-      th: "ศูนย์วิจัยมหาจักรีสิรินธร คณะแพทยศาสตร์ จุฬาลงกรณ์มหาวิทยาลัย(Chula CRC)" }
+      th: "ศูนย์วิจัยมหาจักรีสิรินธร คณะแพทยศาสตร์ จุฬาลงกรณ์มหาวิทยาลัย (Chula CRC)" }
   ],
 
   /* ---------- program objectives ---------- */
