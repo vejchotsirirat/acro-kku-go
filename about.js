@@ -19,7 +19,7 @@ window.ACRO_ABOUT = {
   video: {
     youtube: "https://youtu.be/jrO0nSuNS2s",
     title:   { en: "Inside ACRO KKU", th: "รู้จัก ACRO KKU" },
-    caption: { en: "Take a short tour of our clinical research centre in Khon Kaen.", th: "ชมศูนย์วิจัยทางคลินิกของเราที่ขอนแก่นแบบสั้น ๆ" }
+    caption: { en: "Take a short tour of our clinical research centre in Khon Kaen.", th: "รับชมศูนย์วิจัยทางคลินิกของเราที่ขอนแก่น" }
   },
   /* ========================================================================== */
 
