@@ -30,6 +30,20 @@
 
 window.ACRO_PORTALS = [
   {
+    id: "gcp-crush",
+    status: "open",
+    posted: "2026-11-13",
+    featured: false,
+    url: "/gcp-crush/",
+    tag:   { en: "Game · 20 seconds", th: "เกม · 20 วินาที" },
+    title: { en: "GCP Crush: an ICH E6(R3) match game", th: "GCP Crush เกมจับคู่ ICH E6(R3)" },
+    text:  {
+      en: "Line up Good Clinical Practice icons in 20 seconds and pick up a few ICH E6(R3) essentials along the way.",
+      th: "เรียงไอคอน Good Clinical Practice ให้ได้มากที่สุดใน 20 วินาที พร้อมเรียนรู้หลักสำคัญของ ICH E6(R3)"
+    }
+  },
+
+  {
     id: "collaboration",
     status: "open",
     posted: "2026-11-08",

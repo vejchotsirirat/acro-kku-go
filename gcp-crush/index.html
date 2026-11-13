@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+<meta name="theme-color" content="#0B2416">
+<meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes">
+<title>GCP Crush · ACRO KKU Go</title>
+<meta name="description" content="A 20-second match game about ICH E6(R3) Good Clinical Practice, from ACRO KKU.">
+<link rel="icon" href="../icon-192.png"><link rel="apple-touch-icon" href="../icon-192.png">
+<link rel="preload" href="../bsd-800.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../manrope-700.woff2" as="font" type="font/woff2" crossorigin>
+<style>
+@font-face{font-family:"BSD";src:url(../bsd-800.woff2) format("woff2");font-weight:800;font-display:swap}
+@font-face{font-family:"Manrope";src:url(../manrope-600.woff2) format("woff2");font-weight:500 600;font-display:swap}
+@font-face{font-family:"Manrope";src:url(../manrope-700.woff2) format("woff2");font-weight:700 800;font-display:swap}
+@font-face{font-family:"PlexThai";src:url(../plexthai-400.woff2) format("woff2");font-weight:400;font-display:swap}
+@font-face{font-family:"PlexThai";src:url(../plexthai-600.woff2) format("woff2");font-weight:500 600;font-display:swap}
+@font-face{font-family:"PlexThai";src:url(../plexthai-700.woff2) format("woff2");font-weight:700 800;font-display:swap}
+:root{--night:#0B2416;--forest:#215E33;--emerald:#16944F;--mint:#7FD8A4;--orange:#F0702F;--ember:#E8472B;--peach:#FFD3B8;--ink:#0F2A1A;
+  --sans:"Manrope","PlexThai",system-ui,-apple-system,"Segoe UI",sans-serif}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+[hidden]{display:none!important}
+html,body{height:100%;height:100dvh;overflow:hidden;overscroll-behavior:none}
+body{position:fixed;inset:0;display:flex;flex-direction:column;background:var(--night);color:#fff;font-family:var(--sans);-webkit-font-smoothing:antialiased;
+  -webkit-user-select:none;user-select:none;-webkit-touch-callout:none}
+html[lang="th"] body{font-family:"PlexThai","Manrope",system-ui,sans-serif}
+html[lang="th"] *{letter-spacing:0!important}
+button{font:inherit;cursor:pointer}
+/* header: same as ACRO KKU Go */
+.top{position:relative;z-index:20;background:rgba(255,255,255,.92);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid rgba(15,42,26,.1);color:var(--ink);
+  padding-top:env(safe-area-inset-top)}
+.top::before{content:"";position:absolute;left:0;right:0;top:0;height:3px;background:linear-gradient(90deg,var(--forest),var(--emerald) 45%,var(--orange) 85%,var(--ember))}
+.top .wrap{display:flex;align-items:center;justify-content:space-between;gap:8px;height:58px;max-width:560px;margin:0 auto;padding:0 14px}
+.logo{height:28px;width:auto;display:block}
+.right{display:flex;gap:6px;align-items:center}
+.back{display:inline-flex;align-items:center;gap:5px;height:36px;padding:0 12px 0 10px;border-radius:999px;border:1px solid rgba(15,42,26,.14);background:#fff;color:var(--ink);
+  font:700 13px/1 var(--sans);text-decoration:none;white-space:nowrap}
+.lang{display:inline-flex;gap:2px;padding:3px;border:1px solid rgba(15,42,26,.12);border-radius:999px;background:#EEF2EF}
+.lang button{border:0;border-radius:999px;background:transparent;color:#4A5A50;font:700 12.5px/1 "Manrope","PlexThai",sans-serif;min-width:40px;height:30px;padding:0 9px}
+.lang button[aria-pressed="true"]{background:#fff;color:var(--ink);box-shadow:0 1px 2px rgba(15,42,26,.14),0 2px 8px rgba(15,42,26,.08)}
+/* hero background */
+main{position:relative;flex:1;min-height:0;isolation:isolate;overflow:hidden}
+main::before,main::after{content:"";position:absolute;z-index:-1;border-radius:50%;filter:blur(70px);pointer-events:none}
+main::before{width:520px;height:520px;left:-220px;top:-220px;background:radial-gradient(circle,rgba(22,148,79,.85),rgba(22,148,79,0) 70%);animation:drift 18s ease-in-out infinite alternate}
+main::after{width:480px;height:480px;right:-220px;bottom:-200px;background:radial-gradient(circle,rgba(240,112,47,.7),rgba(232,71,43,0) 70%);animation:drift 22s ease-in-out infinite alternate-reverse}
+.dots{position:absolute;inset:0;z-index:-1;pointer-events:none;opacity:.35;background-image:radial-gradient(rgba(255,255,255,.22) 1px,transparent 1.2px);background-size:22px 22px;
+  -webkit-mask-image:linear-gradient(180deg,#000,transparent 80%);mask-image:linear-gradient(180deg,#000,transparent 80%)}
+@keyframes drift{to{transform:translate(50px,40px) scale(1.1)}}
+.stage{height:100%;max-width:560px;margin:0 auto;display:flex;flex-direction:column;padding:12px 14px max(12px,env(safe-area-inset-bottom))}
+/* HUD */
+.hud{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.stat{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.14);border-radius:14px;padding:6px 12px;min-width:84px;backdrop-filter:blur(8px)}
+.stat span{display:block;font-size:10.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--peach)}
+.stat b{display:block;font:800 26px/1.05 "BSD","Manrope",sans-serif}
+.timer{flex:1}
+.timer .bar{height:10px;border-radius:99px;background:rgba(255,255,255,.12);overflow:hidden;margin-top:6px}
+.timer .bar i{display:block;height:100%;width:100%;background:linear-gradient(90deg,var(--mint),var(--emerald) 40%,var(--orange));transition:width .25s linear}
+.timer.low .bar i{background:var(--ember)}
+.timer .lbl{display:flex;justify-content:space-between;font-size:10.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--peach)}
+/* board */
+.boardbox{flex:1;min-height:0;display:flex;align-items:center;justify-content:center}
+.board{position:relative;border-radius:22px;overflow:hidden;touch-action:none;box-shadow:0 30px 80px rgba(0,0,0,.4),0 0 0 1px rgba(255,255,255,.14)}
+.board .bg{position:absolute;inset:0;background:url(../img/srinagarind.jpg) 30% 40%/cover;filter:saturate(1.05)}
+.board .bg::after{content:"";position:absolute;inset:0;background:linear-gradient(170deg,rgba(11,36,22,.35),rgba(11,36,22,.5) 55%,rgba(232,71,43,.4))}
+.board .wm{position:absolute;left:50%;top:50%;width:78%;transform:translate(-50%,-50%);opacity:.28;filter:brightness(0) invert(1);pointer-events:none}
+.cellgrid{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.06) 1px,transparent 1px)}
+.t{position:absolute;left:0;top:0;display:flex;align-items:center;justify-content:center;transition:transform .2s ease-in}
+.t i{display:flex;flex-direction:column;align-items:center;justify-content:center;width:80%;height:80%;border-radius:28%;font-style:normal;
+  box-shadow:inset 0 -5px 0 rgba(0,0,0,.18),inset 0 3px 0 rgba(255,255,255,.35),0 4px 10px rgba(0,0,0,.25);transition:transform .18s,opacity .18s}
+.t i em{font-style:normal;line-height:1}
+.t.sel i{transform:scale(1.12);box-shadow:0 0 0 3px #fff,0 6px 16px rgba(0,0,0,.35)}
+.t.pop i{transform:scale(0);opacity:0}
+.t.hint i{animation:wig .6s ease-in-out infinite}
+@keyframes wig{25%{transform:rotate(-10deg) scale(1.06)}75%{transform:rotate(10deg) scale(1.06)}}
+.k0 i{background:linear-gradient(160deg,#2BB56B,#16944F)}
+.k1 i{background:linear-gradient(160deg,#FF8A4C,#E8472B)}
+.k2 i{background:linear-gradient(160deg,#FFFFFF,#DDEDE3)}
+.k3 i{background:linear-gradient(160deg,#FFD3B8,#F0A070)}
+.k4 i{background:linear-gradient(160deg,#2C7A45,#1A4D2B)}
+.float{position:absolute;z-index:5;font:800 22px/1 "BSD","Manrope",sans-serif;color:#fff;text-shadow:0 2px 8px rgba(0,0,0,.5);pointer-events:none;animation:fl .8s forwards}
+@keyframes fl{to{transform:translateY(-40px);opacity:0}}
+.chain{position:absolute;z-index:6;left:50%;top:44%;transform:translate(-50%,-50%);font:800 40px/1 "BSD","Manrope",sans-serif;color:#fff;
+  background:linear-gradient(135deg,var(--orange),var(--ember));padding:6px 16px;border-radius:10px;box-shadow:0 14px 34px rgba(232,71,43,.45);pointer-events:none;animation:ch .9s forwards}
+@keyframes ch{0%{transform:translate(-50%,-50%) scale(.4) rotate(-6deg)}25%{transform:translate(-50%,-50%) scale(1.1) rotate(-3deg)}100%{transform:translate(-50%,-80%) scale(1) rotate(-3deg);opacity:0}}
+/* fact strip */
+.fact{margin-top:10px;min-height:66px;display:flex;align-items:center;gap:12px;padding:10px 14px;border-radius:16px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.14);backdrop-filter:blur(10px)}
+.fact .ic{flex:none;width:40px;height:40px;border-radius:12px;display:grid;place-items:center;font-size:22px}
+.fact .ic i{width:100%;height:100%;border-radius:12px;display:grid;place-items:center}
+.fact p{font-size:13.5px;line-height:1.38;color:rgba(255,255,255,.9)}
+.fact p b{color:#fff}
+.fact p small{display:block;margin-top:2px;font-size:11.5px;font-weight:700;color:var(--mint)}
+.fact.flash{animation:fx .5s}
+@keyframes fx{from{background:rgba(127,216,164,.3)}}
+/* overlays */
+.ov{position:absolute;inset:0;z-index:30;display:flex;align-items:center;justify-content:center;padding:18px;background:rgba(11,36,22,.55);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+.panel{width:100%;max-width:420px;background:#fff;color:var(--ink);border-radius:24px;padding:24px 22px;text-align:center;box-shadow:0 24px 60px rgba(0,0,0,.4);max-height:100%;overflow:auto}
+.kick{display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--forest);
+  padding:6px 12px 6px 9px;border-radius:999px;background:#EEF5F0}
+.kick::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--emerald);box-shadow:0 0 0 4px rgba(22,148,79,.15)}
+.title{font:800 clamp(46px,14vw,64px)/.9 "BSD","Manrope",sans-serif;text-transform:uppercase;margin:14px 0 4px;color:var(--ink)}
+.title .bang{display:inline-block;background:linear-gradient(135deg,var(--orange),var(--ember));color:#fff;padding:0 .12em;transform:skewX(-12deg) rotate(-2deg);border-radius:.06em;margin-left:.04em}
+.title .bang b{display:inline-block;transform:skewX(12deg)}
+html[lang="th"] .title{text-transform:none}
+.sub{color:#3D4C43;font-size:15px;line-height:1.5;margin-top:8px}
+.legend{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:16px 6px 4px}
+.legend div{font-size:10.5px;font-weight:700;color:#3D4C43;line-height:1.2}
+.legend .t{position:static;width:100%;aspect-ratio:1;margin-bottom:4px}
+.btn{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;min-height:54px;margin-top:12px;border-radius:999px;border:0;text-decoration:none;
+  font:700 16px/1.2 var(--sans);background:var(--ink);color:#fff}
+.btn.go{background:linear-gradient(135deg,var(--forest),var(--emerald));box-shadow:0 10px 26px rgba(22,148,79,.35);min-height:62px;flex-direction:column;gap:2px}
+.btn.go small{font-weight:600;font-size:12.5px;opacity:.85}
+.btn.alt{background:linear-gradient(135deg,var(--orange),var(--ember))}
+.btn.line{background:#fff;color:var(--ink);border:1.5px solid rgba(15,42,26,.2)}
+.btn .ar{display:grid;place-items:center;width:26px;height:26px;border-radius:50%;background:#fff;color:var(--ink);font-size:14px}
+.score{font:800 72px/1 "BSD","Manrope",sans-serif;background:linear-gradient(135deg,var(--emerald),var(--orange));-webkit-background-clip:text;background-clip:text;color:transparent;margin-top:10px}
+.stars{font-size:34px;letter-spacing:6px;margin-top:4px}
+.learned{margin-top:12px;text-align:left;background:#F3F7F4;border-radius:14px;padding:10px 12px;font-size:12.5px;line-height:1.45;color:#3D4C43}
+.learned b{color:var(--ink)}
+.cd{font:800 120px/1 "BSD","Manrope",sans-serif;color:#fff;text-shadow:0 10px 40px rgba(0,0,0,.5)}
+.foot{font-size:11px;color:#6B7A70;margin-top:12px}
+</style>
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <a href="/" aria-label="ACRO KKU Go"><img class="logo" src="../acro-logo.png" alt="ACRO KKU" width="720" height="209"></a>
+  <div class="right">
+    <a class="back" href="/" data-t="back"></a>
+    <div class="lang" role="group" aria-label="Language / ภาษา"><button type="button" data-lang="en" aria-pressed="true">EN</button><button type="button" data-lang="th" aria-pressed="false">ไทย</button></div>
+  </div>
+</div></header>
+<main>
+  <div class="dots"></div>
+  <div class="stage">
+    <div class="hud">
+      <div class="stat"><span data-t="score"></span><b id="sc">0</b></div>
+      <div class="stat timer" id="tm"><div class="lbl"><span data-t="time"></span><span id="ts">20s</span></div><div class="bar"><i id="tb"></i></div></div>
+    </div>
+    <div class="boardbox" id="bb"><div class="board" id="board"><div class="bg"></div><div class="cellgrid" id="cg"></div><img class="wm" src="../acro-logo.png" alt=""></div></div>
+    <div class="fact" id="fact"><div class="ic k2" style="background:rgba(255,255,255,.12)">👆</div><p id="fp"></p></div>
+  </div>
+  <div class="ov" id="ov"></div>
+</main>
+<script>
+(function(){
+"use strict";
+var N=4,TYPES=4,LIMIT=20,LANG_KEY="acro-go-lang",SITE="https://acrokku.com";
+var K=[
+ {e:"📝",n:{en:"Consent",th:"ความยินยอม"},f:{en:"Informed consent is signed and dated <b>before</b> any trial procedure. Remote and e-consent are allowed.",th:"ลงนามและลงวันที่ในเอกสารแสดงความยินยอม<b>ก่อน</b>เริ่มกระบวนการใด ๆ ของการวิจัย และทำทางไกลหรือแบบอิเล็กทรอนิกส์ได้"},r:"2.8.1, 2.8.7"},
+ {e:"🛡️",n:{en:"Safety",th:"ความปลอดภัย"},f:{en:"Serious adverse events go to the sponsor <b>immediately</b>, with a causality assessment.",th:"รายงานเหตุการณ์ไม่พึงประสงค์ร้ายแรง (SAE) ต่อผู้สนับสนุนการวิจัย<b>ทันที</b> พร้อมประเมินความสัมพันธ์"},r:"2.7.2(b)"},
+ {e:"🔍",n:{en:"Audit trail",th:"ร่องรอยการแก้ไข"},f:{en:"Data corrections stay <b>traceable</b> and never hide the original entry.",th:"การแก้ไขข้อมูลต้อง<b>ตรวจสอบย้อนกลับได้</b> และไม่ปิดบังข้อมูลเดิม"},r:"2.12.2"},
+ {e:"🎯",n:{en:"Quality",th:"คุณภาพ"},f:{en:"Build quality in: focus on <b>critical-to-quality</b> factors, proportionate to risk.",th:"สร้างคุณภาพตั้งแต่การออกแบบ มุ่งเน้น<b>ปัจจัยสำคัญต่อคุณภาพ</b> อย่างสมสัดส่วนกับความเสี่ยง"},r:"Principles 6–7"},
+ {e:"🗄️",n:{en:"Records",th:"เอกสารสำคัญ"},f:{en:"Essential records are kept <b>securely</b> for the required retention period.",th:"จัดเก็บเอกสารสำคัญอย่าง<b>ปลอดภัย</b>ตลอดระยะเวลาที่กำหนด"},r:"Principle 9.5"}
+];
+var UI={
+ en:{back:"ACRO KKU Go",score:"Score",time:"Time",tip:"Swipe a tile into its neighbour to line up <b>3 or more</b> of the same GCP icon.",
+  intro:"Match 3 ICH E6(R3) icons. You have 20 seconds!",how:"Swipe or tap two tiles to swap",play:"Play",
+  up:"Time's up!",ranks:["GCP Starter","GCP Learner","Inspection-ready","GCP Champion"],learn:"You cleared",goT:"ACRO KKU Go",goS:"Collaborate with us & more",
+  web:"Visit acrokku.com",again:"Play again",foot:"Content based on ICH E6(R3) Good Clinical Practice (Step 4, January 2025).",pts:"points",best:"Best"},
+ th:{back:"ACRO KKU Go",score:"คะแนน",time:"เวลา",tip:"ปัดไอคอนสลับกับช่องข้าง ๆ ให้เรียงกัน <b>3 ช่องขึ้นไป</b>",
+  intro:"จับคู่ไอคอน ICH E6(R3) ให้เรียงกัน 3 ช่อง ภายใน 20 วินาที!",how:"ปัดหรือแตะสองช่องเพื่อสลับ",play:"เริ่มเล่น",
+  up:"หมดเวลา!",ranks:["มือใหม่ GCP","กำลังเรียนรู้ GCP","พร้อมรับการตรวจ","แชมป์ GCP"],learn:"คุณเคลียร์",goT:"ACRO KKU Go",goS:"ร่วมงานกับเรา และอื่น ๆ",
+  web:"เยี่ยมชม acrokku.com",again:"เล่นอีกครั้ง",foot:"เนื้อหาอ้างอิงแนวทาง ICH E6(R3) Good Clinical Practice (Step 4 มกราคม 2025)",pts:"คะแนน",best:"สูงสุด"}
+};
+var lang="en";try{lang=localStorage.getItem(LANG_KEY)||(navigator.language||"").slice(0,2)==="th"&&"th"||"en"}catch(e){}
+if(lang!=="th")lang="en";
+var $=function(id){return document.getElementById(id)};
+var board=$("board"),ov=$("ov");
+var grid=[],cell=50,score=0,t0=0,running=false,busy=false,sel=null,cleared=[0,0,0,0,0],hintT=null,tick=null,lastFact=-1,endPending=false;
+function T(k){return UI[lang][k]}
+function vib(n){try{navigator.vibrate&&navigator.vibrate(n)}catch(e){}}
+function applyLang(){
+ document.documentElement.lang=lang;
+ document.querySelectorAll("[data-t]").forEach(function(el){el.innerHTML=T(el.dataset.t)});
+ document.querySelectorAll(".lang button").forEach(function(b){b.setAttribute("aria-pressed",String(b.dataset.lang===lang))});
+ if(lastFact<0)$("fp").innerHTML=T("tip");else showFact(lastFact,true);
+ if(ov.dataset.v==="intro")intro();else if(ov.dataset.v==="end")endScreen();
+}
+document.querySelectorAll(".lang button").forEach(function(b){b.onclick=function(){lang=b.dataset.lang;try{localStorage.setItem(LANG_KEY,lang)}catch(e){}applyLang()}});
+function tileHTML(k){return '<i><em>'+K[k].e+'</em></i>'}
+/* ---------- layout ---------- */
+function layout(){
+ var bb=$("bb"),s=Math.floor(Math.min(bb.clientWidth,bb.clientHeight)/N);cell=Math.max(36,s);
+ board.style.width=board.style.height=(cell*N)+"px";
+ $("cg").style.backgroundSize=cell+"px "+cell+"px";
+ for(var r=0;r<N;r++)for(var c=0;c<N;c++){var t=grid[r]&&grid[r][c];if(t)place(t,r,c,true)}
+}
+function place(t,r,c,instant){
+ t.r=r;t.c=c;var el=t.el;el.style.width=el.style.height=cell+"px";el.querySelector("i").style.fontSize=(cell*.46)+"px";
+ if(instant){el.style.transition="none";el.style.transform="translate("+c*cell+"px,"+r*cell+"px)";el.offsetHeight;el.style.transition=""}
+ else el.style.transform="translate("+c*cell+"px,"+r*cell+"px)";
+}
+function mk(k,r,c){var el=document.createElement("div");el.className="t k"+k;el.innerHTML=tileHTML(k);board.appendChild(el);var t={k:k,el:el,r:r,c:c};return t}
+/* ---------- board logic ---------- */
+function rnd(){return Math.random()*TYPES|0}
+function fill(){
+ board.querySelectorAll(".t").forEach(function(e){e.remove()});grid=[];
+ for(var r=0;r<N;r++){grid[r]=[];for(var c=0;c<N;c++){var k;do{k=rnd()}while((c>1&&grid[r][c-1].k===k&&grid[r][c-2].k===k)||(r>1&&grid[r-1][c].k===k&&grid[r-2][c].k===k));
+  var t=mk(k,r,c);grid[r][c]=t;place(t,r,c,true)}}
+ if(!findMove())fill();
+}
+function kAt(g,r,c){return g[r]&&g[r][c]?g[r][c].k:-1}
+function matches(){
+ var m=[];for(var r=0;r<N;r++)for(var c=0;c<N;c++){
+  var k=kAt(grid,r,c);if(k<0)continue;
+  if(c<N-2&&kAt(grid,r,c+1)===k&&kAt(grid,r,c+2)===k){var x=c;while(x<N&&kAt(grid,r,x)===k){m.push(r*N+x);x++}}
+  if(r<N-2&&kAt(grid,r+1,c)===k&&kAt(grid,r+2,c)===k){var y=r;while(y<N&&kAt(grid,y,c)===k){m.push(y*N+c);y++}}
+ }
+ return Array.from(new Set(m));
+}
+function swapG(a,b){var t=grid[a.r][a.c];grid[a.r][a.c]=grid[b.r][b.c];grid[b.r][b.c]=t}
+function findMove(){
+ for(var r=0;r<N;r++)for(var c=0;c<N;c++){
+  var d=[[0,1],[1,0]];for(var i=0;i<2;i++){var r2=r+d[i][0],c2=c+d[i][1];if(r2>=N||c2>=N)continue;
+   var A={r:r,c:c},B={r:r2,c:c2};swapG(A,B);var ok=matches().length>0;swapG(A,B);if(ok)return[grid[r][c],grid[r2][c2]]}}
+ return null;
+}
+function wait(ms){return new Promise(function(res){setTimeout(res,ms)})}
+async function trySwap(a,b){
+ if(busy||!running)return;busy=true;clearHint();setSel(null);
+ var ar=a.r,ac=a.c,br=b.r,bc=b.c;
+ swapG({r:ar,c:ac},{r:br,c:bc});place(a,br,bc);place(b,ar,ac);vib(8);
+ await wait(200);
+ if(!matches().length){swapG({r:ar,c:ac},{r:br,c:bc});place(a,ar,ac);place(b,br,bc);await wait(200);busy=false;armHint();return}
+ await resolve();busy=false;
+ if(endPending)return finish();
+ if(!findMove())await shuffle();
+ armHint();
+}
+async function resolve(){
+ var chain=1;
+ while(true){
+  var m=matches();if(!m.length)break;
+  var counts=[0,0,0,0,0];
+  m.forEach(function(i){var t=grid[i/N|0][i%N];counts[t.k]++;t.el.classList.add("pop")});
+  var gained=m.length*10*chain+(m.length>=4?20*chain:0);score+=gained;$("sc").textContent=score;
+  var top=0;counts.forEach(function(v,k){cleared[k]+=v;if(v>counts[top])top=k});showFact(top);
+  var p=grid[m[0]/N|0][m[0]%N];floatTxt("+"+gained,p.c*cell+cell*.2,p.r*cell+cell*.2);
+  if(chain>1){var ch=document.createElement("div");ch.className="chain";ch.textContent="×"+chain;board.appendChild(ch);setTimeout(function(){ch.remove()},900);vib([20,30,20])}else vib(18);
+  await wait(190);
+  m.forEach(function(i){var t=grid[i/N|0][i%N];t.el.remove();grid[i/N|0][i%N]=null});
+  for(var c=0;c<N;c++){
+   var w=N-1;for(var r=N-1;r>=0;r--){if(grid[r][c]){var t=grid[r][c];grid[r][c]=null;grid[w][c]=t;place(t,w,c);w--}}
+   var miss=w+1;for(var r2=w;r2>=0;r2--){var nt=mk(rnd(),r2-miss,c);place(nt,r2-miss,c,true);grid[r2][c]=nt;nt.el.offsetHeight;place(nt,r2,c)}
+  }
+  await wait(230);chain++;
+ }
+}
+async function shuffle(){
+ do{var ks=[];grid.forEach(function(row){row.forEach(function(t){ks.push(t.k)})});ks.sort(function(){return Math.random()-.5});
+  var i=0;grid.forEach(function(row){row.forEach(function(t){t.k=ks[i++];t.el.className="t k"+t.k;t.el.innerHTML=tileHTML(t.k);place(t,t.r,t.c,true)})})}
+ while(matches().length||!findMove());
+ await wait(150);
+}
+function floatTxt(s,x,y){var f=document.createElement("div");f.className="float";f.textContent=s;f.style.left=x+"px";f.style.top=y+"px";board.appendChild(f);setTimeout(function(){f.remove()},800)}
+function showFact(k,silent){
+ lastFact=k;var x=K[k],f=$("fact");
+ f.querySelector(".ic").className="ic k"+k;f.querySelector(".ic").style.background="";f.querySelector(".ic").innerHTML='<i style="font-style:normal">'+x.e+'</i>';
+ $("fp").innerHTML="<b>"+x.n[lang]+":</b> "+x.f[lang]+"<small>ICH E6(R3) "+x.r+"</small>";
+ if(!silent){f.classList.remove("flash");f.offsetWidth;f.classList.add("flash")}
+}
+/* ---------- input ---------- */
+var start=null;
+function cellAt(e){var b=board.getBoundingClientRect(),c=Math.floor((e.clientX-b.left)/cell),r=Math.floor((e.clientY-b.top)/cell);return(r>=0&&r<N&&c>=0&&c<N)?{r:r,c:c}:null}
+function setSel(t){if(sel)sel.el.classList.remove("sel");sel=t;if(t)t.el.classList.add("sel")}
+board.addEventListener("pointerdown",function(e){if(!running||busy)return;var p=cellAt(e);if(!p)return;e.preventDefault();start={x:e.clientX,y:e.clientY,p:p,done:false};try{board.setPointerCapture(e.pointerId)}catch(_){}});
+board.addEventListener("pointermove",function(e){if(!start||start.done)return;var dx=e.clientX-start.x,dy=e.clientY-start.y;if(Math.max(Math.abs(dx),Math.abs(dy))<cell*.3)return;
+ start.done=true;var r=start.p.r,c=start.p.c;if(Math.abs(dx)>Math.abs(dy))c+=dx>0?1:-1;else r+=dy>0?1:-1;
+ if(r>=0&&r<N&&c>=0&&c<N)trySwap(grid[start.p.r][start.p.c],grid[r][c])});
+board.addEventListener("pointerup",function(){if(!start)return;var s=start;start=null;if(s.done||busy||!running)return;
+ var t=grid[s.p.r][s.p.c];if(sel&&sel!==t&&Math.abs(sel.r-t.r)+Math.abs(sel.c-t.c)===1){trySwap(sel,t)}else setSel(sel===t?null:t)});
+board.addEventListener("pointercancel",function(){start=null});
+/* ---------- hint ---------- */
+function clearHint(){clearTimeout(hintT);board.querySelectorAll(".hint").forEach(function(e){e.classList.remove("hint")})}
+function armHint(){clearHint();hintT=setTimeout(function(){if(!running||busy)return;var m=findMove();if(m)m.forEach(function(t){t.el.classList.add("hint")})},3000)}
+/* ---------- flow ---------- */
+function intro(){
+ ov.dataset.v="intro";ov.hidden=false;
+ var leg=K.slice(0,TYPES).map(function(k,i){return '<div><div class="t k'+i+'" style="font-size:22px">'+tileHTML(i)+'</div>'+k.n[lang]+'</div>'}).join("");
+ ov.innerHTML='<div class="panel"><span class="kick">CREST 2026 · ICH E6(R3)</span>'+
+  '<h1 class="title">GCP <span class="bang"><b>Crush</b></span></h1>'+
+  '<p class="sub">'+T("intro")+'</p><div class="legend">'+leg+'</div>'+
+  '<p class="sub" style="font-size:13.5px">'+T("how")+'</p>'+
+  '<button class="btn go" id="play" style="flex-direction:row">'+T("play")+' <span class="ar">→</span></button></div>';
+ $("play").onclick=countdown;
+}
+function countdown(){
+ ov.dataset.v="cd";fill();score=0;cleared=[0,0,0,0,0];$("sc").textContent=0;setTime(LIMIT);lastFact=-1;$("fp").innerHTML=T("tip");
+ var n=3;ov.innerHTML='<div class="cd">3</div>';
+ var iv=setInterval(function(){n--;if(n>0)ov.firstChild.textContent=n;else{clearInterval(iv);ov.hidden=true;go()}},600);
+}
+function setTime(left){$("ts").textContent=Math.ceil(left)+"s";$("tb").style.width=(left/LIMIT*100)+"%";$("tm").classList.toggle("low",left<6)}
+function go(){
+ running=true;endPending=false;busy=false;t0=Date.now();armHint();
+ clearInterval(tick);tick=setInterval(function(){var left=Math.max(0,LIMIT-(Date.now()-t0)/1000);setTime(left);
+  if(left<=0){clearInterval(tick);if(busy)endPending=true;else finish()}},200);
+}
+function finish(){running=false;clearHint();setSel(null);setTimeout(endScreen,350)}
+function endScreen(){
+ ov.dataset.v="end";ov.hidden=false;
+ var st=score>=800?3:score>=450?2:score>=200?1:0;
+ var best=0;try{best=+localStorage.getItem("acro-gcp-crush-best")||0;if(score>best){localStorage.setItem("acro-gcp-crush-best",score);best=score}}catch(e){}
+ var top=cleared.map(function(v,k){return[v,k]}).filter(function(x){return x[0]>0}).sort(function(a,b){return b[0]-a[0]}).slice(0,2);
+ var learned=top.map(function(x){var k=K[x[1]];return '<div style="margin-top:4px">'+k.e+' <b>'+k.n[lang]+'</b> ×'+x[0]+': '+k.f[lang]+'</div>'}).join("");
+ ov.innerHTML='<div class="panel"><span class="kick">'+T("up")+'</span>'+
+  '<div class="score">'+score+'</div><div class="stars">'+"⭐".repeat(st)+'<span style="opacity:.25">'+"⭐".repeat(3-st)+'</span></div>'+
+  '<h2 style="font:800 26px/1.1 \'BSD\',\'Manrope\',\'PlexThai\',sans-serif;margin-top:6px">'+T("ranks")[st]+'</h2>'+
+  '<p class="sub" style="font-size:13px">'+T("best")+': '+best+' '+T("pts")+'</p>'+
+  (learned?'<div class="learned">'+learned+'</div>':'')+
+  '<a class="btn go" href="/">'+T("goT")+' →<small>'+T("goS")+'</small></a>'+
+  '<a class="btn alt" href="'+SITE+'" target="_blank" rel="noopener">'+T("web")+'</a>'+
+  '<button class="btn line" id="again">'+T("again")+'</button><p class="foot">'+T("foot")+'</p></div>';
+ $("again").onclick=countdown;
+ clearTimeout(window._idle);window._idle=setTimeout(function(){if(ov.dataset.v==="end")intro()},90000);
+}
+document.addEventListener("contextmenu",function(e){e.preventDefault()});
+window.addEventListener("resize",layout);
+applyLang();fill();layout();intro();
+})();
+</script>
+</body>
+</html>
