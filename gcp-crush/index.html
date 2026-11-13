@@ -118,6 +118,34 @@ html[lang="th"] .title{text-transform:none}
 .learned{margin-top:12px;text-align:left;background:#F3F7F4;border-radius:14px;padding:10px 12px;font-size:12.5px;line-height:1.45;color:#3D4C43}
 .learned b{color:var(--ink)}
 .cd{font:800 120px/1 "BSD","Manrope",sans-serif;color:#fff;text-shadow:0 10px 40px rgba(0,0,0,.5)}
+.ov.scroll{align-items:flex-start;overflow-y:auto;-webkit-overflow-scrolling:touch;overscroll-behavior:contain}
+.ov.scroll .panel{max-height:none;overflow:visible;margin:auto 0}
+.sec{margin-top:18px;text-align:left}
+.sec h3{font:800 20px/1.1 "BSD","Manrope","PlexThai",sans-serif;text-transform:uppercase;color:var(--forest);padding-top:10px;border-top:3px solid var(--ink)}
+html[lang="th"] .sec h3{text-transform:none;font-family:"PlexThai",sans-serif;font-weight:700}
+.sec .note{font-size:12.5px;color:#6B7A70;margin-top:4px}
+.pr{list-style:none;margin-top:8px;display:grid;gap:6px}
+.pr li{display:flex;gap:10px;align-items:flex-start;font-size:13.5px;line-height:1.4;color:#3D4C43;background:#F3F7F4;border-radius:12px;padding:8px 10px}
+.pr li b{color:var(--ink)}
+.pr .n{flex:none;width:24px;height:24px;border-radius:50%;display:grid;place-items:center;background:var(--forest);color:#fff;font:800 12px/1 "Manrope",sans-serif}
+.pr li.hit{background:#E6F4EC;box-shadow:inset 3px 0 0 var(--emerald)}
+.pr li.hit .n{background:var(--orange)}
+.ad{margin-top:18px;border-radius:20px;overflow:hidden;text-align:left;color:#fff;background:linear-gradient(150deg,#215E33 0%,#16944F 52%,#F0702F 80%,#E8472B 100%)}
+.ad .ph{height:120px;background:url(../img/srinagarind.jpg) center 35%/cover;position:relative}
+.ad .ph::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(11,36,22,0),rgba(33,94,51,.95))}
+.ad .ph img{position:absolute;left:14px;top:12px;height:30px;background:#fff;border-radius:10px;padding:5px 9px;z-index:1}
+.ad .bd{padding:4px 16px 16px}
+.ad .k{font:800 13px/1.3 "BSD","Manrope",sans-serif;letter-spacing:.06em;text-transform:uppercase;color:var(--peach)}
+.ad h3{font:800 25px/1.05 "BSD","Manrope","PlexThai",sans-serif;text-transform:uppercase;margin-top:4px}
+html[lang="th"] .ad h3{text-transform:none;font-family:"PlexThai",sans-serif;font-weight:700;font-size:22px;line-height:1.3}
+.ad p{font-size:13.5px;line-height:1.45;margin-top:6px;color:rgba(255,255,255,.92)}
+.ad ul{list-style:none;margin-top:10px;display:grid;gap:6px}
+.ad ul li{font-size:13.5px;line-height:1.35;padding-left:22px;position:relative}
+.ad ul li::before{content:"✓";position:absolute;left:0;top:0;font-weight:800;color:var(--peach)}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}
+.chips span{font-size:12px;font-weight:700;padding:5px 10px;border-radius:999px;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.28)}
+.mini{display:flex;align-items:center;justify-content:center;gap:10px;margin-top:14px}
+.mini .stars{font-size:26px;margin:0}
 .foot{font-size:11px;color:#6B7A70;margin-top:12px}
 </style>
 </head>
@@ -152,15 +180,36 @@ var K=[
  {e:"🎯",n:{en:"Quality",th:"คุณภาพ"},f:{en:"Build quality in: focus on <b>critical-to-quality</b> factors, proportionate to risk.",th:"สร้างคุณภาพตั้งแต่การออกแบบ มุ่งเน้น<b>ปัจจัยสำคัญต่อคุณภาพ</b> อย่างสมสัดส่วนกับความเสี่ยง"},r:"Principles 6–7"},
  {e:"🗄️",n:{en:"Records",th:"เอกสารสำคัญ"},f:{en:"Essential records are kept <b>securely</b> for the required retention period.",th:"จัดเก็บเอกสารสำคัญอย่าง<b>ปลอดภัย</b>ตลอดระยะเวลาที่กำหนด"},r:"Principle 9.5"}
 ];
+var PR=[
+ {en:"<b>Ethics first.</b> Participants' rights, safety and well-being come before the interests of science and society.",th:"<b>จริยธรรมมาก่อน</b> สิทธิ ความปลอดภัย และความเป็นอยู่ที่ดีของผู้เข้าร่วมสำคัญเหนือประโยชน์ของวิทยาศาสตร์และสังคม"},
+ {en:"<b>Informed consent</b>, freely given and properly documented.",th:"<b>ความยินยอมโดยได้รับข้อมูล</b> ให้โดยสมัครใจและบันทึกอย่างถูกต้อง",tile:0},
+ {en:"<b>Independent review</b> by an IRB/IEC.",th:"<b>การพิจารณาอย่างอิสระ</b> โดยคณะกรรมการจริยธรรมการวิจัย (IRB/IEC)"},
+ {en:"<b>Scientifically sound</b> trials, based on current knowledge.",th:"<b>ถูกต้องตามหลักวิทยาศาสตร์</b> อิงองค์ความรู้ปัจจุบัน"},
+ {en:"<b>Qualified people</b> design and conduct the trial.",th:"<b>บุคลากรที่มีคุณสมบัติเหมาะสม</b> เป็นผู้ออกแบบและดำเนินการวิจัย"},
+ {en:"<b>Quality by design:</b> focus on critical-to-quality factors.",th:"<b>สร้างคุณภาพตั้งแต่การออกแบบ</b> มุ่งเน้นปัจจัยสำคัญต่อคุณภาพ",tile:3},
+ {en:"<b>Risk-proportionate</b> processes, with participant safety in focus.",th:"<b>กระบวนการสมสัดส่วนกับความเสี่ยง</b> โดยคำนึงถึงความปลอดภัยของผู้เข้าร่วม",tile:1},
+ {en:"<b>A clear, concise protocol</b> that is operationally feasible.",th:"<b>โครงร่างการวิจัยชัดเจน กระชับ</b> และปฏิบัติได้จริง"},
+ {en:"<b>Reliable results:</b> data that are accurate, traceable and secure.",th:"<b>ผลลัพธ์ที่เชื่อถือได้</b> ข้อมูลถูกต้อง ตรวจสอบย้อนกลับได้ และปลอดภัย",tile:2},
+ {en:"<b>Clear, documented roles</b>, with oversight of anything delegated.",th:"<b>บทบาทหน้าที่ชัดเจนและมีเอกสาร</b> พร้อมกำกับดูแลงานที่มอบหมาย"},
+ {en:"<b>Investigational products</b> made to GMP and managed per protocol.",th:"<b>ผลิตภัณฑ์ที่ใช้ในการวิจัย</b> ผลิตตาม GMP และจัดการตามโครงร่างการวิจัย"}
+];
+var AD={
+ en:{k:"Run your next trial with us",h:"ACRO KKU, Khon Kaen",p:"The Academic Clinical Research Office of the Faculty of Medicine, Khon Kaen University, at Srinagarind Hospital. We bridge Northeast Thailand with global research partners.",
+  li:["Clinical research site services: site management, protocol compliance and ethics coordination","Investigator matching: the right qualified PI for your protocol","A dedicated clinical trial unit","Industry-sponsored and investigator-initiated trials, run to ICH E6(R3)"],
+  chips:["Phase I","Oncology","Non-oncology","Vaccines","Biosimilars","Bioequivalence","Medical devices","ATMPs"]},
+ th:{k:"ร่วมทำการวิจัยกับเรา",h:"ACRO KKU ขอนแก่น",p:"สถานบริหารจัดการงานวิจัยคลินิก คณะแพทยศาสตร์ มหาวิทยาลัยขอนแก่น โรงพยาบาลศรีนครินทร์ เชื่อมภาคตะวันออกเฉียงเหนือของไทยกับพันธมิตรวิจัยทั่วโลก",
+  li:["บริการศูนย์วิจัยคลินิก: บริหารจัดการศูนย์วิจัย การปฏิบัติตามโครงร่างการวิจัย และประสานงานด้านจริยธรรม","จับคู่นักวิจัยหลัก (PI) ที่มีความเชี่ยวชาญเหมาะกับโครงการ","หน่วยวิจัยทางคลินิก (clinical trial unit) โดยเฉพาะ","รองรับทั้งงานวิจัยจากภาคอุตสาหกรรมและงานวิจัยที่ริเริ่มโดยผู้วิจัย ตามมาตรฐาน ICH E6(R3)"],
+  chips:["Phase I","มะเร็งวิทยา","นอกเหนือมะเร็ง","วัคซีน","ชีววัตถุคล้ายคลึง","ชีวสมมูล","เครื่องมือแพทย์","ผลิตภัณฑ์การแพทย์ขั้นสูง"]}
+};
 var UI={
  en:{back:"ACRO KKU Go",score:"Score",time:"Time",tip:"Swipe a tile into its neighbour to line up <b>3 or more</b> of the same GCP icon.",
   intro:"Match 3 ICH E6(R3) icons. You have 20 seconds!",how:"Swipe or tap two tiles to swap",play:"Play",
   up:"Time's up!",ranks:["GCP Starter","GCP Learner","Inspection-ready","GCP Champion"],learn:"You cleared",goT:"ACRO KKU Go",goS:"Collaborate with us & more",
-  web:"Visit acrokku.com",again:"Play again",foot:"Content based on ICH E6(R3) Good Clinical Practice (Step 4, January 2025).",pts:"points",best:"Best"},
+  web:"Visit acrokku.com",again:"Play again",foot:"Content based on ICH E6(R3) Good Clinical Practice (Step 4, January 2025).",pts:"points",best:"Best",sumH:"ICH E6(R3) in 1 minute",sumN:"The 11 principles of Good Clinical Practice. Highlighted: the ones you just matched."},
  th:{back:"ACRO KKU Go",score:"คะแนน",time:"เวลา",tip:"ปัดไอคอนสลับกับช่องข้าง ๆ ให้เรียงกัน <b>3 ช่องขึ้นไป</b>",
   intro:"จับคู่ไอคอน ICH E6(R3) ให้เรียงกัน 3 ช่อง ภายใน 20 วินาที!",how:"ปัดหรือแตะสองช่องเพื่อสลับ",play:"เริ่มเล่น",
   up:"หมดเวลา!",ranks:["มือใหม่ GCP","กำลังเรียนรู้ GCP","พร้อมรับการตรวจ","แชมป์ GCP"],learn:"คุณเคลียร์",goT:"ACRO KKU Go",goS:"ร่วมงานกับเรา และอื่น ๆ",
-  web:"เยี่ยมชม acrokku.com",again:"เล่นอีกครั้ง",foot:"เนื้อหาอ้างอิงแนวทาง ICH E6(R3) Good Clinical Practice (Step 4 มกราคม 2025)",pts:"คะแนน",best:"สูงสุด"}
+  web:"เยี่ยมชม acrokku.com",again:"เล่นอีกครั้ง",foot:"เนื้อหาอ้างอิงแนวทาง ICH E6(R3) Good Clinical Practice (Step 4 มกราคม 2025)",pts:"คะแนน",best:"สูงสุด",sumH:"สรุป ICH E6(R3) ใน 1 นาที",sumN:"หลักการ 11 ข้อของ Good Clinical Practice ข้อที่ไฮไลต์คือหัวข้อที่คุณเพิ่งจับคู่ในเกม"}
 };
 var lang="en";try{lang=localStorage.getItem(LANG_KEY)||(navigator.language||"").slice(0,2)==="th"&&"th"||"en"}catch(e){}
 if(lang!=="th")lang="en";
@@ -297,21 +346,24 @@ function go(){
 }
 function finish(){running=false;clearHint();setSel(null);setTimeout(endScreen,350)}
 function endScreen(){
- ov.dataset.v="end";ov.hidden=false;
+ ov.dataset.v="end";ov.hidden=false;ov.classList.add("scroll");ov.scrollTop=0;
  var st=score>=800?3:score>=450?2:score>=200?1:0;
  var best=0;try{best=+localStorage.getItem("acro-gcp-crush-best")||0;if(score>best){localStorage.setItem("acro-gcp-crush-best",score);best=score}}catch(e){}
- var top=cleared.map(function(v,k){return[v,k]}).filter(function(x){return x[0]>0}).sort(function(a,b){return b[0]-a[0]}).slice(0,2);
- var learned=top.map(function(x){var k=K[x[1]];return '<div style="margin-top:4px">'+k.e+' <b>'+k.n[lang]+'</b> ×'+x[0]+': '+k.f[lang]+'</div>'}).join("");
+ var pr=PR.map(function(x,n){var hit=x.tile!==undefined&&cleared[x.tile]>0;return '<li class="'+(hit?"hit":"")+'"><span class="n">'+(n+1)+'</span><span>'+x[lang]+(hit?' '+K[x.tile].e:'')+'</span></li>'}).join("");
+ var a=AD[lang];
  ov.innerHTML='<div class="panel"><span class="kick">'+T("up")+'</span>'+
-  '<div class="score">'+score+'</div><div class="stars">'+"⭐".repeat(st)+'<span style="opacity:.25">'+"⭐".repeat(3-st)+'</span></div>'+
+  '<div class="score">'+score+'</div><div class="mini"><div class="stars">'+"⭐".repeat(st)+'<span style="opacity:.25">'+"⭐".repeat(3-st)+'</span></div></div>'+
   '<h2 style="font:800 26px/1.1 \'BSD\',\'Manrope\',\'PlexThai\',sans-serif;margin-top:6px">'+T("ranks")[st]+'</h2>'+
   '<p class="sub" style="font-size:13px">'+T("best")+': '+best+' '+T("pts")+'</p>'+
-  (learned?'<div class="learned">'+learned+'</div>':'')+
+  '<button class="btn line" id="again">'+T("again")+'</button>'+
+  '<div class="sec"><h3>'+T("sumH")+'</h3><p class="note">'+T("sumN")+'</p><ol class="pr">'+pr+'</ol></div>'+
+  '<div class="ad"><div class="ph"><img src="../acro-logo.png" alt="ACRO KKU"></div><div class="bd"><div class="k">'+a.k+'</div><h3>'+a.h+'</h3><p>'+a.p+'</p>'+
+  '<ul>'+a.li.map(function(x){return '<li>'+x+'</li>'}).join("")+'</ul><div class="chips">'+a.chips.map(function(x){return '<span>'+x+'</span>'}).join("")+'</div></div></div>'+
   '<a class="btn go" href="/">'+T("goT")+' →<small>'+T("goS")+'</small></a>'+
   '<a class="btn alt" href="'+SITE+'" target="_blank" rel="noopener">'+T("web")+'</a>'+
-  '<button class="btn line" id="again">'+T("again")+'</button><p class="foot">'+T("foot")+'</p></div>';
- $("again").onclick=countdown;
- clearTimeout(window._idle);window._idle=setTimeout(function(){if(ov.dataset.v==="end")intro()},90000);
+  '<p class="foot">'+T("foot")+'</p></div>';
+ $("again").onclick=function(){ov.classList.remove("scroll");countdown()};
+ clearTimeout(window._idle);window._idle=setTimeout(function(){if(ov.dataset.v==="end"){ov.classList.remove("scroll");intro()}},120000);
 }
 document.addEventListener("contextmenu",function(e){e.preventDefault()});
 window.addEventListener("resize",layout);
