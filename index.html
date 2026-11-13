@@ -220,7 +220,7 @@ footer a.site:hover{background:rgba(255,255,255,.08)}
 .pill .lbl{flex:1}
 .pill .lbl small{font:600 13px/1.3 var(--sans)!important;text-transform:none!important;letter-spacing:0!important;opacity:.8;margin-top:3px}
 html[lang="th"] .pill .lbl small{font-family:"PlexThai","Manrope",sans-serif!important}
-.cta.two .pill{padding:0 20px 0 10px;min-height:64px}
+.cta.two .pill{padding:0 14px 0 26px;min-height:62px}
 @media (prefers-reduced-motion:reduce){.pill.game{animation:none}}
 .pill .lbl{display:flex;flex-direction:column;align-items:flex-start;text-align:left}
 .pill .lbl small{font-size:12.5px;font-weight:600;opacity:.72;margin-top:2px}
@@ -260,6 +260,11 @@ html[lang="th"] .card.featured .ttl{font-size:25px}
 .spin i::after{content:"";position:absolute;left:3px;top:3px;width:14px;height:14px;border-radius:50%;background:#fff;transition:transform .2s}
 .spin[aria-pressed="true"] i{background:var(--orange)}
 .spin[aria-pressed="true"] i::after{transform:translateX(14px)}
+.crest-live{display:inline-flex;align-items:center;gap:10px;padding:9px 16px 9px 13px;border-radius:999px;background:rgba(11,36,22,.55);border:1.5px solid var(--peach);
+  font:800 15px/1.2 var(--disp);letter-spacing:.06em;text-transform:uppercase;color:#fff;text-align:center;box-shadow:0 8px 24px rgba(11,36,22,.25)}
+.crest-live i{flex:none;width:9px;height:9px;border-radius:50%;background:#FF5A3C;animation:pulse 1.6s ease-out infinite}
+.crest-live span b{color:var(--peach);font-weight:800}
+html[lang="th"] .crest-live{font-family:"PlexThai","Manrope",sans-serif;font-weight:700;font-size:14.5px}
 .globe-ctl{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:8px}
 /* auto-rotate: a small round button above zoom; orange while the globe turns by itself */
 .globe-zoom .gspin[data-r="focus"],.globe-zoom .gspin[data-r="spin"]{background:var(--orange);border-color:var(--orange)}
@@ -407,6 +412,7 @@ html[lang=th] .yt-cap b{font-family:"KanitTH","Kanit",sans-serif;text-transform:
           <button type="button" id="gzreset" aria-label="Reset zoom / รีเซ็ตการซูม" disabled>1&times;</button>
         </div>
       </div>
+      <p class="crest-live" id="crest-live"><i aria-hidden="true"></i><span data-i18n="crestLive"></span></p>
       <div class="globe-ctl">
       <div class="globe-mode seg" id="globe-mode" role="group" aria-label="Routes to show / เส้นทางที่แสดง">
         <button type="button" data-mode="all" data-i18n="mAll" aria-pressed="true"></button>
@@ -453,14 +459,14 @@ html[lang=th] .yt-cap b{font-family:"KanitTH","Kanit",sans-serif;text-transform:
     en:{kicker:"Academic Clinical Research Office, Khon Kaen University",
         lead:"Forms, events and updates from ACRO KKU, all in one place.",pick:"Got a minute? Start here 👇",
         portals:"Start here",posted:"Posted",latest:"Latest",open:"Open",soon:"Coming soon",empty:"Nothing here right now. Please check back soon.",
-        liveH:"Live",hint:"Drag to rotate, scroll to zoom, click a place for its route",hintT:"Drag to rotate, pinch to zoom, tap a place",spin:"Globe motion",rFocus:"Thailand focus",rSpin:"360° rotation",rStill:"Still",mAll:"All",mTH:"Thailand",mIntl:"International",noTH:"No collaborators from Thailand yet.",noIntl:"No international collaborators yet.",more:"{n} more",nCollab:"{n} collaborators",kkSub:"Khon Kaen, Thailand",liveN1:"collaborator connected",liveC1:"country",cap:"Every route leads to Khon Kaen",first:"Your route could be the first",liveN:"collaborators connected",liveC:"countries",
+        liveH:"Live",crestLive:"Live at CREST 2026 · Bangkok",hint:"Drag to rotate, scroll to zoom, click a place for its route",hintT:"Drag to rotate, pinch to zoom, tap a place",spin:"Globe motion",rFocus:"Thailand focus",rSpin:"360° rotation",rStill:"Still",mAll:"All",mTH:"Thailand",mIntl:"International",noTH:"No collaborators from Thailand yet.",noIntl:"No international collaborators yet.",more:"{n} more",nCollab:"{n} collaborators",kkSub:"Khon Kaen, Thailand",liveN1:"collaborator connected",liveC1:"country",cap:"Every route leads to Khon Kaen",first:"Your route could be the first",liveN:"collaborators connected",liveC:"countries",
         a1:"Site services",a1d:"Site management, ethics coordination and protocol compliance.",
         a2:"Investigator matching",a2d:"Qualified investigators with the right expertise for your protocol.",
         a3:"Northeastern Thailand",a3d:"Clinical research from Khon Kaen, connected to partners worldwide."},
     th:{kicker:"สถานบริหารจัดการงานวิจัยคลินิก มหาวิทยาลัยขอนแก่น",
         lead:"แบบฟอร์ม กิจกรรม และข่าวสารจาก ACRO KKU รวมไว้ในที่เดียว",pick:"มีเวลาสักนาทีไหม เริ่มตรงนี้เลย 👇",
         portals:"เริ่มต้นที่นี่",posted:"เผยแพร่",latest:"ล่าสุด",open:"เปิด",soon:"เร็ว ๆ นี้",empty:"ยังไม่มีรายการในขณะนี้ โปรดกลับมาใหม่ภายหลัง",
-        liveH:"สด",hint:"ลากเพื่อหมุน เลื่อนล้อเมาส์เพื่อซูม คลิกสถานที่เพื่อดูเส้นทาง",hintT:"ลากเพื่อหมุน ถ่างนิ้วเพื่อซูม แตะสถานที่เพื่อดูเส้นทาง",spin:"การเคลื่อนไหวของลูกโลก",rFocus:"โฟกัสประเทศไทย",rSpin:"หมุนรอบโลก 360°",rStill:"หยุดนิ่ง",mAll:"ทั้งหมด",mTH:"ในประเทศ",mIntl:"ต่างประเทศ",noTH:"ยังไม่มีผู้ร่วมงานในประเทศ",noIntl:"ยังไม่มีผู้ร่วมงานจากต่างประเทศ",more:"อีก {n} แห่ง",nCollab:"{n} ผู้ร่วมงาน",kkSub:"ขอนแก่น ประเทศไทย",cap:"ทุกเส้นทางมุ่งสู่ขอนแก่น",first:"เส้นทางของคุณอาจเป็นเส้นแรก",liveN:"ผู้ร่วมเชื่อมต่อ",liveC:"ประเทศ",
+        liveH:"สด",crestLive:"สดจากงาน CREST 2026 · กรุงเทพฯ",hint:"ลากเพื่อหมุน เลื่อนล้อเมาส์เพื่อซูม คลิกสถานที่เพื่อดูเส้นทาง",hintT:"ลากเพื่อหมุน ถ่างนิ้วเพื่อซูม แตะสถานที่เพื่อดูเส้นทาง",spin:"การเคลื่อนไหวของลูกโลก",rFocus:"โฟกัสประเทศไทย",rSpin:"หมุนรอบโลก 360°",rStill:"หยุดนิ่ง",mAll:"ทั้งหมด",mTH:"ในประเทศ",mIntl:"ต่างประเทศ",noTH:"ยังไม่มีผู้ร่วมงานในประเทศ",noIntl:"ยังไม่มีผู้ร่วมงานจากต่างประเทศ",more:"อีก {n} แห่ง",nCollab:"{n} ผู้ร่วมงาน",kkSub:"ขอนแก่น ประเทศไทย",cap:"ทุกเส้นทางมุ่งสู่ขอนแก่น",first:"เส้นทางของคุณอาจเป็นเส้นแรก",liveN:"ผู้ร่วมเชื่อมต่อ",liveC:"ประเทศ",
         a1:"บริการสถานที่วิจัย",a1d:"บริหารสถานที่วิจัย ประสานงานจริยธรรม และกำกับให้เป็นไปตามโครงร่างการวิจัย",
         a2:"จับคู่ผู้วิจัย",a2d:"ผู้วิจัยที่มีความเชี่ยวชาญเหมาะกับโครงการของคุณ",
         a3:"ภาคตะวันออกเฉียงเหนือ",a3d:"งานวิจัยทางคลินิกจากขอนแก่น เชื่อมต่อกับพันธมิตรทั่วโลก"}
@@ -564,6 +570,8 @@ html[lang=th] .yt-cap b{font-family:"KanitTH","Kanit",sans-serif;text-transform:
     b.addEventListener("click",function(){lang=b.dataset.lang;try{localStorage.setItem("acro-go-lang",lang)}catch(e){}render();if(window.__globeCaption)window.__globeCaption()});
   });
   render();
+  /* "Live at CREST 2026" badge: shown until the end of 13 Nov 2026, Bangkok time */
+  (function(){var el=document.getElementById("crest-live");if(el&&Date.now()>=Date.parse("2026-11-14T00:00:00+07:00"))el.hidden=true})();
   /* ---------- live globe: every response from the collaboration form is a route into Khon Kaen ---------- */
   var KK=[102.835,16.44],G={land:null,thai:null,grat:null,places:null};
   function count(el,to){var t0=performance.now();(function step(now){var p=Math.min(1,(now-t0)/900);el.textContent=Math.round(to*(1-Math.pow(1-p,3)));if(p<1)requestAnimationFrame(step)})(t0)}
