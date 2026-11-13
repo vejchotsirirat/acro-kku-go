@@ -213,6 +213,15 @@ footer a.site:hover{background:rgba(255,255,255,.08)}
 .pill.game{background:var(--night);color:#fff;box-shadow:0 10px 30px rgba(11,36,22,.35)}
 .pill.game .ar{background:var(--peach);color:var(--night)}
 .pill.game:hover{transform:translateY(-2px)}
+.pill.game{animation:glow 2.4s ease-in-out infinite}
+@keyframes glow{0%,100%{box-shadow:0 10px 30px rgba(11,36,22,.35),0 0 0 0 rgba(255,211,184,.55)}50%{box-shadow:0 10px 30px rgba(11,36,22,.35),0 0 0 7px rgba(255,211,184,0)}}
+.pill .emo{flex:none;display:grid;place-items:center;width:40px;height:40px;border-radius:12px;font-size:22px;margin-right:2px;background:rgba(255,255,255,.12)}
+.pill.primary .emo{background:#EEF5F0}
+.pill .lbl{flex:1}
+.pill .lbl small{font:600 13px/1.3 var(--sans)!important;text-transform:none!important;letter-spacing:0!important;opacity:.8;margin-top:3px}
+html[lang="th"] .pill .lbl small{font-family:"PlexThai","Manrope",sans-serif!important}
+.cta.two .pill{padding:0 20px 0 10px;min-height:64px}
+@media (prefers-reduced-motion:reduce){.pill.game{animation:none}}
 .pill .lbl{display:flex;flex-direction:column;align-items:flex-start;text-align:left}
 .pill .lbl small{font-size:12.5px;font-weight:600;opacity:.72;margin-top:2px}
 .live{background:rgba(255,255,255,.14);border:0;border-left:4px solid var(--peach);border-radius:0 var(--r-md) var(--r-md) 0}
@@ -442,14 +451,14 @@ html[lang=th] .yt-cap b{font-family:"KanitTH","Kanit",sans-serif;text-transform:
   var TOTALS_URL="https://script.google.com/macros/s/AKfycbzPkzimv2RXRwEBdtHaijGmaFqjxdvnW4WuEiGHYMtO9_4catbIzVC40GGVZD56J-dIxQ/exec?totals=1";
   var UI={
     en:{kicker:"Academic Clinical Research Office, Khon Kaen University",
-        lead:"Forms, events and updates from ACRO KKU, all in one place.",pick:"Pick one to start",
+        lead:"Forms, events and updates from ACRO KKU, all in one place.",pick:"Got a minute? Start here 👇",
         portals:"Start here",posted:"Posted",latest:"Latest",open:"Open",soon:"Coming soon",empty:"Nothing here right now. Please check back soon.",
         liveH:"Live",hint:"Drag to rotate, scroll to zoom, click a place for its route",hintT:"Drag to rotate, pinch to zoom, tap a place",spin:"Globe motion",rFocus:"Thailand focus",rSpin:"360° rotation",rStill:"Still",mAll:"All",mTH:"Thailand",mIntl:"International",noTH:"No collaborators from Thailand yet.",noIntl:"No international collaborators yet.",more:"{n} more",nCollab:"{n} collaborators",kkSub:"Khon Kaen, Thailand",liveN1:"collaborator connected",liveC1:"country",cap:"Every route leads to Khon Kaen",first:"Your route could be the first",liveN:"collaborators connected",liveC:"countries",
         a1:"Site services",a1d:"Site management, ethics coordination and protocol compliance.",
         a2:"Investigator matching",a2d:"Qualified investigators with the right expertise for your protocol.",
         a3:"Northeastern Thailand",a3d:"Clinical research from Khon Kaen, connected to partners worldwide."},
     th:{kicker:"สถานบริหารจัดการงานวิจัยคลินิก มหาวิทยาลัยขอนแก่น",
-        lead:"แบบฟอร์ม กิจกรรม และข่าวสารจาก ACRO KKU รวมไว้ในที่เดียว",pick:"เลือกเริ่มต้นได้เลย",
+        lead:"แบบฟอร์ม กิจกรรม และข่าวสารจาก ACRO KKU รวมไว้ในที่เดียว",pick:"มีเวลาสักนาทีไหม เริ่มตรงนี้เลย 👇",
         portals:"เริ่มต้นที่นี่",posted:"เผยแพร่",latest:"ล่าสุด",open:"เปิด",soon:"เร็ว ๆ นี้",empty:"ยังไม่มีรายการในขณะนี้ โปรดกลับมาใหม่ภายหลัง",
         liveH:"สด",hint:"ลากเพื่อหมุน เลื่อนล้อเมาส์เพื่อซูม คลิกสถานที่เพื่อดูเส้นทาง",hintT:"ลากเพื่อหมุน ถ่างนิ้วเพื่อซูม แตะสถานที่เพื่อดูเส้นทาง",spin:"การเคลื่อนไหวของลูกโลก",rFocus:"โฟกัสประเทศไทย",rSpin:"หมุนรอบโลก 360°",rStill:"หยุดนิ่ง",mAll:"ทั้งหมด",mTH:"ในประเทศ",mIntl:"ต่างประเทศ",noTH:"ยังไม่มีผู้ร่วมงานในประเทศ",noIntl:"ยังไม่มีผู้ร่วมงานจากต่างประเทศ",more:"อีก {n} แห่ง",nCollab:"{n} ผู้ร่วมงาน",kkSub:"ขอนแก่น ประเทศไทย",cap:"ทุกเส้นทางมุ่งสู่ขอนแก่น",first:"เส้นทางของคุณอาจเป็นเส้นแรก",liveN:"ผู้ร่วมเชื่อมต่อ",liveC:"ประเทศ",
         a1:"บริการสถานที่วิจัย",a1d:"บริหารสถานที่วิจัย ประสานงานจริยธรรม และกำกับให้เป็นไปตามโครงร่างการวิจัย",
@@ -537,7 +546,8 @@ html[lang=th] .yt-cap b{font-family:"KanitTH","Kanit",sans-serif;text-transform:
     var list=(window.ACRO_PORTALS||[]).filter(function(p){return p&&p.status!=="hidden"});
     /* newest first (by "posted"); portals without a date go last, in file order */
     list=list.map(function(p,i){return{p:p,i:i}}).sort(function(a,b){var x=a.p.posted||"",y=b.p.posted||"";return x===y?a.i-b.i:(x<y?1:-1)}).map(function(o){return o.p});
-    document.getElementById("portals").innerHTML=list.length?list.map(function(p,i){return card(p,i===0&&!!p.posted&&p.status!=="soon")}).join(""):'<p class="empty">'+esc(UI[lang].empty)+'</p>';
+    var shown=list.filter(function(p){return p.list!==false});
+    document.getElementById("portals").innerHTML=shown.length?shown.map(function(p,i){return card(p,i===0&&!!p.posted&&p.status!=="soon")}).join(""):'<p class="empty">'+esc(UI[lang].empty)+'</p>';
     /* hero button: the featured portal (the one visitors from the printed QR are looking for) */
     /* hero buttons: portals marked hero:true first (e.g. the game), then the featured portal */
     var heroes=list.filter(function(p){return p.hero&&p.status==="open"&&!p.featured}).concat(list.filter(function(p){return p.featured&&p.status==="open"}).slice(0,1));
@@ -546,7 +556,7 @@ html[lang=th] .yt-cap b{font-family:"KanitTH","Kanit",sans-serif;text-transform:
     if(hint){hint.textContent=UI[lang].pick;hint.hidden=heroes.length<2}
     cta.innerHTML=heroes.map(function(f){
       var lab=f.heroLabel?t(f.heroLabel,lang):t(f.title,lang),sub=f.heroSub?'<small>'+esc(t(f.heroSub,lang))+'</small>':'';
-      return '<a class="pill '+(f.featured?'primary':'game')+'" href="'+esc(f.url)+'"'+(/^https?:/i.test(f.url||"")?' rel="noopener"':'')+'><span class="lbl"><span>'+nb(esc(lab))+'</span>'+sub+'</span><span class="ar">'+ARROW.replace(/18/g,"15")+'</span></a>';
+      return '<a class="pill '+(f.featured?'primary':'game')+'" href="'+esc(f.url)+'"'+(/^https?:/i.test(f.url||"")?' rel="noopener"':'')+'>'+(f.heroIcon?'<span class="emo" aria-hidden="true">'+esc(f.heroIcon)+'</span>':'')+'<span class="lbl"><span>'+nb(esc(lab))+'</span>'+sub+'</span><span class="ar">'+ARROW.replace(/18/g,"15")+'</span></a>';
     }).join("");
     renderAbout();
   }

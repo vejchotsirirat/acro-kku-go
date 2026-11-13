@@ -15,7 +15,8 @@
      featured  true = dark branded card, and the big white button in the green header
                opens this portal (use for one portal at a time)
      hero      true = also show a dark button in the green header, above the white one
-               (optional; heroLabel and heroSub change the button text)
+               (optional; heroIcon, heroLabel and heroSub change the button's emoji and text)
+     list      false = keep it out of the "Start here" list below (header button only)
      url       where Open goes:
                  another site:        "https://acro-kku-collaborate.pages.dev"
                  page inside the site: "/be-pool/"
@@ -36,9 +37,11 @@ window.ACRO_PORTALS = [
     status: "open",
     posted: "2026-11-13",
     featured: false,
+    list: false,
     hero: true,
+    heroIcon:  "🎮",
     heroLabel: { en: "Play GCP Crush", th: "เล่นเกม GCP Crush" },
-    heroSub:   { en: "20-second ICH E6(R3) game", th: "เกม ICH E6(R3) 20 วินาที" },
+    heroSub:   { en: "Just 20 seconds. Can you become a GCP Champion?", th: "แค่ 20 วินาที คุณจะเป็นแชมป์ GCP ได้ไหม?" },
     url: "/gcp-crush/",
     tag:   { en: "Game · 20 seconds", th: "เกม · 20 วินาที" },
     title: { en: "GCP Crush: an ICH E6(R3) match game", th: "GCP Crush เกมจับคู่ ICH E6(R3)" },
@@ -53,7 +56,9 @@ window.ACRO_PORTALS = [
     status: "open",
     posted: "2026-11-08",
     featured: true,
-    heroSub:   { en: "For sponsors, CROs and investigators", th: "สำหรับผู้สนับสนุน CRO และนักวิจัย" },
+    heroIcon:  "🤝",
+    heroLabel: { en: "Let's run a trial together", th: "มาทำวิจัยด้วยกัน" },
+    heroSub:   { en: "Sponsors, CROs, investigators: a 1\u2011minute form", th: "ผู้สนับสนุน CRO นักวิจัย กรอกเพียง 1 นาที" },
     url: "https://acro-kku-collaborate.pages.dev",
     tag:   { en: "CREST 2026", th: "CREST 2026" },
     title: { en: "Collaborate with ACRO KKU", th: "ร่วมงานกับ ACRO KKU" },
