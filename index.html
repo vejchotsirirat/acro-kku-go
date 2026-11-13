@@ -380,6 +380,10 @@ html[lang="th"] .ab-btns a{font:600 16px/1.2 "KanitTH","PlexThai",sans-serif}
 .yt-cap span{font-size:15px;opacity:.92}
 html[lang=th] .yt-cap b{font-family:"KanitTH","Kanit",sans-serif;text-transform:none;font-weight:600;letter-spacing:.02em}
 @media (max-width:600px){.ab-video{border-radius:20px;margin-top:28px}.yt-play{width:58px;height:58px;margin:-29px 0 0 -29px;top:40%;box-shadow:0 0 0 7px rgba(240,112,47,.28),0 8px 20px rgba(0,0,0,.3)}.yt-play svg{width:24px;height:24px;margin-left:4px}.yt-cap{left:16px;right:16px;bottom:12px}.yt-cap b{font-size:20px}.yt-cap span{display:none}}
+
+/* globe removed (13 Nov 2026): the hero is a single column */
+@media (min-width:820px){.hero .wrap{grid-template-columns:minmax(0,760px);gap:24px}}
+.hero .text .crest-live{margin-top:22px}
 </style>
 </head>
 <body>
@@ -401,28 +405,7 @@ html[lang=th] .yt-cap b{font-family:"KanitTH","Kanit",sans-serif;text-transform:
       <p class="lead" data-i18n="lead"></p>
       <p class="cta-hint" id="cta-hint" hidden></p>
       <div class="cta" id="cta"></div>
-    </div>
-    <div class="globe-box">
-      <div class="globe-wrap">
-        <canvas id="globe" aria-label="Globe of visitor routes to ACRO KKU in Khon Kaen"></canvas>
-        <div class="globe-zoom">
-          <span class="gmode-tip" id="gmode-tip" aria-hidden="true"></span><button type="button" id="gspin" class="gspin" data-r="focus"></button>
-          <button type="button" id="gzin" aria-label="Zoom in / ขยาย">+</button>
-          <button type="button" id="gzout" aria-label="Zoom out / ย่อ" disabled>&minus;</button>
-          <button type="button" id="gzreset" aria-label="Reset zoom / รีเซ็ตการซูม" disabled>1&times;</button>
-        </div>
-      </div>
       <p class="crest-live" id="crest-live"><i aria-hidden="true"></i><span data-i18n="crestLive"></span></p>
-      <div class="globe-ctl">
-      <div class="globe-mode seg" id="globe-mode" role="group" aria-label="Routes to show / เส้นทางที่แสดง">
-        <button type="button" data-mode="all" data-i18n="mAll" aria-pressed="true"></button>
-        <button type="button" data-mode="th" data-i18n="mTH" aria-pressed="false"></button>
-        <button type="button" data-mode="intl" data-i18n="mIntl" aria-pressed="false"></button>
-      </div>
-      </div>
-      <span class="globe-cap" id="globe-cap"></span>
-      <div class="globe-chips" id="globe-chips"></div>
-      <span class="globe-hint" data-i18n="hint"></span>
     </div>
     <a class="live" id="live" href="https://acro-kku-collaborate.pages.dev" hidden><span class="hd"><i></i><span data-i18n="liveH"></span></span><span class="st"><b id="live-n">0</b><span id="live-nl"></span></span><span class="st"><b id="live-c">0</b><span id="live-cl"></span></span></a>
   </div>
@@ -447,8 +430,6 @@ html[lang=th] .yt-cap b{font-family:"KanitTH","Kanit",sans-serif;text-transform:
   </div>
 </footer>
 
-<script src="https://cdn.jsdelivr.net/npm/d3@7.9.0/dist/d3.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/topojson-client@3.1.0/dist/topojson-client.min.js"></script>
 <script src="portals.js"></script>
 <script src="about.js"></script>
 <script>
@@ -575,198 +556,13 @@ html[lang=th] .yt-cap b{font-family:"KanitTH","Kanit",sans-serif;text-transform:
   /* ---------- live globe: every response from the collaboration form is a route into Khon Kaen ---------- */
   var KK=[102.835,16.44],G={land:null,thai:null,grat:null,places:null};
   function count(el,to){var t0=performance.now();(function step(now){var p=Math.min(1,(now-t0)/900);el.textContent=Math.round(to*(1-Math.pow(1-p,3)));if(p<1)requestAnimationFrame(step)})(t0)}
-  var Globe=(function(){
-    var cv=document.getElementById("globe"),ctx,R,R0,size,run=false,raf=0,t0=0,Z=1,Zt=1,ZMAX=8,manual=false,pts={},pinch=null,lastTap=null,detailState=0,wheelHold=0,prefetched=false;
-    /* globe motion: "focus" = tour of routes around Thailand, "spin" = slow 360° turn, "still" = held where it is */
-    var rmode="focus",TILT=23.5,spin0={t:0,lon:KK[0]},spinPause=0,HOLD=function(){return rmode==="still"?1e12:6000};
-    var groups=[],view=[],mode="all",idx=-1,phase=null,center=[KK[0],KK[1]-8],from=center,to=center,userLook=null,userUntil=0,lastLook=center,lastProj=null,lastTm=0,drag=null;
-    var TH=[101,13.2];
-    /* palette "paper map": pale-mint sea, white land, dark-green Thailand, red routes with a white casing */
-    var COL={sea0:"#EEF8F1",sea1:"#A8D6BD",rim:"rgba(255,255,255,.95)",grat:"rgba(33,94,51,.16)",land:"#FFFFFF",landA:.96,thai:"#215E33",thaiEdge:"#FFD3B8",
-      route:"#E8472B",routeRGB:"232,71,43",casing:"rgba(255,255,255,.95)",faint:"rgba(22,63,36,.5)",ink:"rgba(22,63,36,.96)",kk:"#F0702F",
-      edge:"rgba(22,63,36,.95)",dot:"#fff",star:"#fff",txt:"rgba(22,63,36,1)",txtOn:"#fff"};
-    function ease(x){x=Math.max(0,Math.min(1,x));return x<.5?4*x*x*x:1-Math.pow(-2*x+2,3)/2}
-    function easeOut(x){return 1-Math.pow(1-Math.max(0,Math.min(1,x)),3)}
-    function setup(){var dpr=Math.min(2,window.devicePixelRatio||1);size=Math.round(cv.getBoundingClientRect().width)||300;
-      cv.width=size*dpr;cv.height=size*dpr;ctx=cv.getContext("2d");ctx.setTransform(dpr,0,0,dpr,0,0);R0=size/2-8;R=R0*Z}
-    /* ---------- caption: one plain sentence ---------- */
-    function caption(){var el=document.getElementById("globe-cap"),U=UI[lang];
-      if(!groups.length)el.textContent=U.first;
-      else if(!view.length)el.textContent=mode==="th"?U.noTH:U.noIntl;
-      else el.textContent=U.cap}
-    /* place names follow the page language (Thai names for countries and Thai provinces/cities) */
-    function pname(g){var T=lang==="th"&&G.places&&G.places.TH,co=T&&T.c[g.co]||g.co,ct=g.ct&&(T&&T.p[g.ct]||g.ct);
-      if(lang==="th"&&g.th)return ct||co;
-      return ct?ct+(lang==="th"?" ":", ")+co:co}
-    function chips(){var box=document.getElementById("globe-chips");box.innerHTML="";if(view.length<2)return;
-      view.slice(0,10).forEach(function(g,i){var b=document.createElement("button");b.type="button";b.textContent=pname(g)+(g.n>1?" ("+g.n+")":"");b.setAttribute("aria-pressed",String(i===idx));b.onclick=function(){focus(i)};box.appendChild(b)})}
-    function applyView(){view=mode==="all"?groups:groups.filter(function(g){return mode==="th"?g.th:!g.th})}
-    function setData(pins){var m={},list=[];
-      (pins||[]).forEach(function(p){var ll=(G.places.P[p[0]+"|"+p[1]])||G.places.C[p[0]];if(!ll)return;var k=ll.join();
-        var org=String(p[2]==null?"":p[2]).trim();if(m[k]){m[k].n++;if(org)m[k].orgs.push(org);return}m[k]={ll:ll,n:1,ct:p[1]&&p[1]!==p[0]?p[1]:"",co:p[0],orgs:org?[org]:[],th:p[0]==="Thailand",ip:d3.geoInterpolate(ll,KK),d:d3.geoDistance(ll,KK)};list.push(m[k])});
-      groups=list.reverse();applyView();chips();caption()}
-    /* ---------- Thailand / International view ---------- */
-    function fit(g){if(mode==="all")return 1;
-      var z=g.d<.05?4.5:Math.max(1,Math.min(4.5,.587/Math.sin(Math.min(g.d/2,1.5))));
-      return mode==="th"?Math.max(z,3):z}
-    function setMode(m){mode=m;manual=false;applyView();idx=-1;phase=null;userLook=null;drag=null;center=lastLook;from=center;
-      document.querySelectorAll("#globe-mode button").forEach(function(b){b.setAttribute("aria-pressed",String(b.dataset.mode===m))});
-      chips();caption();
-      if(view.length)next(lastTm);else setZoom(m==="th"?3.2:1,0,true)}
-    function focus(i){if(!view[i])return;userLook=null;drag=null;manual=false;center=lastLook;idx=i-1;next(lastTm);if(rmode==="spin")spinPause=lastTm+5000;if(rmode==="still"){spinPause=0;setTimeout(function(){if(rmode==="still"){userLook=lastLook.slice();userUntil=1e12}},900)}}
-    function next(tm){if(!view.length){phase=null;return}idx=(idx+1)%view.length;var g=view[idx];from=center;
-      var tz=fit(g),mid=d3.geoInterpolate(g.ll,KK)(.5);
-      to=g.d<.05?[KK[0],KK[1]-(tz>1.5?0:8)]:(tz>1.6?mid:[mid[0],Math.max(-60,mid[1]-10-g.d*12)]);
-      phase={g:g,t:tm};caption();setZoom(tz,0,true);
-      document.querySelectorAll("#globe-chips button").forEach(function(b,i){b.setAttribute("aria-pressed",String(i===idx))})}
-    /* ---------- several collaborators in one city ---------- */
-    function cnt(o,n,on){ctx.save();ctx.font='800 10px "Manrope",sans-serif';ctx.fillStyle=on?COL.txtOn:COL.txt;ctx.textAlign="center";ctx.textBaseline="middle";ctx.fillText(String(n),o[0],o[1]+.5);ctx.restore()}
-    function orgNames(g){return g.orgs&&g.orgs.length===g.n?g.orgs:null}   /* names are only used when the sheet supplies one for every pin */
-    function badgeLines(g){var nm=orgNames(g),U=UI[lang];
-      if(nm)return[pname(g)].concat(nm.length>3?nm.slice(0,2).concat([U.more.replace("{n}",nm.length-2)]):nm);
-      return g.n>1?[pname(g),U.nCollab.replace("{n}",g.n)]:[pname(g)]}
-    /* ---------- badges ---------- */
-    function rr(x,y,w,h,r){ctx.beginPath();ctx.moveTo(x+r,y);ctx.arcTo(x+w,y,x+w,y+h,r);ctx.arcTo(x+w,y+h,x,y+h,r);ctx.arcTo(x,y+h,x,y,r);ctx.arcTo(x,y,x+w,y,r);ctx.closePath()}
-    function inside(r){var m=size/2,Rc=m-3;return[[r.x,r.y],[r.x+r.w,r.y],[r.x,r.y+r.h],[r.x+r.w,r.y+r.h]].every(function(p){return Math.hypot(p[0]-m,p[1]-m)<=Rc})}
-    function hit(a,b){return a.x<b.x+b.w&&b.x<a.x+a.w&&a.y<b.y+b.h&&b.y<a.y+a.h}
-    function badge(px,py,lines,accent,order,avoid){
-      var fs=Math.max(10,Math.min(13,size/28)),pad=Math.round(fs*.55),lh=Math.round(fs*1.3),maxW=size*.64,gap=11,bar=3;
-      var fonts=lines.map(function(_,i){return(i?"600 "+(fs-1):"800 "+fs)+'px "Manrope","PlexThai",sans-serif'});
-      var txt=lines.map(function(l,i){ctx.font=fonts[i];while(l.length>3&&ctx.measureText(l).width>maxW)l=l.slice(0,-2);return ctx.measureText(l).width>maxW?"":l.length<lines[i].length?l+"…":l});
-      var w=0;txt.forEach(function(l,i){ctx.font=fonts[i];w=Math.max(w,ctx.measureText(l).width)});w=Math.ceil(w+pad*2+bar);var h=lines.length*lh+pad;
-      var cand={right:[px+gap,py-h/2],left:[px-gap-w,py-h/2],above:[px-w/2,py-gap-h],below:[px-w/2,py+gap]},best=null;
-      for(var i=0;i<order.length;i++){var c=cand[order[i]],r={x:c[0],y:c[1],w:w,h:h};
-        if(!inside(r))continue;if(avoid.some(function(a){return hit(r,a)}))continue;best=r;break}
-      if(!best){var c0=cand[order[0]];best={x:c0[0],y:c0[1],w:w,h:h};for(var n=0;n<80&&!inside(best);n++){best.x+=(size/2-(best.x+w/2))*.05;best.y+=(size/2-(best.y+h/2))*.05}}
-      ctx.save();rr(best.x,best.y,w,h,5);ctx.fillStyle=COL.ink;ctx.fill();ctx.lineWidth=1;ctx.strokeStyle="rgba(255,255,255,.35)";ctx.stroke();
-      ctx.beginPath();ctx.rect(best.x+1,best.y+4,bar,h-8);ctx.fillStyle=accent;ctx.fill();
-      ctx.fillStyle="#fff";ctx.textBaseline="alphabetic";ctx.textAlign="left";
-      txt.forEach(function(l,i){ctx.font=fonts[i];ctx.globalAlpha=i?.82:1;ctx.fillText(l,best.x+pad+bar,best.y+pad*.5+lh*(i+1)-lh*.22)});
-      ctx.restore();avoid.push(best)}
-    /* ---------- drawing ---------- */
-    function frame(tm){
-      var look;
-      if(Z!==Zt){Z+=(Zt-Z)*.2;if(Math.abs(Zt-Z)<.002)Z=Zt}
-      R=R0*Z;
-      if(Z>1.4)loadDetail();
-      if(userLook)look=userLook;
-      else if(rmode==="spin"&&tm>spinPause){if(spinPause){spin0={t:tm,lon:lastLook[0]};spinPause=0}look=[spin0.lon+(tm-spin0.t)*.012,12]}
-      else if(phase){var u=ease((tm-phase.t)/500);look=d3.geoInterpolate(from,to)(u);if(u>=1)center=to}
-      else if(mode==="th"&&!view.length)look=TH;
-      else look=[KK[0]+Math.sin(tm/7000)*24,KK[1]-8+Math.sin(tm/11000)*5];
-      var proj=d3.geoOrthographic().scale(R).translate([size/2,size/2]).rotate([-look[0],-look[1],TILT]).clipAngle(90).precision(.6);
-      lastLook=look;lastProj=proj;lastTm=tm;
-      var path=d3.geoPath(proj,ctx),c=size/2,front=function(ll){return d3.geoDistance(ll,look)<Math.PI/2-.02},hi=Z>1.4&&G.land50;
-      ctx.clearRect(0,0,size,size);
-      var gr=ctx.createRadialGradient(c-R*.35,c-R*.4,R*.05,c,c,R*1.05);gr.addColorStop(0,COL.sea0);gr.addColorStop(1,COL.sea1);
-      ctx.beginPath();ctx.arc(c,c,R,0,7);ctx.fillStyle=gr;ctx.fill();ctx.lineWidth=1.5;ctx.strokeStyle=COL.rim;ctx.stroke();
-      ctx.beginPath();path(G.grat);ctx.lineWidth=.6;ctx.strokeStyle=COL.grat;ctx.stroke();
-      ctx.beginPath();path(hi?G.land50:G.land);ctx.fillStyle=COL.land;ctx.globalAlpha=COL.landA;ctx.fill();ctx.globalAlpha=1;
-      ctx.beginPath();path(hi?G.thai50:G.thai);ctx.fillStyle=COL.thai;ctx.fill();ctx.lineWidth=1.2;ctx.lineJoin="round";ctx.strokeStyle=COL.thaiEdge;ctx.stroke();
-      function lifted(g,f){var ll=g.ip(f);if(!front(ll))return null;var p=proj(ll),dx=p[0]-c,dy=p[1]-c,r0=Math.hypot(dx,dy)||1,
-        r1=Math.min(R*1.06,r0*(1+Math.min(.22,.06+g.d*.1)*Math.sin(Math.PI*f)));return[c+dx/r0*r1,c+dy/r0*r1]}
-      function route(g,f0,f1){ctx.beginPath();var on=false;for(var i=0;i<=48;i++){var p=lifted(g,f0+(f1-f0)*i/48);if(!p){on=false;continue}on?ctx.lineTo(p[0],p[1]):ctx.moveTo(p[0],p[1]);on=true}}
-      view.forEach(function(g){if(g.d<.02)return;route(g,0,1);ctx.lineWidth=1.5;ctx.strokeStyle=COL.faint;ctx.setLineDash([2,4]);ctx.stroke();ctx.setLineDash([])});
-      view.forEach(function(g){if(!front(g.ll))return;var o=proj(g.ll),rad=g.n>1?7+Math.min(3,Math.log2(g.n)):2.8;ctx.beginPath();ctx.arc(o[0],o[1],rad,0,7);ctx.fillStyle=COL.dot;ctx.fill();ctx.lineWidth=1.2;ctx.strokeStyle=COL.edge;ctx.stroke();if(g.n>1)cnt(o,g.n)});
-      var K=proj(KK),bump=0,og=null;
-      if(phase){var g=phase.g,lt=tm-phase.t-450,u2=easeOut(lt/850);
-        if(u2>0&&g.d>=.02){route(g,0,u2);ctx.lineCap="round";ctx.lineWidth=6.5;ctx.strokeStyle=COL.casing;ctx.stroke();ctx.lineWidth=3.2;ctx.strokeStyle=COL.route;ctx.stroke();
-          if(u2<1){var h=lifted(g,u2);if(h){ctx.beginPath();ctx.arc(h[0],h[1],4.5,0,7);ctx.fillStyle=COL.dot;ctx.fill();ctx.lineWidth=2;ctx.strokeStyle=COL.edge;ctx.stroke()}}}
-        if(front(g.ll)){var o=proj(g.ll),pu=(tm-phase.t)%1400/1400;og=o;ctx.beginPath();ctx.arc(o[0],o[1],5+14*pu,0,7);ctx.strokeStyle="rgba("+COL.routeRGB+","+(.9*(1-pu))+")";ctx.lineWidth=2;ctx.stroke();
-          ctx.beginPath();ctx.arc(o[0],o[1],g.n>1?9.5:5.5,0,7);ctx.fillStyle=COL.route;ctx.fill();ctx.lineWidth=2;ctx.strokeStyle=COL.edge;ctx.stroke();if(g.n>1)cnt(o,g.n,true)}
-        var r=(lt-850)/500;if(r>0&&r<1&&front(KK)){ctx.beginPath();ctx.arc(K[0],K[1],9+30*easeOut(r),0,7);ctx.lineWidth=2.5;ctx.strokeStyle="rgba(240,112,47,"+(.9*(1-r))+")";ctx.stroke();bump=1-r}
-        if(tm-phase.t>2000&&!manual&&!drag&&(rmode!=="focus"||!userLook))next(tm)}
-      var kOn=front(KK);
-      if(kOn){var pr=(tm%2400)/2400;ctx.beginPath();ctx.arc(K[0],K[1],6+16*pr,0,7);ctx.fillStyle="rgba(240,112,47,"+(.45*(1-pr))+")";ctx.fill();
-        var sr=9*(1+.3*bump);ctx.beginPath();for(var i=0;i<10;i++){var q=i%2?sr*.45:sr,an=-Math.PI/2+i*Math.PI/5;ctx.lineTo(K[0]+q*Math.cos(an),K[1]+q*Math.sin(an))}ctx.closePath();
-        ctx.fillStyle=COL.kk;ctx.fill();ctx.lineWidth=3.5;ctx.strokeStyle=COL.edge;ctx.stroke();ctx.lineWidth=1.6;ctx.strokeStyle=COL.star;ctx.stroke()}
-      /* badges last, so nothing draws over them */
-      var taken=[{x:size-44,y:size-156,w:44,h:156}];   /* keep badges clear of the +/−/1× buttons */
-      if(kOn&&K[0]>0&&K[0]<size&&K[1]>0&&K[1]<size)badge(K[0],K[1],["ACRO KKU",UI[lang].kkSub],COL.kk,["right","left","below","above"],taken);
-      if(og&&phase&&og[0]>0&&og[0]<size&&og[1]>0&&og[1]<size)badge(og[0],og[1],badgeLines(phase.g),COL.route,["above","below","left","right"],taken);
-    }
-    function loop(now){if(!run)return;var tm=now-t0;
-      if(userLook&&!drag&&tm>userUntil&&!manual){center=userLook;userLook=null;if(rmode==="spin")spin0={t:tm,lon:center[0]};else if(view.length)next(tm)}
-      if(!phase&&view.length&&!manual&&(rmode!=="focus"||!userLook))next(tm);if(rmode==="still"&&!userLook){userLook=lastLook.slice();userUntil=1e12}frame(tm);raf=requestAnimationFrame(loop)}
-    /* ---------- zoom ---------- */
-    function loadDetail(){if(detailState)return;detailState=1;
-      fetch("https://cdn.jsdelivr.net/npm/world-atlas@2.0.2/countries-50m.json").then(function(r){return r.json()}).then(function(w){
-        G.land50=topojson.merge(w,w.objects.countries.geometries);
-        G.thai50=topojson.merge(w,w.objects.countries.geometries.filter(function(g){return g.id==="764"}));detailState=2}).catch(function(){detailState=3})}
-    /* auto=true: the tour sets the zoom itself; otherwise it is the visitor's own zoom and pauses the tour */
-    function setZoom(z,hold,auto){hold=hold===true?6000:hold;Zt=Math.max(1,Math.min(ZMAX,z));if(Zt<1.05)Zt=1;
-      if(!auto)manual=Zt>1.05;
-      cv.classList.toggle("zoomed",Zt>1.05);cv.classList.toggle("locked",manual);
-      document.getElementById("gzin").disabled=Zt>=ZMAX-.01;document.getElementById("gzout").disabled=Zt<=1.001;document.getElementById("gzreset").disabled=!manual;
-      if(hold&&!auto){if(!userLook)userLook=lastLook.slice();userUntil=rmode==="still"?1e12:lastTm+hold}}
-    document.getElementById("gzin").addEventListener("click",function(){setZoom(Zt*1.6,true)});
-    document.getElementById("gzout").addEventListener("click",function(){setZoom(Zt/1.6,true)});
-    document.getElementById("gzreset").addEventListener("click",function(){setZoom(1,1500)});
-    document.querySelectorAll("#globe-mode button").forEach(function(b){b.addEventListener("click",function(){setMode(b.dataset.mode)})});
-    /* auto-rotate on/off: off holds the globe still; dragging, zooming and tapping a place still work */
-    var spinBtn=document.getElementById("gspin"),tip=document.getElementById("gmode-tip"),tipT=0;
-    var ICON={focus:'<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="7"/><circle cx="12" cy="12" r="2.2" fill="currentColor" stroke="none"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/></svg>',spin:'<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 12a8 8 0 1 1-2.34-5.66"/><path d="M20 4v5h-5"/></svg>',still:'<svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="6.5" y="5" width="4" height="14" rx="1.2"/><rect x="13.5" y="5" width="4" height="14" rx="1.2"/></svg>'},NAME={focus:"rFocus",spin:"rSpin",still:"rStill"};
-    function paintMode(show){var U=UI[lang],n=U[NAME[rmode]];spinBtn.dataset.r=rmode;spinBtn.innerHTML=ICON[rmode];
-      spinBtn.setAttribute("aria-label",U.spin+": "+n);spinBtn.title=U.spin+": "+n;tip.textContent=n;
-      if(show){tip.classList.add("on");clearTimeout(tipT);tipT=setTimeout(function(){tip.classList.remove("on")},1600)}}
-    window.__globeMode=function(){paintMode(false)};paintMode(false);
-    spinBtn.addEventListener("click",function(){rmode=rmode==="focus"?"spin":rmode==="spin"?"still":"focus";
-      if(rmode==="spin"){userLook=null;userUntil=0;spinPause=0;spin0={t:lastTm,lon:lastLook[0]}}
-      else if(rmode==="still"){userLook=lastLook.slice();userUntil=1e12}
-      else{userLook=null;userUntil=0;manual=false;center=lastLook;next(lastTm)}
-      paintMode(true)});
-    cv.addEventListener("wheel",function(e){
-      var now=performance.now();
-      if(e.deltaY>0&&Zt<=1.001&&now>wheelHold)return;   /* fully zoomed out: let the page scroll */
-      e.preventDefault();
-      var k=e.ctrlKey?.01:(e.deltaMode===1?.05:.0016);
-      setZoom(Zt*Math.exp(-e.deltaY*k),true);
-      if(Zt<=1.001)wheelHold=now+450},{passive:false});   /* brief pause so one gesture doesn't zoom out and then scroll the page */
-    function dist(){var a=Object.keys(pts).map(function(i){return pts[i]});return Math.hypot(a[0].x-a[1].x,a[0].y-a[1].y)||1}
-    function start(){if(run||!G.land)return;setup();run=true;t0=performance.now()-lastTm;raf=requestAnimationFrame(loop);   /* keep the tour clock running from where it stopped, so timers stay valid */
-     
-      if(!prefetched){prefetched=true;var c=navigator.connection;
-        if(!(c&&(c.saveData||/2g/.test(c.effectiveType||""))))setTimeout(loadDetail,5000)}}
-    function stop(){run=false;cancelAnimationFrame(raf)}
-    cv.addEventListener("pointerdown",function(e){pts[e.pointerId]={x:e.clientX,y:e.clientY};
-      if(Object.keys(pts).length===2){pinch={d:dist(),z:Zt};drag=null;cv.classList.remove("dragging");try{cv.setPointerCapture(e.pointerId)}catch(_){}
-        if(!userLook)userLook=lastLook.slice();userUntil=lastTm+HOLD();return}
-      if(Object.keys(pts).length>2)return;
-      drag={x:e.clientX,y:e.clientY,look:lastLook.slice(),moved:0,id:e.pointerId};cv.classList.add("dragging")});
-    cv.addEventListener("pointermove",function(e){if(pts[e.pointerId]){pts[e.pointerId].x=e.clientX;pts[e.pointerId].y=e.clientY}
-      if(pinch&&Object.keys(pts).length===2){setZoom(pinch.z*dist()/pinch.d,true);return}
-      if(!drag)return;var dx=e.clientX-drag.x,dy=e.clientY-drag.y;drag.moved=Math.max(drag.moved,Math.hypot(dx,dy));
-      if(drag.moved<5)return;try{cv.setPointerCapture(drag.id)}catch(_){}var k=110/Math.max(120,R);
-      userLook=[drag.look[0]-dx*k,Math.max(-70,Math.min(70,drag.look[1]+dy*k))];userUntil=lastTm+HOLD()});
-    cv.addEventListener("pointerup",function(e){delete pts[e.pointerId];if(Object.keys(pts).length<2)pinch=null;if(!drag)return;cv.classList.remove("dragging");
-      if(drag.moved<5&&lastProj){var r=cv.getBoundingClientRect(),x=e.clientX-r.left,y=e.clientY-r.top,best=-1,bd=30,nt=performance.now();
-        if(lastTap&&nt-lastTap.t<320&&Math.hypot(x-lastTap.x,y-lastTap.y)<28){lastTap=null;drag=null;
-          if(Zt>1.05)setZoom(1,1500);else{var ll=lastProj.invert([x,y]);if(ll&&isFinite(ll[0])&&isFinite(ll[1])){userLook=[ll[0],Math.max(-70,Math.min(70,ll[1]))]}setZoom(2.6,6000)}
-          return}
-        lastTap={x:x,y:y,t:nt};
-        view.forEach(function(g,i){if(d3.geoDistance(g.ll,lastLook)>Math.PI/2-.02)return;var p=lastProj(g.ll),d=Math.hypot(p[0]-x,p[1]-y);if(d<bd){bd=d;best=i}});
-        if(best>=0)focus(best)}else if(userLook)userUntil=lastTm+HOLD();drag=null});
-    cv.addEventListener("pointercancel",function(e){delete pts[e.pointerId];if(Object.keys(pts).length<2)pinch=null;drag=null;cv.classList.remove("dragging")});
-    document.addEventListener("visibilitychange",function(){stop();if(!document.hidden)start()});
-    addEventListener("pageshow",function(e){if(e.persisted){stop();start()}});
-    var rt=0;addEventListener("resize",function(){clearTimeout(rt);rt=setTimeout(function(){stop();start()},200)});
-    return{start:start,setData:setData,caption:caption,relabel:function(){chips();caption()}};
-  })();
-  window.__globeCaption=function(){Globe.relabel()};
   function refresh(){
     return fetch(TOTALS_URL).then(function(r){return r.json()}).then(function(j){
       var n=j.n||0,c={};(j.pins||[]).forEach(function(p){if(p&&p[0])c[p[0]]=1});var nc=Object.keys(c).length;
       if(n||nc){document.getElementById("live").hidden=false;document.getElementById("live-n").dataset.v=n;document.getElementById("live-c").dataset.v=nc;liveLabels();count(document.getElementById("live-n"),n);count(document.getElementById("live-c"),nc)}
-      if(G.places)Globe.setData(j.pins||[]);
     }).catch(function(){});
   }
-  if(window.d3&&window.topojson){
-    Promise.all([fetch("https://cdn.jsdelivr.net/npm/world-atlas@2.0.2/countries-110m.json").then(function(r){return r.json()}),fetch("places.json").then(function(r){return r.json()})])
-    .then(function(a){var w=a[0];G.land=topojson.merge(w,w.objects.countries.geometries);
-      G.thai=topojson.merge(w,w.objects.countries.geometries.filter(function(g){return g.id==="764"}));G.grat=d3.geoGraticule10();G.places=a[1];
-      Globe.caption();Globe.start();refresh()})
-    .catch(function(){document.querySelector(".globe-box").hidden=true;refresh()});
-  }else{document.querySelector(".globe-box").hidden=true;refresh()}
+  refresh();
   setInterval(function(){if(!document.hidden)refresh()},30000);
 })();
 </script>
