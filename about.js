@@ -17,9 +17,9 @@ window.ACRO_ABOUT = {
      While the line is empty ("") the video box stays hidden on the website.
      Tip: set the video to "Unlisted" or "Public" on YouTube. A "Private" video cannot be played here. */
   video: {
-    youtube: "https://youtu.be/jrO0nSuNS2s",
+    youtube: "",
     title:   { en: "Inside ACRO KKU", th: "รู้จัก ACRO KKU" },
-    caption: { en: "Take a short tour of our clinical research centre in Khon Kaen.", th: "รับชมศูนย์วิจัยทางคลินิกของเราที่ขอนแก่น" }
+    caption: { en: "Take a short tour of our clinical research centre in Khon Kaen.", th: "ชมศูนย์วิจัยทางคลินิกของเราที่ขอนแก่นแบบสั้น ๆ" }
   },
   /* ========================================================================== */
 
