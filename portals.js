@@ -56,7 +56,7 @@ window.ACRO_PORTALS = [
     posted: "2026-11-08",
     featured: true,
     heroLabel: { en: "Let's run a trial together", th: "มาทำวิจัยด้วยกัน" },
-    heroSub:   { en: "A 1\u2011minute form", th: "กรอกเพียง 1 นาที" },
+    heroSub:   { en: "Run your next trial with us. A 1\u2011minute form", th: "กรอกเพียง 1 นาที" },
     url: "https://acro-kku-collaborate.pages.dev",
     tag:   { en: "CREST 2026", th: "CREST 2026" },
     title: { en: "Collaborate with ACRO KKU", th: "ร่วมงานกับ ACRO KKU" },
