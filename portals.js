@@ -39,7 +39,7 @@ window.ACRO_PORTALS = [
     featured: false,
     list: false,
     hero: true,
-    heroLabel: { en: "Play GCP Crush", th: "เล่นเกม GCP Crush" },
+    heroLabel: { en: "Let's Play GCP Crush!", th: "เล่นเกม GCP Crush!" },
     heroSub:   { en: "Between sessions? A 20\u2011second game, on us.", th: "ช่วงพักระหว่างเซสชัน? เกม 20 วินาที เชิญเลย" },
     url: "/gcp-crush/",
     tag:   { en: "Game · 20 seconds", th: "เกม · 20 วินาที" },
